@@ -1,0 +1,5 @@
+﻿CREATE SCHEMA skin;
+GO
+
+CREATE SCHEMA config;
+GO
