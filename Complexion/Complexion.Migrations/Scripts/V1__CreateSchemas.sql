@@ -1,5 +1,5 @@
 ﻿CREATE SCHEMA skin;
 GO
 
-CREATE SCHEMA config;
+CREATE SCHEMA product;
 GO
