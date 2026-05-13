@@ -7,12 +7,8 @@ BEGIN
 	ShadeId UNIQUEIDENTIFIER NOT NULL,
 	UndertoneId UNIQUEIDENTIFIER NOT NULL,
 	HasTint BIT,
-	CONSTRAINT FK_SkinProfile_shade 
-		FOREIGN KEY (ShadeId)
-		REFERENCES skin.Shade(ShadeId),
-	CONSTRAINT FK_SkinProfile_undertone 
-		FOREIGN KEY (UndertoneId)
-		REFERENCES skin.Undertone(UndertoneId)
+	CONSTRAINT FK_SkinProfile_shade FOREIGN KEY (ShadeId) REFERENCES skin.Shade(ShadeId),
+	CONSTRAINT FK_SkinProfile_undertone FOREIGN KEY (UndertoneId) REFERENCES skin.Undertone(UndertoneId)
 	);
 END
 GO
@@ -29,9 +25,7 @@ BEGIN
 	Username VARCHAR(50) NOT NULL,
 	Email VARCHAR(50) NOT NULL,
 	PasswordHash VARCHAR(60) NOT NULL
-	CONSTRAINT FK_User_SkinProfile
-		FOREIGN KEY (SkinProfileId)
-		REFERENCES SkinProfile(SkinProfileId)
+	CONSTRAINT FK_User_SkinProfile FOREIGN KEY (SkinProfileId) REFERENCES SkinProfile(SkinProfileId)
 	);
 END
 GO
@@ -47,15 +41,9 @@ BEGIN
 	PriceTierId UNIQUEIDENTIFIER NOT NULL,
 	Name VARCHAR(50) NOT NULL,
 	ShadeName VARCHAR(20) NOT NULL,
-	CONSTRAINT FK_Product_Brand 
-		FOREIGN KEY (BrandId)
-		REFERENCES product.Brand(BrandId),
-	CONSTRAINT FK_Product_Category 
-		FOREIGN KEY (CategoryId)
-		REFERENCES product.Category(CategoryId),
-	CONSTRAINT FK_Product_PriceTier
-		FOREIGN KEY (PriceTierId)
-		REFERENCES product.PriceTier(PriceTierId)
+	CONSTRAINT FK_Product_Brand FOREIGN KEY (BrandId) REFERENCES product.Brand(BrandId),
+	CONSTRAINT FK_Product_Category FOREIGN KEY (CategoryId) REFERENCES product.Category(CategoryId),
+	CONSTRAINT FK_Product_PriceTier FOREIGN KEY (PriceTierId) REFERENCES product.PriceTier(PriceTierId)
 	);
 END
 GO
