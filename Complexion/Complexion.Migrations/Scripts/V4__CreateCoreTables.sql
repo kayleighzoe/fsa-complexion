@@ -18,7 +18,7 @@ END
 GO
 
 IF NOT EXISTS (
-	SELECT * FROM sys.tables WHERE name LIKE 'User'
+	SELECT * FROM sys.tables WHERE name LIKE 'Users'
 )
 BEGIN
 	CREATE TABLE Users (
@@ -52,7 +52,7 @@ BEGIN
 		REFERENCES product.Brand(BrandId),
 	CONSTRAINT FK_Product_Category 
 		FOREIGN KEY (CategoryId)
-		REFERENCES product.Catergory(CategoryId),
+		REFERENCES product.Category(CategoryId),
 	CONSTRAINT FK_Product_PriceTier
 		FOREIGN KEY (PriceTierId)
 		REFERENCES product.PriceTier(PriceTierId)
