@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="Scripts\V1__CreateSchemas.sql" />
+    <None Remove="Scripts\V2__CreateProductTables.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\V1__CreateSchemas.sql" />
+    <EmbeddedResource Include="Scripts\V2__CreateProductTables.sql" />
   </ItemGroup>
 
   <ItemGroup>
