@@ -15,3 +15,9 @@ BEGIN
     EXEC('CREATE SCHEMA catalogue');
 END
 GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'config')
+BEGIN
+    EXEC('CREATE SCHEMA config');
+END
+GO

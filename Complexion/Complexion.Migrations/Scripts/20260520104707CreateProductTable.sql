@@ -16,7 +16,7 @@ BEGIN
         Brand VARCHAR(50) NOT NULL,
         ShadeName VARCHAR(20) NOT NULL,
         CONSTRAINT FK_Product_Category FOREIGN KEY (CategoryId) REFERENCES catalogue.Category(CategoryId),
-        CONSTRAINT FK_Product_PriceTier FOREIGN KEY (PriceTierId) REFERENCES catalogue.PriceTier(PriceTierId)
+        CONSTRAINT FK_Product_PriceTier FOREIGN KEY (PriceTierId) REFERENCES config.PriceTier(PriceTierId)
     );
 END
 GO

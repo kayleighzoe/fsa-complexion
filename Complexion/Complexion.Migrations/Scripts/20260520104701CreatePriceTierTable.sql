@@ -3,11 +3,11 @@
     SELECT
         1
     FROM INFORMATION_SCHEMA.TABLES
-    WHERE TABLE_SCHEMA = 'catalogue'
+    WHERE TABLE_SCHEMA = 'config'
         AND TABLE_NAME = 'PriceTier'
 )
 BEGIN
-    CREATE TABLE catalogue.PriceTier
+    CREATE TABLE config.PriceTier
     (
         PriceTierId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
         Name VARCHAR(15) NOT NULL
