@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\V1__CreateSchemas.sql" />
     <None Remove="Scripts\V2__CreateProductTables.sql" />
     <None Remove="Scripts\V3__CreateSkinTables.sql" />
     <None Remove="Scripts\V4__CreateCoreTables.sql" />
@@ -15,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\V1__CreateSchemas.sql" />
+    <EmbeddedResource Include="Scripts\20260520104700CreateSchemas.sql" />
     <EmbeddedResource Include="Scripts\V2__CreateProductTables.sql" />
     <EmbeddedResource Include="Scripts\V3__CreateSkinTables.sql" />
     <EmbeddedResource Include="Scripts\V4__CreateCoreTables.sql" />

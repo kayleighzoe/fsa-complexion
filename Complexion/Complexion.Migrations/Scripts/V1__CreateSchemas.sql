@@ -1,5 +1,0 @@
-﻿CREATE SCHEMA skin;
-GO
-
-CREATE SCHEMA product;
-GO
