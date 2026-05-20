@@ -8,12 +8,24 @@
 
   <ItemGroup>
     <None Remove="Scripts\20260520104702CreateCategoryTable.sql" />
+    <None Remove="Scripts\20260520104703CreateShadeTable.sql" />
+    <None Remove="Scripts\20260520104704CreateUndertoneTable.sql" />
+    <None Remove="Scripts\20260520104705CreateSkinProfileTable.sql" />
+    <None Remove="Scripts\20260520104706CreateUserTable.sql" />
+    <None Remove="Scripts\20260520104707CreateProductTable.sql" />
+    <None Remove="Scripts\20260520104708CreateProductRecommendationTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\20260520104700CreateSchemas.sql" />
     <EmbeddedResource Include="Scripts\20260520104701CreatePriceTierTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104702CreateCategoryTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104703CreateShadeTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104704CreateUndertoneTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104705CreateSkinProfileTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
