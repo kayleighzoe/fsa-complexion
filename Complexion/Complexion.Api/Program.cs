@@ -12,6 +12,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider =>
     new SkinShadeRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
+builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(provider =>
+    new SkinUndertoneRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
