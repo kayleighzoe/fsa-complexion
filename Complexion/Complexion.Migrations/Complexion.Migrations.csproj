@@ -7,18 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\V2__CreateProductTables.sql" />
-    <None Remove="Scripts\V3__CreateSkinTables.sql" />
-    <None Remove="Scripts\V4__CreateCoreTables.sql" />
-    <None Remove="Scripts\V5__CreateBridgeTable.sql" />
+    <None Remove="Scripts\20260520104702CreateCategoryTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\20260520104700CreateSchemas.sql" />
-    <EmbeddedResource Include="Scripts\V2__CreateProductTables.sql" />
-    <EmbeddedResource Include="Scripts\V3__CreateSkinTables.sql" />
-    <EmbeddedResource Include="Scripts\V4__CreateCoreTables.sql" />
-    <EmbeddedResource Include="Scripts\V5__CreateBridgeTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104701CreatePriceTierTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104702CreateCategoryTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
