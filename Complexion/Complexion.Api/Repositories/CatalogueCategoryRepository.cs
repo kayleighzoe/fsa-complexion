@@ -2,21 +2,22 @@
 using Microsoft.Data.SqlClient;
 using Complexion.Api.Models;
 
+
 namespace Complexion.Api.Repositories
 {
-    public class SkinUndertoneRepository : ISkinUndertoneRepository
+    public class CatalogueCategoryRepository : ICatalogueCategoryRepository
     {
         private readonly string _connectionString;
 
-        public SkinUndertoneRepository(string connectionString)
+        public CatalogueCategoryRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<SkinUndertone>> GetAllSkinUndertones()
+        public async Task<IEnumerable<CatalogueCategory>> GetAllCategories()
         {
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<SkinUndertone>("SELECT * FROM skin.Undertone");
+            return await connection.QueryAsync<CatalogueCategory>("SELECT * FROM catalogue.Category");
         }
     }
 }

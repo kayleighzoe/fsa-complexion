@@ -15,6 +15,10 @@ builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider =
 builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(provider =>
     new SkinUndertoneRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
+builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>(provider =>
+    new CatalogueCategoryRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
