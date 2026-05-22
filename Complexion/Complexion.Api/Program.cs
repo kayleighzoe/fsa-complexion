@@ -1,6 +1,9 @@
 using Complexion.Api.Repositories;
+using Complexion.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 // Add services to the container.
 
@@ -10,14 +13,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider =>
-    new SkinShadeRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
+    new SkinShadeRepository(connectionString));
 
 builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(provider =>
-    new SkinUndertoneRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
+    new SkinUndertoneRepository(connectionString));
 
 builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>(provider =>
     new CatalogueCategoryRepository(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
+builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
+builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
 
 var app = builder.Build();
 

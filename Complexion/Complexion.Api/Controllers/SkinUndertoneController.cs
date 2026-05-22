@@ -1,4 +1,4 @@
-﻿using Complexion.Api.Repositories;
+﻿using Complexion.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers
@@ -7,17 +7,17 @@ namespace Complexion.Api.Controllers
     [Route("api/[controller]")]
     public class SkinUndertoneController : ControllerBase
     {
-        private readonly ISkinUndertoneRepository _skinUndertoneRepository;
+        private readonly ISkinUndertoneService _skinUndertoneService;
 
-        public SkinUndertoneController(ISkinUndertoneRepository skinUndertoneRepository)
+        public SkinUndertoneController(ISkinUndertoneService skinUndertoneService)
         {
-            _skinUndertoneRepository = skinUndertoneRepository;
+            _skinUndertoneService = skinUndertoneService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var skinUndertones = await _skinUndertoneRepository.GetAllSkinUndertones();
+            var skinUndertones = await _skinUndertoneService.GetAllSkinUndertones();
             return Ok(skinUndertones);
         }
     }
