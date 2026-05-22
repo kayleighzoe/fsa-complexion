@@ -16,4 +16,8 @@
     <Folder Include="DTOs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Api", "Complexio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Migrations", "Complexion.Migrations\Complexion.Migrations.csproj", "{DCB5A253-98E8-4A8D-958E-978F07C67B4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Repository", "Complexion.Repository\Complexion.Repository.csproj", "{67E6A024-DEE6-48A2-9265-25DA03330D59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DCB5A253-98E8-4A8D-958E-978F07C67B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB5A253-98E8-4A8D-958E-978F07C67B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCB5A253-98E8-4A8D-958E-978F07C67B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E6A024-DEE6-48A2-9265-25DA03330D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E6A024-DEE6-48A2-9265-25DA03330D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E6A024-DEE6-48A2-9265-25DA03330D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E6A024-DEE6-48A2-9265-25DA03330D59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
