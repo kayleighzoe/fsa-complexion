@@ -1,0 +1,24 @@
+﻿using Complexion.Api.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Complexion.Api.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class SkinUndertoneController : ControllerBase
+    {
+        private readonly ISkinUndertoneService _skinUndertoneService;
+
+        public SkinUndertoneController(ISkinUndertoneService skinUndertoneService)
+        {
+            _skinUndertoneService = skinUndertoneService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var skinUndertones = await _skinUndertoneService.GetAllSkinUndertones();
+            return Ok(skinUndertones);
+        }
+    }
+}
