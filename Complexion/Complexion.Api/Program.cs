@@ -1,3 +1,4 @@
+using Complexion.Migrations;
 using Complexion.Api.Repositories;
 using Complexion.Api.Services;
 
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+MigrationRunner.Run(connectionString);
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider =>
     new SkinShadeRepository(connectionString));
 
