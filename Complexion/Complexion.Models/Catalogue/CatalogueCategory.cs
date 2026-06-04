@@ -1,4 +1,4 @@
-﻿namespace Complexion.Api.Models
+﻿namespace Complexion.Models.Catalogue
 {
     public class CatalogueCategory
     {

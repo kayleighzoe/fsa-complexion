@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Complexion.Api.Models;
+using Complexion.Models.Skin;
 
-namespace Complexion.Api.Repositories
+namespace Complexion.Repository.Skin
 {
     public class SkinUndertoneRepository : ISkinUndertoneRepository
     {

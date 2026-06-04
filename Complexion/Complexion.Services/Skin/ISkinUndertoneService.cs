@@ -1,4 +1,4 @@
-﻿using Complexion.Api.Models;
+﻿using Complexion.Models.Skin;
 
 namespace Complexion.Api.Services
 {

@@ -1,5 +1,5 @@
-﻿using Complexion.Api.Models;
-using Complexion.Api.Repositories;
+﻿using Complexion.Models.Skin;
+using Complexion.Repository.Skin;
 
 namespace Complexion.Api.Services;
 

@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Complexion.Api.Models;
+using Complexion.Models.Catalogue;
 
 
-namespace Complexion.Api.Repositories
+namespace Complexion.Repository.Catalogue
 {
     public class CatalogueCategoryRepository : ICatalogueCategoryRepository
     {
