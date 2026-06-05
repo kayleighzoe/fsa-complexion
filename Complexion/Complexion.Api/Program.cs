@@ -1,8 +1,11 @@
 using Complexion.Api.Services;
 using Complexion.Migrations;
+using Complexion.Models.Config;
 using Complexion.Repository.Catalogue;
+using Complexion.Repository.Config;
 using Complexion.Repository.Skin;
 using Complexion.Services.Catalogue;
+using Complexion.Services.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +28,13 @@ builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(pr
 builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>(provider =>
     new CatalogueCategoryRepository(connectionString));
 
+builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository>(provider =>
+    new ConfigPriceTierRepository(connectionString));
+
 builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
 builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
 builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>();
+builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
 
 var app = builder.Build();
 
