@@ -1,7 +1,7 @@
 ﻿using Complexion.Services.Catalogue;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Complexion.Api.Controllers
+namespace Complexion.Controllers.Catalogue
 {
 
     [ApiController]

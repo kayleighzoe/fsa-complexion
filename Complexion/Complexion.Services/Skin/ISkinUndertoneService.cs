@@ -1,6 +1,6 @@
 ﻿using Complexion.Models.Skin;
 
-namespace Complexion.Api.Services
+namespace Complexion.Services.Skin
 {
     public interface ISkinUndertoneService
     {

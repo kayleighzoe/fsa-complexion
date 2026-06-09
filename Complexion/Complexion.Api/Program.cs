@@ -1,11 +1,13 @@
-using Complexion.Api.Services;
+using Complexion.Services.Skin;
 using Complexion.Migrations;
 using Complexion.Models.Config;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
 using Complexion.Repository.Skin;
+using Complexion.Repository.Dbo;
 using Complexion.Services.Catalogue;
 using Complexion.Services.Config;
+using Complexion.Services.Dbo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,10 +35,15 @@ builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryReposi
 builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository>(provider =>
     new ConfigPriceTierRepository(connectionString));
 
+builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>(provider =>
+    new SkinProfileRepository(connectionString));
+
 builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
 builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
 builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>();
 builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
+builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
+
 
 var app = builder.Build();
 

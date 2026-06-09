@@ -1,8 +1,9 @@
-﻿using Complexion.Api.Services;
+﻿using Complexion.Services.Skin;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Complexion.Api.Controllers
+namespace Complexion.Controllers.Skin
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class SkinShadeController : ControllerBase

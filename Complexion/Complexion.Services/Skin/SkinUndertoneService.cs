@@ -1,7 +1,7 @@
 ﻿using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
 
-namespace Complexion.Api.Services
+namespace Complexion.Services.Skin
 {
     public class SkinUndertoneService : ISkinUndertoneService
     {
