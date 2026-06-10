@@ -40,6 +40,17 @@ namespace Complexion.Repository.Dbo
                 dto);
         }
 
+        public async Task<ProductRecommendation> UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            return await connection.QuerySingleAsync<ProductRecommendation>(
+                @"UPDATE dbo.ProductRecommendation
+                  SET Comment = @Comment
+                  OUTPUT INSERTED.*
+                  WHERE RecommendationId = @Id",
+                new { Id = id, dto.Comment });
+        }
+
         public async Task DeleteAsync(Guid id)
         {
             using var connection = new SqlConnection(_connectionString);

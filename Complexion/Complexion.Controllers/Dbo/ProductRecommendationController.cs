@@ -37,6 +37,13 @@ namespace Complexion.Controllers.Dbo
             return CreatedAtAction(nameof(GetById), new { id = result.RecommendationId }, result);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRecommendationDto dto)
+        {
+            var result = await _service.UpdateAsync(id, dto);
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
