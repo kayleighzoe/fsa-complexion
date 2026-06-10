@@ -28,6 +28,7 @@ builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryReposi
 builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository>(provider => new ConfigPriceTierRepository(connectionString));
 builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>(provider => new SkinProfileRepository(connectionString));
 builder.Services.AddScoped<IProductRepository, ProductRepository>(provider => new ProductRepository(connectionString));
+builder.Services.AddScoped<IProductRecommendationRepository, ProductRecommendationRepository>(provider => new ProductRecommendationRepository(connectionString));
 
 builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
 builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
@@ -35,6 +36,7 @@ builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>(
 builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
 builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationService>();
 
 var app = builder.Build();
 
