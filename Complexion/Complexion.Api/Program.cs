@@ -14,7 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 // Add services to the container.
-
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
 
@@ -38,12 +37,15 @@ builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository
 builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>(provider =>
     new SkinProfileRepository(connectionString));
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>(provider =>
+    new ProductRepository(connectionString));
+
 builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
 builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
 builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>();
 builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
 builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
-
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
