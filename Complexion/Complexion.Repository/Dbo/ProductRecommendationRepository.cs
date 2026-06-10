@@ -1,6 +1,7 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
+﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Dbo
 {
@@ -18,6 +19,25 @@ namespace Complexion.Repository.Dbo
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<ProductRecommendation>(
                 "SELECT * FROM dbo.ProductRecommendation");
+        }
+
+        public async Task<ProductRecommendation?> GetByIdAsync(Guid id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            return await connection.QuerySingleOrDefaultAsync<ProductRecommendation>(
+                "SELECT * FROM dbo.ProductRecommendation WHERE RecommendationId = @Id",
+                new { Id = id });
+        }
+
+        public async Task<ProductRecommendation> CreateAsync(CreateProductRecommendationDto dto)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            return await connection.QuerySingleAsync<ProductRecommendation>(
+                @"INSERT INTO dbo.ProductRecommendation
+                    (RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt)
+                  OUTPUT INSERTED.*
+                  VALUES (NEWID(), @UserId, @ProductId, @SkinProfileId, @Comment, GETUTCDATE())",
+                dto);
         }
     }
 }

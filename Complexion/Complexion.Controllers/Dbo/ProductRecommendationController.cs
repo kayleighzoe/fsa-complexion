@@ -1,4 +1,5 @@
-﻿using Complexion.Services.Dbo;
+﻿using Complexion.DTOs.Dbo;
+using Complexion.Services.Dbo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -19,6 +20,21 @@ namespace Complexion.Controllers.Dbo
         {
             var result = await _service.GetAllAsync();
             return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateProductRecommendationDto dto)
+        {
+            var result = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = result.RecommendationId }, result);
         }
     }
 }
