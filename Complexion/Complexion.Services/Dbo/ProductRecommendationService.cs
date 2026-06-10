@@ -27,5 +27,10 @@ namespace Complexion.Services.Dbo
         {
             return await _repository.CreateAsync(dto);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _repository.DeleteAsync(id);
+        }
     }
 }

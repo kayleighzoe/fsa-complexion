@@ -8,5 +8,6 @@ namespace Complexion.Repository.Dbo
         Task<IEnumerable<ProductRecommendation>> GetAllAsync();
         Task<ProductRecommendation?> GetByIdAsync(Guid id);
         Task<ProductRecommendation> CreateAsync(CreateProductRecommendationDto dto);
+        Task DeleteAsync(Guid id);
     }
 }

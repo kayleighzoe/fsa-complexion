@@ -39,5 +39,13 @@ namespace Complexion.Repository.Dbo
                   VALUES (NEWID(), @UserId, @ProductId, @SkinProfileId, @Comment, GETUTCDATE())",
                 dto);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync(
+                "DELETE FROM dbo.ProductRecommendation WHERE RecommendationId = @Id",
+                new { Id = id });
+        }
     }
 }
