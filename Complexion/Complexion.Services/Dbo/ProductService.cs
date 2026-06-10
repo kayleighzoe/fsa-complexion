@@ -1,4 +1,5 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.DTOs.Dbo;
+using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 
 namespace Complexion.Services.Dbo
@@ -15,6 +16,16 @@ namespace Complexion.Services.Dbo
         public async Task<IEnumerable<Product>> GetAllAsync(string? search)
         {
             return await _repository.GetAllAsync(search);
+        }
+
+        public async Task<Product?> GetByIdAsync(Guid id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        public async Task<Product> CreateAsync(CreateProductDto dto)
+        {
+            return await _repository.CreateAsync(dto);
         }
 
     }

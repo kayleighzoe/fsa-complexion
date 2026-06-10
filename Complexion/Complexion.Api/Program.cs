@@ -14,31 +14,20 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 // Add services to the container.
-builder.Services.AddControllers()
-    .AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
+builder.Services.AddControllers().AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 MigrationRunner.Run(connectionString);
-builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider =>
-    new SkinShadeRepository(connectionString));
 
-builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(provider =>
-    new SkinUndertoneRepository(connectionString));
-
-builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>(provider =>
-    new CatalogueCategoryRepository(connectionString));
-
-builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository>(provider =>
-    new ConfigPriceTierRepository(connectionString));
-
-builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>(provider =>
-    new SkinProfileRepository(connectionString));
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>(provider =>
-    new ProductRepository(connectionString));
+builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>(provider => new SkinShadeRepository(connectionString));
+builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>(provider => new SkinUndertoneRepository(connectionString));
+builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>(provider => new CatalogueCategoryRepository(connectionString));
+builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository>(provider => new ConfigPriceTierRepository(connectionString));
+builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>(provider => new SkinProfileRepository(connectionString));
+builder.Services.AddScoped<IProductRepository, ProductRepository>(provider => new ProductRepository(connectionString));
 
 builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
 builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
