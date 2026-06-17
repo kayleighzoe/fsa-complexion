@@ -1,6 +1,5 @@
 using Complexion.Services.Skin;
 using Complexion.Migrations;
-using Complexion.Models.Config;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
 using Complexion.Repository.Skin;
