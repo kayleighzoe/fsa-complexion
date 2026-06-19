@@ -18,6 +18,7 @@
     <None Remove="Scripts\20260618120002InsertUndertoneData.sql" />
     <None Remove="Scripts\20260618120003InsertCategoryData.sql" />
     <None Remove="Scripts\20260618120004InsertProductData.sql" />
+    <None Remove="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
     <EmbeddedResource Include="Scripts\20260618120002InsertUndertoneData.sql" />
     <EmbeddedResource Include="Scripts\20260618120003InsertCategoryData.sql" />
     <EmbeddedResource Include="Scripts\20260618120004InsertProductData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
