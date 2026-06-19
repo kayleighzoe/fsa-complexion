@@ -14,7 +14,9 @@
     <None Remove="Scripts\20260520104706CreateUserTable.sql" />
     <None Remove="Scripts\20260520104707CreateProductTable.sql" />
     <None Remove="Scripts\20260520104708CreateProductRecommendationTable.sql" />
-    <None Remove="Scripts\20260618120000InsertLookupTableData.sql" />
+    <None Remove="Scripts\20260618120001InsertPriceTierData.sql" />
+    <None Remove="Scripts\20260618120002InsertUndertoneData.sql" />
+    <None Remove="Scripts\20260618120003InsertCategoryData.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +29,10 @@
     <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
-    <EmbeddedResource Include="Scripts\20260618120000InsertLookupTableData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120000InsertShadeData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120001InsertPriceTierData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120002InsertUndertoneData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120003InsertCategoryData.sql" />
   </ItemGroup>
 
   <ItemGroup>
