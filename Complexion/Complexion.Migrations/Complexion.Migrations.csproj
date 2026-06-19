@@ -14,6 +14,7 @@
     <None Remove="Scripts\20260520104706CreateUserTable.sql" />
     <None Remove="Scripts\20260520104707CreateProductTable.sql" />
     <None Remove="Scripts\20260520104708CreateProductRecommendationTable.sql" />
+    <None Remove="Scripts\20260618120000InsertLookupTableData.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
+    <EmbeddedResource Include="Scripts\20260618120000InsertLookupTableData.sql" />
   </ItemGroup>
 
   <ItemGroup>
