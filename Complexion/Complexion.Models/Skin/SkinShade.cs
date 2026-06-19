@@ -2,7 +2,7 @@
 {
     public class SkinShade
     {
-        public int Id { get; set; }
+        public int ShadeId { get; set; }
         public string Name { get; set; }
     }
 }
