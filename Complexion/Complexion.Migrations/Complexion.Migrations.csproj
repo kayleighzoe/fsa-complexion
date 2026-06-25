@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -14,6 +14,11 @@
     <None Remove="Scripts\20260520104706CreateUserTable.sql" />
     <None Remove="Scripts\20260520104707CreateProductTable.sql" />
     <None Remove="Scripts\20260520104708CreateProductRecommendationTable.sql" />
+    <None Remove="Scripts\20260618120001InsertPriceTierData.sql" />
+    <None Remove="Scripts\20260618120002InsertUndertoneData.sql" />
+    <None Remove="Scripts\20260618120003InsertCategoryData.sql" />
+    <None Remove="Scripts\20260618120004InsertProductData.sql" />
+    <None Remove="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +31,12 @@
     <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
+    <EmbeddedResource Include="Scripts\20260618120000InsertShadeData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120001InsertPriceTierData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120002InsertUndertoneData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120003InsertCategoryData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120004InsertProductData.sql" />
+    <EmbeddedResource Include="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
