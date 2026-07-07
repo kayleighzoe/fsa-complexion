@@ -1,12 +1,13 @@
-using Complexion.Services.Skin;
+using Complexion.Api.Middleware;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
-using Complexion.Repository.Skin;
 using Complexion.Repository.Dbo;
+using Complexion.Repository.Skin;
 using Complexion.Services.Catalogue;
 using Complexion.Services.Config;
 using Complexion.Services.Dbo;
+using Complexion.Services.Skin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,9 +38,15 @@ builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationService>();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
