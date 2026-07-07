@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Complexion.Controllers.Dbo
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ProductRecommendationController : ControllerBase
     {
         private readonly IProductRecommendationService _service;

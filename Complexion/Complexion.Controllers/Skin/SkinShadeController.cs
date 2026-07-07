@@ -5,7 +5,7 @@ namespace Complexion.Controllers.Skin
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SkinShadeController : ControllerBase
     {
         private readonly ISkinShadeService _skinShadeService;

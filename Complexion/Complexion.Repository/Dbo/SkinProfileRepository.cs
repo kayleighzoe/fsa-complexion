@@ -1,8 +1,9 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
-using Complexion.DTOs.Dbo;
+﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Skin
 {
@@ -10,9 +11,9 @@ namespace Complexion.Repository.Skin
     {
         private readonly string _connectionString;
 
-        public SkinProfileRepository(string connectionString)
+        public SkinProfileRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<IEnumerable<SkinProfile>> GetAllAsync()

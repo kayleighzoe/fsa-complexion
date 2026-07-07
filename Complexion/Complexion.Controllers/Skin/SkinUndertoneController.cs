@@ -1,11 +1,11 @@
 ﻿using Complexion.Services.Skin;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Complexion.Api.Controllers
+namespace Complexion.Controllers.Skin
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SkinUndertoneController : ControllerBase
     {
         private readonly ISkinUndertoneService _skinUndertoneService;

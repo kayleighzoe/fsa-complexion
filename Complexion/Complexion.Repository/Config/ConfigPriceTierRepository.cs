@@ -1,6 +1,8 @@
-﻿using Dapper;
+﻿using Complexion.Models.Config;
+using Dapper;
 using Microsoft.Data.SqlClient;
-using Complexion.Models.Config;
+using Microsoft.Extensions.Configuration;
+
 
 namespace Complexion.Repository.Config
 {
@@ -8,9 +10,9 @@ namespace Complexion.Repository.Config
     {
         private readonly string _connectionString;
 
-        public ConfigPriceTierRepository(string connectionString)
+        public ConfigPriceTierRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiers()

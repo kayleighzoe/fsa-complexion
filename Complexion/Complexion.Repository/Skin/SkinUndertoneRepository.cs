@@ -1,6 +1,7 @@
-﻿using Dapper;
+﻿using Complexion.Models.Skin;
+using Dapper;
 using Microsoft.Data.SqlClient;
-using Complexion.Models.Skin;
+using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Skin
 {
@@ -8,9 +9,9 @@ namespace Complexion.Repository.Skin
     {
         private readonly string _connectionString;
 
-        public SkinUndertoneRepository(string connectionString)
+        public SkinUndertoneRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<IEnumerable<SkinUndertone>> GetAllSkinUndertones()
