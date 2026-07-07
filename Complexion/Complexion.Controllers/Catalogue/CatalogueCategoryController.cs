@@ -5,7 +5,7 @@ namespace Complexion.Controllers.Catalogue
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CatalogueCategoryController : ControllerBase
     {
         private readonly ICatalogueCategoryService _catalogueCategoryService;

@@ -6,7 +6,7 @@ namespace Complexion.Controllers.Dbo
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SkinProfileController : ControllerBase
     {
         private readonly ISkinProfileService _service;

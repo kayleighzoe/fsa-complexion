@@ -5,7 +5,7 @@ namespace Complexion.Controllers.Config
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ConfigPriceTierController : ControllerBase
     {
         private readonly IConfigPriceTierService _configPriceTierService;

@@ -5,7 +5,7 @@ namespace Complexion.Api.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class SkinUndertoneController : ControllerBase
     {
         private readonly ISkinUndertoneService _skinUndertoneService;
