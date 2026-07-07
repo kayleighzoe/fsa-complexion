@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Complexion.Models.Catalogue;
+using Microsoft.Extensions.Configuration;
 
 
 namespace Complexion.Repository.Catalogue
@@ -9,9 +10,9 @@ namespace Complexion.Repository.Catalogue
     {
         private readonly string _connectionString;
 
-        public CatalogueCategoryRepository(string connectionString)
+        public CatalogueCategoryRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategories()

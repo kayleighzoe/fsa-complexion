@@ -2,6 +2,7 @@
 using Complexion.Models.Dbo;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Dbo
 {
@@ -9,9 +10,9 @@ namespace Complexion.Repository.Dbo
     {
         private readonly string _connectionString;
 
-        public ProductRepository(string connectionString)
+        public ProductRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync(string? search)
