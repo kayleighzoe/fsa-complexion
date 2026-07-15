@@ -14,7 +14,7 @@ namespace Complexion.Repository.Skin
             _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
-        public async Task<IEnumerable<SkinUndertone>> GetAllSkinUndertones()
+        public async Task<IEnumerable<SkinUndertone>> GetAllAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<SkinUndertone>("SELECT * FROM skin.Undertone");

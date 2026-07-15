@@ -4,6 +4,6 @@ namespace Complexion.Repository.Skin
 {
     public interface ISkinShadeRepository
     {
-        Task<IEnumerable<SkinShade>> GetAllSkinShades();
+        Task<IEnumerable<SkinShade>> GetAllAsync();
     }
 }

@@ -15,7 +15,7 @@ namespace Complexion.Repository.Config
             _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
-        public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiers()
+        public async Task<IEnumerable<ConfigPriceTier>> GetAllAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<ConfigPriceTier>("SELECT * FROM config.PriceTier");
