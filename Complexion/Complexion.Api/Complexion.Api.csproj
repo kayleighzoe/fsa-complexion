@@ -1,13 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.22" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Complexion.Controllers\Complexion.Controllers.csproj" />
+    <ProjectReference Include="..\Complexion.DTOs\Complexion.DTOs.csproj" />
+    <ProjectReference Include="..\Complexion.Migrations\Complexion.Migrations.csproj" />
+    <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
+    <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />
+    <ProjectReference Include="..\Complexion.Services\Complexion.Services.csproj" />
   </ItemGroup>
 
 </Project>
