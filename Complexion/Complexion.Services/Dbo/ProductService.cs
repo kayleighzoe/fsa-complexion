@@ -20,7 +20,14 @@ namespace Complexion.Services.Dbo
 
         public async Task<Product?> GetByIdAsync(Guid id)
         {
-            return await _repository.GetByIdAsync(id);
+            var result = await _repository.GetByIdAsync(id);
+
+            if (result == null)
+            {
+                throw new KeyNotFoundException($"SkinProfile with id {id} was not found.");
+            }
+
+            return result;
         }
 
         public async Task<Product> CreateAsync(CreateProductDto dto)

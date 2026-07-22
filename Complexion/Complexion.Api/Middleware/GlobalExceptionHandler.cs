@@ -21,7 +21,6 @@ namespace Complexion.Api.Middleware
 
             var statusCode = exception switch
             {
-                AppException ex => ex.StatusCode,
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
                 ArgumentException => StatusCodes.Status400BadRequest,
@@ -42,12 +41,19 @@ namespace Complexion.Api.Middleware
             return true;
         }
 
-        private static string GetTitle(int statusCode) => statusCode switch
+        private static string GetTitle(int statusCode)
         {
-            400 => "Bad Request",
-            401 => "Unauthorised",
-            404 => "Not Found",
-            _ => "An unexpected error occurred"
-        };
+            switch (statusCode)
+            {
+                case 400:
+                    return "Bad Request";
+                case 401:
+                    return "Unauthorised";
+                case 404:
+                    return "Not Found";
+                default:
+                    return "An unexpected error occurred";
+            }
+        }
     }
 }
