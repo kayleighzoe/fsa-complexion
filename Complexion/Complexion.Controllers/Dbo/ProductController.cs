@@ -26,7 +26,6 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound();
             return Ok(result);
         }
 

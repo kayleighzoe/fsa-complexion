@@ -14,7 +14,7 @@ namespace Complexion.Services.Config
 
         public async Task<IEnumerable<ConfigPriceTier>> GetAllAsync()
         {
-            return await _configPriceTierRepository.GetAllPriceTiers();
+            return await _configPriceTierRepository.GetAllAsync();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Complexion.Services.Catalogue
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllAsync()
         {
-            return await _catalogueCategoryRepository.GetAllCategories();
+            return await _catalogueCategoryRepository.GetAllAsync();
         }
     }
 }

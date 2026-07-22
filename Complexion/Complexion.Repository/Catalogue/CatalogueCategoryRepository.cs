@@ -15,7 +15,7 @@ namespace Complexion.Repository.Catalogue
             _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
 
-        public async Task<IEnumerable<CatalogueCategory>> GetAllCategories()
+        public async Task<IEnumerable<CatalogueCategory>> GetAllAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<CatalogueCategory>("SELECT * FROM catalogue.Category");

@@ -12,9 +12,9 @@ namespace Complexion.Services.Skin
             _skinUndertoneRepository = skinUndertoneRepository;
         }
 
-        public async Task<IEnumerable<SkinUndertone>> GetAllSkinUndertones()
+        public async Task<IEnumerable<SkinUndertone>> GetAllAsync()
         {
-            return await _skinUndertoneRepository.GetAllSkinUndertones();
+            return await _skinUndertoneRepository.GetAllAsync();
         }
     }
 }
