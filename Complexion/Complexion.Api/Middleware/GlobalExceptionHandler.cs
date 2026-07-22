@@ -14,11 +14,6 @@ namespace Complexion.Api.Middleware
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            _logger.LogError(
-                exception,
-                "Unhandled exception: {Message}",
-                exception.Message);
-
             var statusCode = exception switch
             {
                 KeyNotFoundException => StatusCodes.Status404NotFound,
@@ -27,16 +22,22 @@ namespace Complexion.Api.Middleware
                 _ => StatusCodes.Status500InternalServerError
             };
 
-            var problemDetails = new ProblemDetails
+            var response = new ProblemDetails
             {
                 Status = statusCode,
                 Title = GetTitle(statusCode),
                 Detail = exception.Message
             };
 
+            _logger.LogError(
+                exception,
+               "Unhandled exception: {Message} | StatusCode: {StatusCode}",
+                exception.Message,
+                statusCode);
+
             httpContext.Response.StatusCode = statusCode;
 
-            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
 
             return true;
         }

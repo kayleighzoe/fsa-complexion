@@ -24,7 +24,7 @@ namespace Complexion.Services.Dbo
 
             if (result == null)
             {
-                throw new KeyNotFoundException($"SkinProfile with id {id} was not found.");
+                throw new KeyNotFoundException($"ProductRecommendation with id {id} was not found.");
             }
 
             return result;
