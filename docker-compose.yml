@@ -9,5 +9,16 @@ services:
     volumes:
       - sql-data:/var/opt/mssql
 
+  api:
+    build:
+      context: ./Complexion
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql,1433;Database=Complexion;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+    depends_on:
+      - sql
+
 volumes:
   sql-data:
