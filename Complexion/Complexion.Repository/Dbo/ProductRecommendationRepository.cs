@@ -10,9 +10,9 @@ namespace Complexion.Repository.Dbo
     {
         private readonly string _connectionString;
 
-        public ProductRecommendationRepository(IConfiguration configuration)
+        public ProductRecommendationRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _connectionString = connectionString;
         }
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllAsync()

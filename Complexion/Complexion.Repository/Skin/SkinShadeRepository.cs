@@ -9,9 +9,9 @@ namespace Complexion.Repository.Skin
     {
         private readonly string _connectionString;
 
-        public SkinShadeRepository(IConfiguration configuration)
+        public SkinShadeRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _connectionString = connectionString;
         }
 
         public async Task<IEnumerable<SkinShade>> GetAllAsync()

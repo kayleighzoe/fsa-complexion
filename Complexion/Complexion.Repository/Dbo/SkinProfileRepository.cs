@@ -11,9 +11,9 @@ namespace Complexion.Repository.Skin
     {
         private readonly string _connectionString;
 
-        public SkinProfileRepository(IConfiguration configuration)
+        public SkinProfileRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _connectionString = connectionString;
         }
 
         public async Task<IEnumerable<SkinProfile>> GetAllAsync()

@@ -10,9 +10,9 @@ namespace Complexion.Repository.Catalogue
     {
         private readonly string _connectionString;
 
-        public CatalogueCategoryRepository(IConfiguration configuration)
+        public CatalogueCategoryRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _connectionString = connectionString;
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllAsync()

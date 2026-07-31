@@ -10,9 +10,9 @@ namespace Complexion.Repository.Config
     {
         private readonly string _connectionString;
 
-        public ConfigPriceTierRepository(IConfiguration configuration)
+        public ConfigPriceTierRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _connectionString = connectionString;
         }
 
         public async Task<IEnumerable<ConfigPriceTier>> GetAllAsync()
