@@ -45,13 +45,6 @@ namespace Complexion.Repository.Dbo
         {
             using var connection = new SqlConnection(_connectionString);
 
-            if (dto.Comment == null)
-            {
-                return await connection.QuerySingleAsync<ProductRecommendation>(
-                    "SELECT * FROM dbo.ProductRecommendation WHERE RecommendationId = @Id",
-                    new { Id = id });
-            }
-
             return await connection.QuerySingleAsync<ProductRecommendation>(
                 @"UPDATE dbo.ProductRecommendation
           SET Comment = @Comment

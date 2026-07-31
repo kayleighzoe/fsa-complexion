@@ -37,6 +37,16 @@ namespace Complexion.Services.Dbo
 
         public async Task<ProductRecommendation> UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
         {
+            if(dto.Comment == null)
+            {
+                var existing = await _repository.GetByIdAsync(id);
+                if (existing == null)
+                {
+                    throw new KeyNotFoundException($"ProductRecommendation with id {id} was not found.");
+                }
+                return existing;
+            }
+
             return await _repository.UpdateAsync(id, dto);
         }
 
