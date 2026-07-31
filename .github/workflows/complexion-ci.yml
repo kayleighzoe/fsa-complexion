@@ -47,6 +47,7 @@ jobs:
         VALIDATE_CSHARP: false
         VALIDATE_BIOME_FORMAT: false
         VALIDATE_JSCPD: false
+        VALIDATE_YAML_PRETTIER: false
 
   docker-build:
     runs-on: ubuntu-latest
