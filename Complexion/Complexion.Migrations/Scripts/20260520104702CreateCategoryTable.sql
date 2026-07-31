@@ -24,7 +24,9 @@ IF NOT EXISTS
 BEGIN
     INSERT INTO Catalogue.Category (
 		Name
-	) VALUES(
+	) 
+	VALUES
+	(
 		'High-coverage Foundation'
 	),
 	(

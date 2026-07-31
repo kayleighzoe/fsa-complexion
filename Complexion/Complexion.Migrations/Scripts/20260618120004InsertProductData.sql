@@ -12,7 +12,9 @@ BEGIN
 		Name,
 		Brand,
 		ShadeName
-	) VALUES (
+	) 
+	VALUES 
+	(
 		NEWID(),
 		1,
 		1,

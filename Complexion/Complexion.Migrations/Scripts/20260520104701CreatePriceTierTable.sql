@@ -24,7 +24,9 @@ IF NOT EXISTS
 BEGIN
     INSERT INTO Config.PriceTier (
 		Name
-	) VALUES(
+	)
+    VALUES
+    (
 		'High-End'
 	),
     (

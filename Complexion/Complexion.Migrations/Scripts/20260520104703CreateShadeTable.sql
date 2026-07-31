@@ -19,7 +19,9 @@ IF NOT EXISTS (SELECT 1 FROM skin.Shade)
 BEGIN
 	INSERT INTO Skin.Shade (
 		Name
-	) VALUES (
+	) 
+	VALUES 
+	(
 		'Fair'
 	),
 	(

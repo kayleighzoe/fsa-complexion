@@ -24,7 +24,9 @@ IF NOT EXISTS
 BEGIN
     INSERT INTO Skin.Undertone (
 		Name
-	) VALUES(
+	) 
+	VALUES
+	(
 		'Cool'
 	),
     (

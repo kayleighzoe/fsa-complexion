@@ -5,12 +5,15 @@ IF NOT EXISTS
 	FROM dbo.SkinProfile
 )
 BEGIN
-	INSERT INTO dbo.SkinProfile (
+	INSERT INTO dbo.SkinProfile 
+	(
 		SkinProfileId,
 		ShadeId,
 		UndertoneId,
 		HasTint
-	) VALUES (
+	) 
+	VALUES
+	(
 		NEWID(),
 		4,
 		4,
