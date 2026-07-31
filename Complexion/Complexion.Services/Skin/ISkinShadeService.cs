@@ -4,6 +4,6 @@ namespace Complexion.Services.Skin
 {
     public interface ISkinShadeService
     {
-        Task<IEnumerable<SkinShade>> GetAllAsync();
+        Task<IEnumerable<SkinShade>> GetAllSkinShadesAsync();
     }
 }

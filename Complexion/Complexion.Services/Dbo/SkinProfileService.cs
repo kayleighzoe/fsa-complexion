@@ -13,14 +13,14 @@ namespace Complexion.Services.Dbo
             _repository = repository;
         }
 
-        public async Task<IEnumerable<SkinProfile>> GetAllAsync()
+        public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllSkinProfilesAsync();
         }
 
-        public async Task<SkinProfile?> GetByIdAsync(Guid id)
+        public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
         {
-            var result = await _repository.GetByIdAsync(id);
+            var result = await _repository.GetSkinProfilesByIdAsync(id);
 
             if (result == null)
             {
@@ -30,9 +30,9 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<SkinProfile> CreateAsync(CreateSkinProfileDto dto)
+        public async Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
-            return await _repository.CreateAsync(dto);
+            return await _repository.CreateSkinProfileAsync(dto);
         }
     }
 }

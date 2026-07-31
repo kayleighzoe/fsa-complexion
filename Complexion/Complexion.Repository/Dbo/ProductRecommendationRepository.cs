@@ -14,14 +14,14 @@ namespace Complexion.Repository.Dbo
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<ProductRecommendation>> GetAllAsync()
+        public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<ProductRecommendation>(
                 "SELECT * FROM dbo.ProductRecommendation");
         }
 
-        public async Task<ProductRecommendation?> GetByIdAsync(Guid id)
+        public async Task<ProductRecommendation?> GetProductReccommendationsByIdAsync(Guid id)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleOrDefaultAsync<ProductRecommendation>(
@@ -29,7 +29,7 @@ namespace Complexion.Repository.Dbo
                 new { Id = id });
         }
 
-        public async Task<ProductRecommendation> CreateAsync(CreateProductRecommendationDto dto)
+        public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleAsync<ProductRecommendation>(
@@ -40,7 +40,7 @@ namespace Complexion.Repository.Dbo
                 dto);
         }
 
-        public async Task UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
+        public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
 
@@ -51,7 +51,7 @@ namespace Complexion.Repository.Dbo
             new { Id = id, dto.Comment });
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteProductReccommendationAsync(Guid id)
         {
             using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(

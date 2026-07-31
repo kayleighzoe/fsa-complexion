@@ -18,35 +18,35 @@ namespace Complexion.Controllers.Dbo
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetAllProductReccommendationsAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetProductReccommendationsByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRecommendationDto dto)
         {
-            var result = await _service.CreateAsync(dto);
+            var result = await _service.CreateProductReccommendationAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = result.RecommendationId }, result);
         }
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
-            await _service.UpdateAsync(id, dto);
+            await _service.UpdateProductReccommendationAsync(id, dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _service.DeleteAsync(id);
+            await _service.DeleteProductReccommendationAsync(id);
             return NoContent();
         }
     }

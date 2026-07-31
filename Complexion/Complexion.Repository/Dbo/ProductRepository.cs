@@ -14,7 +14,7 @@ namespace Complexion.Repository.Dbo
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync(string? search)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
             using var connection = new SqlConnection(_connectionString);
 
@@ -30,7 +30,7 @@ namespace Complexion.Repository.Dbo
                 new { Search = $"%{search}%" });
         }
 
-        public async Task<Product?> GetByIdAsync(Guid id)
+        public async Task<Product?> GetProductsByIdAsync(Guid id)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleOrDefaultAsync<Product>(
@@ -38,7 +38,7 @@ namespace Complexion.Repository.Dbo
                 new { Id = id });
         }
 
-        public async Task<Product> CreateAsync(CreateProductDto dto)
+        public async Task<Product> CreateProductAsync(CreateProductDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleAsync<Product>(

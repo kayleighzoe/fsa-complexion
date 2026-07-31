@@ -4,6 +4,6 @@ namespace Complexion.Repository.Config
 {
     public interface IConfigPriceTierRepository
     {
-        Task<IEnumerable<ConfigPriceTier>> GetAllAsync();
+        Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiersAsync();
     }
 }

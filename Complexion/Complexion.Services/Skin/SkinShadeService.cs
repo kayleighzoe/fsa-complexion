@@ -12,8 +12,8 @@ public class SkinShadeService : ISkinShadeService
         _skinShadeRepository = skinShadeRepository;
     }
 
-    public async Task<IEnumerable<SkinShade>> GetAllAsync()
+    public async Task<IEnumerable<SkinShade>> GetAllSkinShadesAsync()
     {
-        return await _skinShadeRepository.GetAllAsync();
+        return await _skinShadeRepository.GetAllSkinShadesAsync();
     }
 }

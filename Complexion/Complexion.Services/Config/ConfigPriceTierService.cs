@@ -12,9 +12,9 @@ namespace Complexion.Services.Config
             _configPriceTierRepository = configPriceTierRepository;
         }
 
-        public async Task<IEnumerable<ConfigPriceTier>> GetAllAsync()
+        public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiersAsync()
         {
-            return await _configPriceTierRepository.GetAllAsync();
+            return await _configPriceTierRepository.GetAllPriceTiersAsync();
         }
     }
 }

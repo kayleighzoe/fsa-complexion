@@ -13,7 +13,7 @@ namespace Complexion.Repository.Skin
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<SkinShade>> GetAllAsync()
+        public async Task<IEnumerable<SkinShade>> GetAllSkinShadesAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<SkinShade>("SELECT * FROM skin.Shade");

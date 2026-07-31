@@ -4,6 +4,6 @@ namespace Complexion.Services.Skin
 {
     public interface ISkinUndertoneService
     {
-        Task<IEnumerable<SkinUndertone>> GetAllAsync();
+        Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync();
     }
 }

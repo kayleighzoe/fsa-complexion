@@ -13,7 +13,7 @@ namespace Complexion.Repository.Catalogue
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<CatalogueCategory>> GetAllAsync()
+        public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<CatalogueCategory>("SELECT * FROM catalogue.Category");

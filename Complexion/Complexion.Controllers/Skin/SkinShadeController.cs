@@ -18,7 +18,7 @@ namespace Complexion.Controllers.Skin
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var skinShades = await _skinShadeService.GetAllAsync();
+            var skinShades = await _skinShadeService.GetAllSkinShadesAsync();
             return Ok(skinShades);
         }
     }

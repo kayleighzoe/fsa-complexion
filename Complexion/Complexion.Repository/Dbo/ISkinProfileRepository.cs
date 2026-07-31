@@ -5,8 +5,8 @@ namespace Complexion.Repository.Dbo
 {
     public interface ISkinProfileRepository
     {
-        Task<IEnumerable<SkinProfile>> GetAllAsync();
-        Task<SkinProfile?> GetByIdAsync(Guid id);
-        Task<SkinProfile> CreateAsync(CreateSkinProfileDto dto);
+        Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync();
+        Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id);
+        Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto);
     }
 }

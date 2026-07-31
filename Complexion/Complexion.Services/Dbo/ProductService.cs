@@ -13,14 +13,14 @@ namespace Complexion.Services.Dbo
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync(string? search)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
-            return await _repository.GetAllAsync(search);
+            return await _repository.GetAllProductsAsync(search);
         }
 
-        public async Task<Product?> GetByIdAsync(Guid id)
+        public async Task<Product?> GetProductsByIdAsync(Guid id)
         {
-            var result = await _repository.GetByIdAsync(id);
+            var result = await _repository.GetProductsByIdAsync(id);
 
             if (result == null)
             {
@@ -30,9 +30,9 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<Product> CreateAsync(CreateProductDto dto)
+        public async Task<Product> CreateProductAsync(CreateProductDto dto)
         {
-            return await _repository.CreateAsync(dto);
+            return await _repository.CreateProductAsync(dto);
         }
 
     }

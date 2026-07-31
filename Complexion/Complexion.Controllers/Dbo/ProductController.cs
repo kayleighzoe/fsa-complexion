@@ -18,21 +18,21 @@ namespace Complexion.Controllers.Dbo
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? search)
         {
-            var result = await _service.GetAllAsync(search);
+            var result = await _service.GetAllProductsAsync(search);
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetProductsByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
-            var result = await _service.CreateAsync(dto);
+            var result = await _service.CreateProductAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = result.ProductId }, result);
         }
     }

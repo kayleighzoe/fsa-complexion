@@ -13,14 +13,14 @@ namespace Complexion.Services.Dbo
             _repository = repository;
         }
 
-        public async Task<IEnumerable<ProductRecommendation>> GetAllAsync()
+        public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllProductReccommendationsAsync();
         }
 
-        public async Task<ProductRecommendation?> GetByIdAsync(Guid id)
+        public async Task<ProductRecommendation?> GetProductReccommendationsByIdAsync(Guid id)
         {
-            var result = await _repository.GetByIdAsync(id);
+            var result = await _repository.GetProductReccommendationsByIdAsync(id);
 
             if (result == null)
             {
@@ -30,24 +30,24 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<ProductRecommendation> CreateAsync(CreateProductRecommendationDto dto)
+        public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
-            return await _repository.CreateAsync(dto);
+            return await _repository.CreateProductReccommendationAsync(dto);
         }
 
-        public async Task UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
+        public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
         {
             if (dto.Comment == null)
             {
                 return;
             }
 
-            await _repository.UpdateAsync(id, dto);
+            await _repository.UpdateProductReccommendationAsync(id, dto);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteProductReccommendationAsync(Guid id)
         {
-            await _repository.DeleteAsync(id);
+            await _repository.DeleteProductReccommendationAsync(id);
         }
     }
 }

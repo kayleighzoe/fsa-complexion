@@ -12,9 +12,9 @@ namespace Complexion.Services.Catalogue
             _catalogueCategoryRepository = catalogueCategoryRepository;
         }
 
-        public async Task<IEnumerable<CatalogueCategory>> GetAllAsync()
+        public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
         {
-            return await _catalogueCategoryRepository.GetAllAsync();
+            return await _catalogueCategoryRepository.GetAllCategoriesAsync();
         }
     }
 }
