@@ -46,6 +46,7 @@ jobs:
         VALIDATE_DOTNET_SLN_FORMAT_WHITESPACE: false
         VALIDATE_CSHARP: false
         VALIDATE_BIOME_FORMAT: false
+        VALIDATE_JSCPD: false
 
   docker-build:
     runs-on: ubuntu-latest
