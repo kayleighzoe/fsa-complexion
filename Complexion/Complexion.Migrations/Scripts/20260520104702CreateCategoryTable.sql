@@ -3,7 +3,7 @@
     SELECT
         1
     FROM INFORMATION_SCHEMA.TABLES
-    WHERE TABLE_SCHEMA = 'catalogue'
+    WHERE TABLE_SCHEMA = 'Catalogue'
         AND TABLE_NAME = 'Category'
 )
 BEGIN

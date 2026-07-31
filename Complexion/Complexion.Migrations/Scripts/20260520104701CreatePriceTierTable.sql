@@ -3,7 +3,7 @@
     SELECT
         1
     FROM INFORMATION_SCHEMA.TABLES
-    WHERE TABLE_SCHEMA = 'config'
+    WHERE TABLE_SCHEMA = 'Config'
         AND TABLE_NAME = 'PriceTier'
 )
 BEGIN

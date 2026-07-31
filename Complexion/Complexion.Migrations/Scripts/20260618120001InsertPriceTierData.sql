@@ -1,6 +1,6 @@
 IF NOT EXISTS (SELECT 1 FROM config.PriceTier)
 BEGIN
-    INSERT INTO config.PriceTier (
+    INSERT INTO Config.PriceTier (
 		Name
 	) VALUES(
 		'High-End'

@@ -1,6 +1,6 @@
 IF NOT EXISTS (SELECT 1 FROM skin.Undertone)
 BEGIN
-    INSERT INTO skin.Undertone (
+    INSERT INTO Skin.Undertone (
 		Name
 	) VALUES(
 		'Cool'

@@ -3,7 +3,7 @@
     SELECT
         1
     FROM INFORMATION_SCHEMA.TABLES
-    WHERE TABLE_SCHEMA = 'auth'
+    WHERE TABLE_SCHEMA = 'Auth'
         AND TABLE_NAME = 'User'
 )
 BEGIN
