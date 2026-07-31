@@ -1,4 +1,10 @@
-IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'auth')
+IF NOT EXISTS 
+(
+    SELECT 
+    1 
+    FROM sys.schemas 
+    WHERE name = 'auth'
+ )
 BEGIN
     EXEC('CREATE SCHEMA Auth');
 END

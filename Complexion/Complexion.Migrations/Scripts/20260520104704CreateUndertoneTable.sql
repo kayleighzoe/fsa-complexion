@@ -15,7 +15,12 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM skin.Undertone)
+IF NOT EXISTS 
+(
+	SELECT 
+	1 
+	FROM skin.Undertone
+)
 BEGIN
     INSERT INTO Skin.Undertone (
 		Name

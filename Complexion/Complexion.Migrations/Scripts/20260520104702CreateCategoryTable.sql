@@ -15,7 +15,12 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM catalogue.Category)
+IF NOT EXISTS 
+(
+	SELECT 
+	1 
+	FROM catalogue.Category
+)
 BEGIN
     INSERT INTO Catalogue.Category (
 		Name

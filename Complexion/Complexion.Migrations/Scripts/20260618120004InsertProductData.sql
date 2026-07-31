@@ -1,4 +1,9 @@
-IF NOT EXISTS (SELECT 1 FROM dbo.Product)
+IF NOT EXISTS 
+(
+	SELECT 
+	1 
+	FROM dbo.Product
+)
 BEGIN
 	INSERT INTO dbo.Product (
 		ProductId,

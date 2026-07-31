@@ -1,4 +1,9 @@
-IF NOT EXISTS (SELECT 1 FROM dbo.SkinProfile)
+IF NOT EXISTS 
+(
+	SELECT 
+	1 
+	FROM dbo.SkinProfile
+)
 BEGIN
 	INSERT INTO dbo.SkinProfile (
 		SkinProfileId,
