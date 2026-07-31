@@ -3,7 +3,6 @@ using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Skin
 {

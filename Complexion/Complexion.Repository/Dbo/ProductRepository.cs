@@ -2,7 +2,6 @@
 using Complexion.Models.Dbo;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Dbo
 {

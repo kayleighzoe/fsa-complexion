@@ -1,7 +1,6 @@
 ﻿using Complexion.Models.Skin;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Skin
 {

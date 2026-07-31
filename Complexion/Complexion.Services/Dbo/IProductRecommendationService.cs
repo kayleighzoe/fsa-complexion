@@ -8,7 +8,7 @@ namespace Complexion.Services.Dbo
         Task<IEnumerable<ProductRecommendation>> GetAllAsync();
         Task<ProductRecommendation?> GetByIdAsync(Guid id);
         Task<ProductRecommendation> CreateAsync(CreateProductRecommendationDto dto);
-        Task<ProductRecommendation> UpdateAsync(Guid id, UpdateProductRecommendationDto dto); 
+        Task UpdateAsync(Guid id, UpdateProductRecommendationDto dto); 
         Task DeleteAsync(Guid id);
     }
 }

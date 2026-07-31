@@ -2,7 +2,6 @@
 using Complexion.Models.Dbo;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Dbo
 {
@@ -41,16 +40,15 @@ namespace Complexion.Repository.Dbo
                 dto);
         }
 
-        public async Task<ProductRecommendation> UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
+        public async Task UpdateAsync(Guid id, UpdateProductRecommendationDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
 
-            return await connection.QuerySingleAsync<ProductRecommendation>(
+            await connection.ExecuteAsync(
                 @"UPDATE dbo.ProductRecommendation
-          SET Comment = @Comment
-          OUTPUT INSERTED.*
-          WHERE RecommendationId = @Id",
-                new { Id = id, dto.Comment });
+                SET Comment = @Comment
+                WHERE RecommendationId = @Id",
+            new { Id = id, dto.Comment });
         }
 
         public async Task DeleteAsync(Guid id)

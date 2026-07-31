@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Complexion.Models.Catalogue;
-using Microsoft.Extensions.Configuration;
-
 
 namespace Complexion.Repository.Catalogue
 {
