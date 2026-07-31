@@ -39,7 +39,7 @@ namespace Complexion.Controllers.Dbo
         [HttpPatch("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
-            var result = await _service.UpdateAsync(id, dto);
+            await _service.UpdateAsync(id, dto);
             return NoContent();
         }
 
