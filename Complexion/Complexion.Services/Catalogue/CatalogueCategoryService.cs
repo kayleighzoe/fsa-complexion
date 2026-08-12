@@ -8,12 +8,10 @@ namespace Complexion.Services.Catalogue
     public class CatalogueCategoryService : ICatalogueCategoryService
     {
         private readonly ICatalogueCategoryRepository _catalogueCategoryRepository;
-        private readonly ILogger<CatalogueCategoryService> _logger;
 
-        public CatalogueCategoryService(ICatalogueCategoryRepository catalogueCategoryRepository, ILogger<CatalogueCategoryService> logger)
+        public CatalogueCategoryService(ICatalogueCategoryRepository catalogueCategoryRepository)
         {
             _catalogueCategoryRepository = catalogueCategoryRepository;
-            _logger = logger;
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
