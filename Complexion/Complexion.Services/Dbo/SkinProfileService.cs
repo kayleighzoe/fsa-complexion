@@ -30,9 +30,9 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto)
+        public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
-            return await _repository.CreateSkinProfileAsync(dto);
+            await _repository.CreateSkinProfileAsync(dto);
         }
     }
 }

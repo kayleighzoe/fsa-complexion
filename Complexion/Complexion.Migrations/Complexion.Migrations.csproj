@@ -27,7 +27,6 @@
     <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
-    <EmbeddedResource Include="Scripts\.sql" />
     <EmbeddedResource Include="Scripts\20260618120004InsertProductData.sql" />
     <EmbeddedResource Include="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>

@@ -38,12 +38,11 @@ namespace Complexion.Repository.Dbo
                 new { Id = id });
         }
 
-        public async Task<Product> CreateProductAsync(CreateProductDto dto)
+        public async Task CreateProductAsync(CreateProductDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleAsync<Product>(
+            await connection.ExecuteAsync(
                 @"INSERT INTO dbo.Product (ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName)
-                  OUTPUT INSERTED.*
                   VALUES (NEWID(), @CategoryId, @PriceTierId, @Name, @Brand, @ShadeName)",
                 dto);
         }

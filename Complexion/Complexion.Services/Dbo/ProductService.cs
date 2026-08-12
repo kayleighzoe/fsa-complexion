@@ -30,9 +30,9 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<Product> CreateProductAsync(CreateProductDto dto)
+        public async Task CreateProductAsync(CreateProductDto dto)
         {
-            return await _repository.CreateProductAsync(dto);
+            await _repository.CreateProductAsync(dto);
         }
 
     }

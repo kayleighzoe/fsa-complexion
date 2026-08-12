@@ -15,13 +15,13 @@ namespace Complexion.Repository.Skin
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<SkinProfile>> GetAllAsync()
+        public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<SkinProfile>("SELECT * FROM dbo.SkinProfile");
         }
 
-        public async Task<SkinProfile?> GetByIdAsync(Guid id)
+        public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
         {
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleOrDefaultAsync<SkinProfile>(
@@ -29,10 +29,10 @@ namespace Complexion.Repository.Skin
                 new { Id = id });
         }
 
-        public async Task<SkinProfile> CreateAsync(CreateSkinProfileDto dto)
+        public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleAsync<SkinProfile>(
+            await connection.ExecuteAsync(
                 @"INSERT INTO dbo.SkinProfile (SkinProfileId, ShadeId, UndertoneId, HasTint)
                   OUTPUT INSERTED.*
                   VALUES (NEWID(), @ShadeId, @UndertoneId, @HasTint)",

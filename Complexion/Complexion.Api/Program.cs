@@ -10,13 +10,11 @@ using Complexion.Services.Dbo;
 using Complexion.Services.Skin;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day).CreateBootstrapLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
-    configuration.Enrich.FromLogContext().WriteTo.Console().WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day);
+    configuration.ReadFrom.Configuration(context.Configuration).Enrich.FromLogContext();
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;

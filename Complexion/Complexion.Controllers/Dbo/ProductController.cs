@@ -32,8 +32,8 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
-            var result = await _service.CreateProductAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = result.ProductId }, result);
+            await _service.CreateProductAsync(dto);
+            return NoContent();
         }
     }
 }
