@@ -17,26 +17,28 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
+            var sql = "SELECT * FROM dbo.SkinProfile";
+
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<SkinProfile>("SELECT * FROM dbo.SkinProfile");
+            return await connection.QueryAsync<SkinProfile>(sql);
         }
 
         public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
         {
+            var sql = "SELECT * FROM dbo.SkinProfile WHERE SkinProfileId = @Id";
+
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleOrDefaultAsync<SkinProfile>(
-                "SELECT * FROM dbo.SkinProfile WHERE SkinProfileId = @Id",
-                new { Id = id });
+            return await connection.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
         public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
+            var sql = @"INSERT INTO dbo.SkinProfile (SkinProfileId, ShadeId, UndertoneId, HasTint)
+                        OUTPUT INSERTED.*
+                        VALUES (NEWID(), @ShadeId, @UndertoneId, @HasTint)";
+
             using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(
-                @"INSERT INTO dbo.SkinProfile (SkinProfileId, ShadeId, UndertoneId, HasTint)
-                  OUTPUT INSERTED.*
-                  VALUES (NEWID(), @ShadeId, @UndertoneId, @HasTint)",
-                dto);
+            await connection.ExecuteAsync(sql, dto);
         }
     }
 }

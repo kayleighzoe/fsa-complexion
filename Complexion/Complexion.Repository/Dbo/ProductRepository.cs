@@ -16,35 +16,36 @@ namespace Complexion.Repository.Dbo
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
+            var getAllSql = "SELECT * FROM dbo.Product";
+            var seachSql = @"SELECT * FROM dbo.Product
+                        WHERE Name LIKE @Search
+                        OR Brand LIKE @Search";
+
             using var connection = new SqlConnection(_connectionString);
 
             if (string.IsNullOrWhiteSpace(search))
             {
-                return await connection.QueryAsync<Product>("SELECT * FROM dbo.Product");
+                return await connection.QueryAsync<Product>(getAllSql);
             }
 
-            return await connection.QueryAsync<Product>(
-                @"SELECT * FROM dbo.Product
-                  WHERE Name LIKE @Search
-                  OR Brand LIKE @Search",
-                new { Search = $"%{search}%" });
+            return await connection.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
         }
 
         public async Task<Product?> GetProductsByIdAsync(Guid id)
         {
+            var sql = "SELECT * FROM dbo.Product WHERE ProductId = @Id";
+
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleOrDefaultAsync<Product>(
-                "SELECT * FROM dbo.Product WHERE ProductId = @Id",
-                new { Id = id });
+            return await connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
         public async Task CreateProductAsync(CreateProductDto dto)
         {
+            var sql = @"INSERT INTO dbo.Product (ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName)
+                        VALUES (NEWID(), @CategoryId, @PriceTierId, @Name, @Brand, @ShadeName)";
+
             using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(
-                @"INSERT INTO dbo.Product (ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName)
-                  VALUES (NEWID(), @CategoryId, @PriceTierId, @Name, @Brand, @ShadeName)",
-                dto);
+            await connection.ExecuteAsync(sql, dto);
         }
     }
 }

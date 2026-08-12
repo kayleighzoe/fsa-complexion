@@ -15,8 +15,10 @@ namespace Complexion.Repository.Catalogue
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
         {
+            var sql = "SELECT * FROM catalogue.Category";
+
             using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<CatalogueCategory>("SELECT * FROM catalogue.Category");
+            return await connection.QueryAsync<CatalogueCategory>(sql);
         }
     }
 }
