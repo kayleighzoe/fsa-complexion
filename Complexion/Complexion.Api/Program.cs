@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
-    configuration.ReadFrom.Configuration(context.Configuration).Enrich.FromLogContext();
+    configuration.ReadFrom.Configuration(context.Configuration);
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
