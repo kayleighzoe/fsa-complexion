@@ -7,14 +7,14 @@ namespace Complexion.Tests.Services.Config
 {
     public class ConfigPriceTierServiceTests
     {
-        private IConfigPriceTierRepository _repository;
-        private ConfigPriceTierService _service;
+        private IConfigPriceTierRepository _priceTierRepository;
+        private ConfigPriceTierService _priceTierService;
 
         [SetUp]
         public void Setup()
         {
-            _repository = Substitute.For<IConfigPriceTierRepository>();
-            _service = new ConfigPriceTierService(_repository);
+            _priceTierRepository = Substitute.For<IConfigPriceTierRepository>();
+            _priceTierService = new ConfigPriceTierService(_priceTierRepository);
         }
 
         [Test]
@@ -27,14 +27,14 @@ namespace Complexion.Tests.Services.Config
                 new ConfigPriceTier()
             };
 
-            _repository.GetAllPriceTiersAsync().Returns(expectedPriceTiers);
+            _priceTierRepository.GetAllPriceTiersAsync().Returns(expectedPriceTiers);
 
             // Act
-            var result = await _service.GetAllPriceTiersAsync();
+            var result = await _priceTierService.GetAllPriceTiersAsync();
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedPriceTiers));
-            await _repository.Received(1).GetAllPriceTiersAsync();
+            await _priceTierRepository.Received(1).GetAllPriceTiersAsync();
         }
     }
 }

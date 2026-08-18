@@ -7,14 +7,14 @@ namespace Complexion.Tests.Services.Catalogue
 {
     public class CatalogueCategoryServiceTests
     {
-        private ICatalogueCategoryRepository _repository;
-        private CatalogueCategoryService _service;
+        private ICatalogueCategoryRepository _catalogueCategoryRepository;
+        private CatalogueCategoryService _catalogueCategoryService;
 
         [SetUp]
         public void SetUp()
         {
-            _repository = Substitute.For<ICatalogueCategoryRepository>();
-            _service = new CatalogueCategoryService(_repository);
+            _catalogueCategoryRepository = Substitute.For<ICatalogueCategoryRepository>();
+            _catalogueCategoryService = new CatalogueCategoryService(_catalogueCategoryRepository);
         }
 
         [Test]
@@ -27,14 +27,14 @@ namespace Complexion.Tests.Services.Catalogue
                 new CatalogueCategory { CategoryId = 2, Name = "Concealer" }
             };
 
-            _repository.GetAllCategoriesAsync().Returns(expectedCategories);
+            _catalogueCategoryRepository.GetAllCategoriesAsync().Returns(expectedCategories);
 
             // Act
-            var result = await _service.GetAllCategoriesAsync();
+            var result = await _catalogueCategoryService.GetAllCategoriesAsync();
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedCategories));
-            await _repository.Received(1).GetAllCategoriesAsync();
+            await _catalogueCategoryRepository.Received(1).GetAllCategoriesAsync();
         }
     }
 }

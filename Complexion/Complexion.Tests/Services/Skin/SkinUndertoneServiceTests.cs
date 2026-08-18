@@ -7,14 +7,14 @@ namespace Complexion.Tests.Services.Skin
 { 
     public class SkinUndertoneServiceTests
     {
-        private ISkinUndertoneRepository _repository;
-        private SkinUndertoneService _service;
+        private ISkinUndertoneRepository _skinUndertoneRepository;
+        private SkinUndertoneService _skinUndertoneService;
 
         [SetUp]
         public void Setup()
         {
-            _repository = Substitute.For<ISkinUndertoneRepository>();
-            _service = new SkinUndertoneService(_repository);
+            _skinUndertoneRepository = Substitute.For<ISkinUndertoneRepository>();
+            _skinUndertoneService = new SkinUndertoneService(_skinUndertoneRepository);
         }
 
         [Test]
@@ -27,14 +27,14 @@ namespace Complexion.Tests.Services.Skin
                 new SkinUndertone()
             };
 
-            _repository.GetAllUndertonesAsync().Returns(expectedUndertones);
+            _skinUndertoneRepository.GetAllUndertonesAsync().Returns(expectedUndertones);
 
             // Act
-            var result = await _service.GetAllUndertonesAsync();
+            var result = await _skinUndertoneService.GetAllUndertonesAsync();
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedUndertones));
-            await _repository.Received(1).GetAllUndertonesAsync();
+            await _skinUndertoneRepository.Received(1).GetAllUndertonesAsync();
         }
     }
 }

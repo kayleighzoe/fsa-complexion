@@ -8,14 +8,14 @@ namespace Complexion.Tests.Services.Dbo
 {
     public class ProductReccommendationsServiceTests
     {
-        private IProductRecommendationRepository _repository;
-        private ProductRecommendationService _service;
+        private IProductRecommendationRepository _productRecommendationRepository;
+        private ProductRecommendationService _productRecommendationService;
 
         [SetUp]
         public void Setup()
         {
-            _repository = Substitute.For<IProductRecommendationRepository>();
-            _service = new ProductRecommendationService(_repository);
+            _productRecommendationRepository = Substitute.For<IProductRecommendationRepository>();
+            _productRecommendationService = new ProductRecommendationService(_productRecommendationRepository);
         }
 
         [Test]
@@ -44,14 +44,14 @@ namespace Complexion.Tests.Services.Dbo
                 }
             };
 
-            _repository.GetAllProductReccommendationsAsync().Returns(expectedRecommendations);
+            _productRecommendationRepository.GetAllProductReccommendationsAsync().Returns(expectedRecommendations);
 
             // Act
-            var result = await _service.GetAllProductReccommendationsAsync();
+            var result = await _productRecommendationService.GetAllProductReccommendationsAsync();
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedRecommendations));
-            await _repository.Received(1).GetAllProductReccommendationsAsync();
+            await _productRecommendationRepository.Received(1).GetAllProductReccommendationsAsync();
         }
 
         [Test]
@@ -69,14 +69,14 @@ namespace Complexion.Tests.Services.Dbo
                 CreatedAt = DateTime.UtcNow
             };
 
-            _repository.GetProductReccommendationsByIdAsync(id).Returns(expectedRecommendation);
+            _productRecommendationRepository.GetProductReccommendationsByIdAsync(id).Returns(expectedRecommendation);
 
             // Act
-            var result = await _service.GetProductReccommendationsByIdAsync(id);
+            var result = await _productRecommendationService.GetProductReccommendationsByIdAsync(id);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedRecommendation));
-            await _repository.Received(1).GetProductReccommendationsByIdAsync(id);
+            await _productRecommendationRepository.Received(1).GetProductReccommendationsByIdAsync(id);
         }
 
         [Test]
@@ -84,10 +84,10 @@ namespace Complexion.Tests.Services.Dbo
         {
             // Arrange
             var id = Guid.NewGuid();
-            _repository.GetProductReccommendationsByIdAsync(id).Returns((ProductRecommendation?)null);
+            _productRecommendationRepository.GetProductReccommendationsByIdAsync(id).Returns((ProductRecommendation?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _service.GetProductReccommendationsByIdAsync(id));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _productRecommendationService.GetProductReccommendationsByIdAsync(id));
         }
 
         [Test]
@@ -112,14 +112,14 @@ namespace Complexion.Tests.Services.Dbo
                 CreatedAt = DateTime.UtcNow
             };
 
-            _repository.CreateProductReccommendationAsync(dto).Returns(expectedRecommendation);
+            _productRecommendationRepository.CreateProductReccommendationAsync(dto).Returns(expectedRecommendation);
 
             // Act
-            var result = await _service.CreateProductReccommendationAsync(dto);
+            var result = await _productRecommendationService.CreateProductReccommendationAsync(dto);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedRecommendation));
-            await _repository.Received(1).CreateProductReccommendationAsync(dto);
+            await _productRecommendationRepository.Received(1).CreateProductReccommendationAsync(dto);
         }
 
         [Test]
@@ -130,10 +130,10 @@ namespace Complexion.Tests.Services.Dbo
             var dto = new UpdateProductRecommendationDto { Comment = "Updated: great match for warm undertones" };
 
             // Act
-            await _service.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
 
             // Assert
-            await _repository.Received(1).UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationRepository.Received(1).UpdateProductReccommendationAsync(id, dto);
         }
 
         [Test]
@@ -144,10 +144,10 @@ namespace Complexion.Tests.Services.Dbo
             var dto = new UpdateProductRecommendationDto { Comment = null };
 
             // Act
-            await _service.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
 
             // Assert
-            await _repository.DidNotReceive().UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationRepository.DidNotReceive().UpdateProductReccommendationAsync(id, dto);
         }
 
         [Test]
@@ -157,10 +157,10 @@ namespace Complexion.Tests.Services.Dbo
             var id = Guid.NewGuid();
 
             // Act
-            await _service.DeleteProductReccommendationAsync(id);
+            await _productRecommendationService.DeleteProductReccommendationAsync(id);
 
             // Assert
-            await _repository.Received(1).DeleteProductReccommendationAsync(id);
+            await _productRecommendationRepository.Received(1).DeleteProductReccommendationAsync(id);
         }
     }
 }

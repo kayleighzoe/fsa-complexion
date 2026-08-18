@@ -7,14 +7,14 @@ namespace Complexion.Tests.Services.Skin
 {
     public class SkinShadeServiceTests
     {
-        private ISkinShadeRepository _repository;
-        private SkinShadeService _service;
+        private ISkinShadeRepository _skinShadeRepository;
+        private SkinShadeService _skinShadeService;
 
         [SetUp]
         public void Setup()
         {
-            _repository = Substitute.For<ISkinShadeRepository>();
-            _service = new SkinShadeService(_repository);
+            _skinShadeRepository = Substitute.For<ISkinShadeRepository>();
+            _skinShadeService = new SkinShadeService(_skinShadeRepository);
         }
 
         [Test]
@@ -27,14 +27,14 @@ namespace Complexion.Tests.Services.Skin
                 new SkinShade()
             };
 
-            _repository.GetAllSkinShadesAsync().Returns(expectedShades);
+            _skinShadeRepository.GetAllSkinShadesAsync().Returns(expectedShades);
 
             // Act
-            var result = await _service.GetAllSkinShadesAsync();
+            var result = await _skinShadeService.GetAllSkinShadesAsync();
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedShades));
-            await _repository.Received(1).GetAllSkinShadesAsync();
+            await _skinShadeRepository.Received(1).GetAllSkinShadesAsync();
         }
     }
 }
