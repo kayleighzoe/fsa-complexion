@@ -18,7 +18,7 @@ namespace Complexion.Tests.Services.Skin
         }
 
         [Test]
-        public async Task GivenUndertonesExistInRepository_WhenGetAllUndertonesAsyncIsCalled_ReturnsUndertonesFromRepository()
+        public async Task GivenUndertonesExistInRepository_WhenGetAllUndertonesAsync_ReturnsUndertonesFromRepository()
         {
             // Arrange
             var expectedUndertones = new List<SkinUndertone>

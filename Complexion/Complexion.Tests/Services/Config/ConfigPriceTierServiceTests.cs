@@ -18,7 +18,7 @@ namespace Complexion.Tests.Services.Config
         }
 
         [Test]
-        public async Task GivenPriceTiersExistInRepository_WhenGetAllPriceTiersAsyncIsCalled_ReturnsPriceTiersFromRepository()
+        public async Task GivenPriceTiersExistInRepository_WhenGetAllPriceTiersAsync_ReturnsPriceTiersFromRepository()
         {   
             // Arrange
             var expectedPriceTiers = new List<ConfigPriceTier>

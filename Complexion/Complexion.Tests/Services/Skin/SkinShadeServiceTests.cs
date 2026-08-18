@@ -18,7 +18,7 @@ namespace Complexion.Tests.Services.Skin
         }
 
         [Test]
-        public async Task GivenSkinShadesExistInRepository_WhenGetAllSkinShadesAsyncIsCalled_ReturnsShadesFromRepository()
+        public async Task GivenSkinShadesExistInRepository_WhenGetAllSkinShadesAsync_ReturnsShadesFromRepository()
         {
             // Arrange
             var expectedShades = new List<SkinShade>
