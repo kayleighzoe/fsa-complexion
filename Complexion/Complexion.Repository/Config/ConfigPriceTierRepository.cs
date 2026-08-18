@@ -16,7 +16,7 @@ namespace Complexion.Repository.Config
 
         public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiersAsync()
         {
-            var sql = "SELECT * FROM config.PriceTier";
+            var sql = "SELECT PriceTierId, Name FROM config.PriceTier";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<ConfigPriceTier>(sql);

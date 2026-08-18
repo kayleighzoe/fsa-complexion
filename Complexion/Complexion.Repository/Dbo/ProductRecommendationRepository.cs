@@ -16,7 +16,7 @@ namespace Complexion.Repository.Dbo
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
         {
-            var sql = "SELECT * FROM dbo.ProductRecommendation";
+            var sql = "SELECT RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt FROM dbo.ProductRecommendation";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<ProductRecommendation>(sql);
@@ -24,7 +24,7 @@ namespace Complexion.Repository.Dbo
 
         public async Task<ProductRecommendation?> GetProductReccommendationsByIdAsync(Guid id)
         {
-            var sql = "SELECT * FROM dbo.ProductRecommendation WHERE RecommendationId = @Id";
+            var sql = "SELECT RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt FROM dbo.ProductRecommendation WHERE RecommendationId = @Id";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleOrDefaultAsync<ProductRecommendation>(sql, new { Id = id });

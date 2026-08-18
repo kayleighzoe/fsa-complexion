@@ -17,7 +17,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
-            var sql = "SELECT * FROM dbo.SkinProfile";
+            var sql = "SELECT SkinProfileId, ShadeId, UndertoneId, HasTint FROM dbo.SkinProfile";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<SkinProfile>(sql);
@@ -25,7 +25,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
         {
-            var sql = "SELECT * FROM dbo.SkinProfile WHERE SkinProfileId = @Id";
+            var sql = "SELECT SkinProfileId, ShadeId, UndertoneId, HasTint FROM dbo.SkinProfile WHERE SkinProfileId = @Id";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });

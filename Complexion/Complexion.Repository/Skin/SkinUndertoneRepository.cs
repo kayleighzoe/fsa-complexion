@@ -15,7 +15,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync()
         {
-            var sql = "SELECT * FROM skin.Undertone";
+            var sql = "SELECT UndertoneId, Name FROM skin.Undertone";
 
             using var connection = new SqlConnection(_connectionString);
             return await connection.QueryAsync<SkinUndertone>(sql);
