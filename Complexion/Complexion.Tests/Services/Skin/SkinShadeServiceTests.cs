@@ -3,7 +3,7 @@ using Complexion.Repository.Skin;
 using Complexion.Services.Skin;
 using NSubstitute;
 
-namespace Complexion.Tests
+namespace Complexion.Tests.Services.Skin
 {
     public class SkinShadeServiceTests
     {
@@ -18,7 +18,7 @@ namespace Complexion.Tests
         }
 
         [Test]
-        public async Task GivenSkinShadesExistInRepository_WhenGetAllSkinShadesAsyncIsCalled_ThenReturnsShadesFromRepository()
+        public async Task GivenSkinShadesExistInRepository_WhenGetAllSkinShadesAsyncIsCalled_ReturnsShadesFromRepository()
         {
             // Arrange
             var expectedShades = new List<SkinShade>

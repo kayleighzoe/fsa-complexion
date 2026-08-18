@@ -3,7 +3,7 @@ using Complexion.Services.Config;
 using Complexion.Repository.Config;
 using NSubstitute;
 
-namespace Complexion.Tests
+namespace Complexion.Tests.Services.Config
 {
     public class ConfigPriceTierServiceTests
     {
