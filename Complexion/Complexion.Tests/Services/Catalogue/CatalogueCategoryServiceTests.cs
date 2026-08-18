@@ -2,7 +2,6 @@ using Complexion.Models.Catalogue;
 using Complexion.Repository.Catalogue;
 using Complexion.Services.Catalogue;
 using NSubstitute;
-using NUnit.Framework;
 
 namespace Complexion.Tests.Services.Catalogue
 {
