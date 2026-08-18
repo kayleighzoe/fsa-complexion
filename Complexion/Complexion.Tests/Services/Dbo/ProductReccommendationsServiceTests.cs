@@ -87,8 +87,7 @@ namespace Complexion.Tests.Services.Dbo
             _repository.GetProductReccommendationsByIdAsync(id).Returns((ProductRecommendation?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
-                await _service.GetProductReccommendationsByIdAsync(id));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _service.GetProductReccommendationsByIdAsync(id));
         }
 
         [Test]
