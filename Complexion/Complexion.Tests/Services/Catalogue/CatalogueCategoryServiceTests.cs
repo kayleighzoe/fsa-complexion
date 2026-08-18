@@ -19,7 +19,7 @@ namespace Complexion.Tests.Services.Catalogue
         }
 
         [Test]
-        public async Task GetAllCategoriesAsync_ReturnsCategoriesFromRepository()
+        public async Task GivenCategoriesExistInRepository_WhenGetAllCategoriesAsyncIsCalled_ReturnsCategoriesFromRepository()
         {
             // Arrange
             var expectedCategories = new List<CatalogueCategory>
