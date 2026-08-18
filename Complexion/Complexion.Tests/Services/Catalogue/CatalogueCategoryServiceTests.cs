@@ -5,7 +5,6 @@ using NSubstitute;
 
 namespace Complexion.Tests.Services.Catalogue
 {
-    [TestFixture]
     public class CatalogueCategoryServiceTests
     {
         private ICatalogueCategoryRepository _repository;
