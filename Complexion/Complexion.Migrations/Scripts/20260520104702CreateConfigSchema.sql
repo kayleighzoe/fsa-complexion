@@ -5,6 +5,6 @@ IF NOT EXISTS
     WHERE name = 'config'
 )
 BEGIN
-    EXEC('CREATE SCHEMA Config');
+    EXEC('CREATE SCHEMA config');
 END
 GO
