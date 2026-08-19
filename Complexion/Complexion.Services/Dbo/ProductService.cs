@@ -1,16 +1,19 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
+using FluentValidation;
 
 namespace Complexion.Services.Dbo
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
+        private readonly IValidator<CreateProductDto> _validator;
 
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository repository, IValidator<CreateProductDto> validator)
         {
             _repository = repository;
+            _validator = validator;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
@@ -32,6 +35,12 @@ namespace Complexion.Services.Dbo
 
         public async Task CreateProductAsync(CreateProductDto dto)
         {
+            var result = await _validator.ValidateAsync(dto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
             await _repository.CreateProductAsync(dto);
         }
 

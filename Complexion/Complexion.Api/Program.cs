@@ -1,4 +1,5 @@
 using Complexion.Api.Middleware;
+using Complexion.DTOs.Dbo.Validators;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
@@ -9,6 +10,7 @@ using Complexion.Services.Config;
 using Complexion.Services.Dbo;
 using Complexion.Services.Skin;
 using Serilog;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +48,11 @@ builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationS
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductRecommendationsValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateSkinProfileValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateProductRecommendationValidator>();
 
 var app = builder.Build();
 

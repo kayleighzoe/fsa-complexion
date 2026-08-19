@@ -18,6 +18,7 @@ namespace Complexion.Api.Middleware
             {
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
                 ArgumentException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
@@ -28,6 +29,13 @@ namespace Complexion.Api.Middleware
                 Title = GetTitle(statusCode),
                 Detail = exception.Message
             };
+
+            if (exception is FluentValidation.ValidationException validationException)
+            {
+                response.Extensions["errors"] = validationException.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+            }
 
             _logger.LogError(
                 exception,

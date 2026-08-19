@@ -1,16 +1,19 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
+using FluentValidation;
 
 namespace Complexion.Services.Dbo
 {
     public class SkinProfileService : ISkinProfileService
     {
         private readonly ISkinProfileRepository _repository;
+        private readonly IValidator<CreateSkinProfileDto> _validator;
 
-        public SkinProfileService(ISkinProfileRepository repository)
+        public SkinProfileService(ISkinProfileRepository repository, IValidator<CreateSkinProfileDto> validator)
         {
             _repository = repository;
+            _validator = validator;
         }
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
@@ -32,6 +35,12 @@ namespace Complexion.Services.Dbo
 
         public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
+            var result = await _validator.ValidateAsync(dto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
             await _repository.CreateSkinProfileAsync(dto);
         }
     }

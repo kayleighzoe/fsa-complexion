@@ -1,16 +1,21 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
+using FluentValidation;
 
 namespace Complexion.Services.Dbo
 {
     public class ProductRecommendationService : IProductRecommendationService
     {
         private readonly IProductRecommendationRepository _repository;
+        private readonly IValidator<CreateProductRecommendationDto> _createValidator;
+        private readonly IValidator<UpdateProductRecommendationDto> _updateValidator;
 
-        public ProductRecommendationService(IProductRecommendationRepository repository)
+        public ProductRecommendationService(IProductRecommendationRepository repository, IValidator<CreateProductRecommendationDto> createValidator, IValidator<UpdateProductRecommendationDto> updateValidator)
         {
             _repository = repository;
+            _createValidator = createValidator;
+            _updateValidator = updateValidator;
         }
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
@@ -32,6 +37,12 @@ namespace Complexion.Services.Dbo
 
         public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
+            var result = await _createValidator.ValidateAsync(dto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
             return await _repository.CreateProductReccommendationAsync(dto);
         }
 
@@ -40,6 +51,12 @@ namespace Complexion.Services.Dbo
             if (dto.Comment == null)
             {
                 return;
+            }
+
+            var result = await _updateValidator.ValidateAsync(dto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
             }
 
             await _repository.UpdateProductReccommendationAsync(id, dto);
