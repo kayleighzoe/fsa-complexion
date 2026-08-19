@@ -1,8 +1,7 @@
-﻿
-
+﻿using Complexion.DTOs.Dbo;
 using FluentValidation;
 
-namespace Complexion.DTOs.Dbo.Validators
+namespace Complexion.Api.Validators
 {
     public class CreateProductValidator : AbstractValidator<CreateProductDto>
     {

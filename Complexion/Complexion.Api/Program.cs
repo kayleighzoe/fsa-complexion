@@ -1,5 +1,5 @@
 using Complexion.Api.Middleware;
-using Complexion.DTOs.Dbo.Validators;
+using Complexion.Api.Validators;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
