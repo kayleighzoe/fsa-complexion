@@ -2,6 +2,8 @@
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using FluentValidation;
+using FluentValidation.Results;
 using NSubstitute;
 
 namespace Complexion.Tests.Services.Dbo
@@ -9,13 +11,15 @@ namespace Complexion.Tests.Services.Dbo
     public class ProductServiceTests
     {
         private IProductRepository _productRepository;
-        private ProductService _productService; 
+        private ProductService _productService;
+        private IValidator<CreateProductDto> _createValidator;
 
         [SetUp]
         public void Setup()
         {
             _productRepository = Substitute.For<IProductRepository>();
-            _productService = new ProductService(_productRepository);
+            _createValidator = Substitute.For<IValidator<CreateProductDto>>();
+            _productService = new ProductService(_productRepository, _createValidator);
         }
 
         [Test]
@@ -104,6 +108,8 @@ namespace Complexion.Tests.Services.Dbo
                 Brand = "MAC",
                 ShadeName = "NC42"
             };
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
             await _productService.CreateProductAsync(dto);

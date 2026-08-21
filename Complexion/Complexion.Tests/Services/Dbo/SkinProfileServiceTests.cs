@@ -2,6 +2,8 @@
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using FluentValidation;
+using FluentValidation.Results;
 using NSubstitute;
 
 namespace Complexion.Tests.Services.Dbo
@@ -10,12 +12,14 @@ namespace Complexion.Tests.Services.Dbo
     {
         private ISkinProfileRepository _skinProfileRepository;
         private SkinProfileService _skinProfileService;
+        private IValidator<CreateSkinProfileDto> _createValidator;
 
         [SetUp]
         public void Setup()
         {
             _skinProfileRepository = Substitute.For<ISkinProfileRepository>();
-            _skinProfileService  = new SkinProfileService(_skinProfileRepository);     
+            _createValidator = Substitute.For<IValidator<CreateSkinProfileDto>>();
+            _skinProfileService  = new SkinProfileService(_skinProfileRepository, _createValidator);     
         }
 
         [Test]
@@ -95,6 +99,8 @@ namespace Complexion.Tests.Services.Dbo
                 UndertoneId = 5,
                 HasTint = false
             };
+
+            _createValidator.ValidateAsync(Arg.Any<CreateSkinProfileDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
             await _skinProfileService.CreateSkinProfileAsync(dto);

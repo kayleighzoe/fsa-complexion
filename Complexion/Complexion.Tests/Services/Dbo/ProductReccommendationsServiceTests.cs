@@ -1,7 +1,10 @@
-﻿using Complexion.DTOs.Dbo;
+﻿using Complexion.Api.Validators;
+using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using FluentValidation;
+using FluentValidation.Results;
 using NSubstitute;
 
 namespace Complexion.Tests.Services.Dbo
@@ -10,12 +13,16 @@ namespace Complexion.Tests.Services.Dbo
     {
         private IProductRecommendationRepository _productRecommendationRepository;
         private ProductRecommendationService _productRecommendationService;
+        private IValidator<UpdateProductRecommendationDto> _updateValidator;
+        private IValidator<CreateProductRecommendationDto> _createValidator;
 
         [SetUp]
         public void Setup()
         {
             _productRecommendationRepository = Substitute.For<IProductRecommendationRepository>();
-            _productRecommendationService = new ProductRecommendationService(_productRecommendationRepository);
+            _createValidator = Substitute.For<IValidator<CreateProductRecommendationDto>>();
+            _updateValidator = Substitute.For<IValidator<UpdateProductRecommendationDto>>();
+            _productRecommendationService = new ProductRecommendationService(_productRecommendationRepository, _createValidator, _updateValidator);
         }
 
         [Test]
@@ -112,6 +119,8 @@ namespace Complexion.Tests.Services.Dbo
                 CreatedAt = DateTime.UtcNow
             };
 
+            _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _updateValidator.ValidateAsync(Arg.Any<UpdateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
             _productRecommendationRepository.CreateProductReccommendationAsync(dto).Returns(expectedRecommendation);
 
             // Act
@@ -128,6 +137,9 @@ namespace Complexion.Tests.Services.Dbo
             // Arrange
             var id = Guid.NewGuid();
             var dto = new UpdateProductRecommendationDto { Comment = "Updated: great match for warm undertones" };
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _updateValidator.ValidateAsync(Arg.Any<UpdateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
             await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
