@@ -33,7 +33,7 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task CreateProductAsync(CreateProductDto dto)
+        public async Task<Product> CreateProductAsync(CreateProductDto dto)
         {
             var result = await _validator.ValidateAsync(dto);
             if (!result.IsValid)
@@ -41,7 +41,7 @@ namespace Complexion.Services.Dbo
                 throw new ValidationException(result.Errors);
             }
 
-            await _repository.CreateProductAsync(dto);
+            return await _repository.CreateProductAsync(dto);
         }
 
     }

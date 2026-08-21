@@ -31,14 +31,14 @@ namespace Complexion.Repository.Skin
             return await connection.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
-        public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
+        public async Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
             var sql = @"INSERT INTO dbo.SkinProfile (SkinProfileId, ShadeId, UndertoneId, HasTint)
                         OUTPUT INSERTED.*
                         VALUES (NEWID(), @ShadeId, @UndertoneId, @HasTint)";
 
             using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(sql, dto);
+            return await connection.QuerySingleAsync<SkinProfile>(sql, dto);
         }
     }
 }

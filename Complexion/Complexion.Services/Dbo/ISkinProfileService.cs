@@ -7,6 +7,6 @@ namespace Complexion.Services.Dbo
     {
         Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync();
         Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id);
-        Task CreateSkinProfileAsync(CreateSkinProfileDto dto);
+        Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto);
     }
 }

@@ -33,8 +33,8 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSkinProfileDto dto)
         {
-            await _service.CreateSkinProfileAsync(dto);
-            return NoContent();
+            var created = await _service.CreateSkinProfileAsync(dto);
+            return CreatedAtAction(nameof(GetById), new {id = created.SkinProfileId}, created);
         }
     }
 }

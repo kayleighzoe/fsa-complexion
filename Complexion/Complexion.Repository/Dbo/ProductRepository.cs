@@ -39,13 +39,14 @@ namespace Complexion.Repository.Dbo
             return await connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
-        public async Task CreateProductAsync(CreateProductDto dto)
+        public async Task<Product> CreateProductAsync(CreateProductDto dto)
         {
             var sql = @"INSERT INTO dbo.Product (ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName)
+                        OUTPUT INSERTED.*
                         VALUES (NEWID(), @CategoryId, @PriceTierId, @Name, @Brand, @ShadeName)";
 
             using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(sql, dto);
+            return await connection.QuerySingleAsync<Product>(sql, dto);
         }
     }
 }

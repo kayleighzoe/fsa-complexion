@@ -32,8 +32,8 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRecommendationDto dto)
         {
-            var result = await _service.CreateProductReccommendationAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = result.RecommendationId }, result);
+            var created = await _service.CreateProductReccommendationAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.RecommendationId }, created);
         }
 
         [HttpPatch("{id}")]
