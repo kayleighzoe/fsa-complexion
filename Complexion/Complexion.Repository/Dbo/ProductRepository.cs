@@ -7,11 +7,11 @@ namespace Complexion.Repository.Dbo
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly string _connectionString;
+        private readonly SqlConnection _connection;
 
         public ProductRepository(string connectionString)
         {
-            _connectionString = connectionString;
+            _connection = new SqlConnection(connectionString);
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
@@ -21,22 +21,19 @@ namespace Complexion.Repository.Dbo
                         WHERE Name LIKE @Search
                         OR Brand LIKE @Search";
 
-            using var connection = new SqlConnection(_connectionString);
-
             if (string.IsNullOrWhiteSpace(search))
             {
-                return await connection.QueryAsync<Product>(getAllSql);
+                return await _connection.QueryAsync<Product>(getAllSql);
             }
 
-            return await connection.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
+            return await _connection.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
         }
 
         public async Task<Product?> GetProductsByIdAsync(Guid id)
         {
             var sql = "SELECT ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName FROM dbo.Product WHERE ProductId = @Id";
 
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
+            return await _connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
         public async Task<Product> CreateProductAsync(CreateProductDto dto)
@@ -45,8 +42,7 @@ namespace Complexion.Repository.Dbo
                         OUTPUT INSERTED.*
                         VALUES (NEWID(), @CategoryId, @PriceTierId, @Name, @Brand, @ShadeName)";
 
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleAsync<Product>(sql, dto);
+            return await _connection.QuerySingleAsync<Product>(sql, dto);
         }
     }
 }

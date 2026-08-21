@@ -6,19 +6,18 @@ namespace Complexion.Repository.Catalogue
 {
     public class CatalogueCategoryRepository : ICatalogueCategoryRepository
     {
-        private readonly string _connectionString;
+        private readonly SqlConnection _connection;
 
         public CatalogueCategoryRepository(string connectionString)
         {
-            _connectionString = connectionString;
+            _connection= new SqlConnection(connectionString);
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
         {
             var sql = "SELECT CategoryId, Name FROM catalogue.Category";
 
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<CatalogueCategory>(sql);
+            return await _connection.QueryAsync<CatalogueCategory>(sql);
         }
     }
 }

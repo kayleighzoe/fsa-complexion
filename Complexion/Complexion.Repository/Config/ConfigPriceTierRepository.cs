@@ -1,4 +1,5 @@
-﻿using Complexion.Models.Config;
+﻿using System.Data.Common;
+using Complexion.Models.Config;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -7,19 +8,18 @@ namespace Complexion.Repository.Config
 {
     public class ConfigPriceTierRepository : IConfigPriceTierRepository
     {
-        private readonly string _connectionString;
+        private readonly SqlConnection _connection;
 
         public ConfigPriceTierRepository(string connectionString)
         {
-            _connectionString = connectionString;
+            _connection = new SqlConnection(connectionString);
         }
 
         public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiersAsync()
         {
             var sql = "SELECT PriceTierId, Name FROM config.PriceTier";
 
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<ConfigPriceTier>(sql);
+            return await _connection.QueryAsync<ConfigPriceTier>(sql);
         }
     }
 }
