@@ -9,7 +9,8 @@ namespace Complexion.Api.Validators
         {
             RuleFor(productRecommendation => productRecommendation.Comment)
                 .MaximumLength(255)
-                .WithMessage("Comment must be 255 characters or fewer.");
+                .WithMessage("Comment must be 255 characters or fewer.")
+                .When(productRecommendation => !string.IsNullOrWhiteSpace(productRecommendation.Comment));
         }
     }
 }

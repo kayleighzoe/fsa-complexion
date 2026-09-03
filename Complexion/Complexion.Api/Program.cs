@@ -51,10 +51,7 @@ builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationS
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductRecommendationsValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateSkinProfileValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<UpdateProductRecommendationValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 

@@ -22,7 +22,7 @@ namespace Complexion.Api.Validators
             RuleFor(productRecommendation => productRecommendation.Comment)
                 .MaximumLength(255)
                 .WithMessage("Comment must be 255 characters or fewer.")
-                .When(productRecommendation => !string.IsNullOrEmpty(productRecommendation.Comment));
+                .When(productRecommendation => !string.IsNullOrWhiteSpace(productRecommendation.Comment));
         }
     }
 }
