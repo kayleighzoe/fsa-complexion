@@ -20,6 +20,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetAllSkinProfiles()
         {
             var result = await _service.GetAllSkinProfilesAsync();
+
             return Ok(result);
         }
 
@@ -27,6 +28,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetSkinProfilesById(Guid id)
         {
             var result = await _service.GetSkinProfilesByIdAsync(id);
+
             return Ok(result);
         }
 
@@ -34,6 +36,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
             var created = await _service.CreateSkinProfileAsync(dto);
+
             return CreatedAtAction(nameof(GetSkinProfilesById), new {id = created.SkinProfileId}, created);
         }
     }

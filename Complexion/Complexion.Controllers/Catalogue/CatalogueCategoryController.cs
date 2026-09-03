@@ -19,6 +19,7 @@ namespace Complexion.Controllers.Catalogue
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _catalogueCategoryService.GetAllCategoriesAsync();
+
             return Ok(categories);
         }
     }

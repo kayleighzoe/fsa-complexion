@@ -19,6 +19,7 @@ namespace Complexion.Controllers.Skin
         public async Task<IActionResult> GetAllSkinShades()
         {
             var skinShades = await _skinShadeService.GetAllSkinShadesAsync();
+
             return Ok(skinShades);
         }
     }

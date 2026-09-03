@@ -19,6 +19,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
             var result = await _service.GetAllProductsAsync(search);
+
             return Ok(result);
         }
 
@@ -26,6 +27,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetProductsById(Guid id)
         {
             var result = await _service.GetProductsByIdAsync(id);
+
             return Ok(result);
         }
 
@@ -33,6 +35,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
             var created = await _service.CreateProductAsync(dto);
+
             return CreatedAtAction(nameof(GetProductsById), new {id = created.ProductId}, created);
 
         }

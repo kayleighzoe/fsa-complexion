@@ -19,6 +19,7 @@ namespace Complexion.Controllers.Config
         public async Task<IActionResult> GetAllPriceTiers()
         {
             var priceTiers = await _configPriceTierService.GetAllPriceTiersAsync();
+
             return Ok(priceTiers);
         }
     }

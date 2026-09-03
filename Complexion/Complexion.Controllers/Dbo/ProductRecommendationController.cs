@@ -19,6 +19,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetAllRecommendations()
         {
             var result = await _service.GetAllProductReccommendationsAsync();
+
             return Ok(result);
         }
 
@@ -26,6 +27,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> GetRecommendationsById(Guid id)
         {
             var result = await _service.GetProductReccommendationsByIdAsync(id);
+
             return Ok(result);
         }
 
@@ -33,6 +35,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
         {
             var created = await _service.CreateProductReccommendationAsync(dto);
+
             return CreatedAtAction(nameof(GetRecommendationsById), new { id = created.RecommendationId }, created);
         }
 
@@ -40,6 +43,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> UpdateRecommendation(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
             await _service.UpdateProductReccommendationAsync(id, dto);
+
             return NoContent();
         }
 
@@ -47,6 +51,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> DeleteRecommendation(Guid id)
         {
             await _service.DeleteProductReccommendationAsync(id);
+
             return NoContent();
         }
     }
