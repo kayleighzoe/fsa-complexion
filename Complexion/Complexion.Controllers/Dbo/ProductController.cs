@@ -16,14 +16,14 @@ namespace Complexion.Controllers.Dbo
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? search)
+        public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
             var result = await _service.GetAllProductsAsync(search);
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetProductsById(Guid id)
         {
             var result = await _service.GetProductsByIdAsync(id);
             return Ok(result);
@@ -33,7 +33,7 @@ namespace Complexion.Controllers.Dbo
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
             var created = await _service.CreateProductAsync(dto);
-            return CreatedAtAction(nameof(GetById), new {id = created.ProductId}, created);
+            return CreatedAtAction(nameof(GetProductsById), new {id = created.ProductId}, created);
 
         }
     }

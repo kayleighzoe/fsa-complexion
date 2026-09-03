@@ -16,7 +16,7 @@ namespace Complexion.Controllers.Catalogue
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _catalogueCategoryService.GetAllCategoriesAsync();
             return Ok(categories);

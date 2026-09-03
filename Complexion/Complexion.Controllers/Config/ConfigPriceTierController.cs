@@ -16,7 +16,7 @@ namespace Complexion.Controllers.Config
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllPriceTiers()
         {
             var priceTiers = await _configPriceTierService.GetAllPriceTiersAsync();
             return Ok(priceTiers);

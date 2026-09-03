@@ -17,24 +17,24 @@ namespace Complexion.Controllers.Dbo
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllSkinProfiles()
         {
             var result = await _service.GetAllSkinProfilesAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetSkinProfilesById(Guid id)
         {
             var result = await _service.GetSkinProfilesByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateSkinProfileDto dto)
+        public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
             var created = await _service.CreateSkinProfileAsync(dto);
-            return CreatedAtAction(nameof(GetById), new {id = created.SkinProfileId}, created);
+            return CreatedAtAction(nameof(GetSkinProfilesById), new {id = created.SkinProfileId}, created);
         }
     }
 }

@@ -16,35 +16,35 @@ namespace Complexion.Controllers.Dbo
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllRecommendations()
         {
             var result = await _service.GetAllProductReccommendationsAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetRecommendationsById(Guid id)
         {
             var result = await _service.GetProductReccommendationsByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductRecommendationDto dto)
+        public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
         {
             var created = await _service.CreateProductReccommendationAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.RecommendationId }, created);
+            return CreatedAtAction(nameof(GetRecommendationsById), new { id = created.RecommendationId }, created);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRecommendationDto dto)
+        public async Task<IActionResult> UpdateRecommendation(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
             await _service.UpdateProductReccommendationAsync(id, dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteRecommendation(Guid id)
         {
             await _service.DeleteProductReccommendationAsync(id);
             return NoContent();
