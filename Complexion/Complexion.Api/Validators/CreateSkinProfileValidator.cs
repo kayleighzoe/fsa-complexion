@@ -7,9 +7,13 @@ namespace Complexion.Api.Validators
     {
         public CreateSkinProfileValidator()
         {
-            RuleFor(x => x.ShadeId).NotEmpty().GreaterThan(0);
+            RuleFor(skinProfile => skinProfile.ShadeId)
+                .GreaterThan(0)
+                .WithMessage("ShadeId is required.");
 
-            RuleFor(x => x.UndertoneId).NotEmpty().GreaterThan(0);
+            RuleFor(skinProfile => skinProfile.UndertoneId)
+                .GreaterThan(0)
+                .WithMessage("UndertoneId is required.");
         }
     }
 }

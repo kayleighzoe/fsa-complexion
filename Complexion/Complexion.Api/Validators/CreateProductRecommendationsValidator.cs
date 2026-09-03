@@ -7,13 +7,22 @@ namespace Complexion.Api.Validators
     {
         public CreateProductRecommendationsValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty();
+            RuleFor(productRecommendation => productRecommendation.UserId)
+                .NotEmpty()
+                .WithMessage("UserId is required.");
 
-            RuleFor(x => x.ProductId).NotEmpty();
+            RuleFor(productRecommendation => productRecommendation.ProductId)
+                .NotEmpty()
+                .WithMessage("ProductId is required.");
 
-            RuleFor(x => x.SkinProfileId).NotEmpty();
+            RuleFor(productRecommendation => productRecommendation.SkinProfileId)
+                .NotEmpty()
+                .WithMessage("SkinProfileId is required.");
 
-            RuleFor(x => x.Comment).MaximumLength(255).When(x => !string.IsNullOrEmpty(x.Comment));
+            RuleFor(productRecommendation => productRecommendation.Comment)
+                .MaximumLength(255)
+                .WithMessage("Comment must be 255 characters or fewer.")
+                .When(productRecommendation => !string.IsNullOrEmpty(productRecommendation.Comment));
         }
     }
 }
