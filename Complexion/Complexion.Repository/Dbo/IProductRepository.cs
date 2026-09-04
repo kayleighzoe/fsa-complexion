@@ -7,6 +7,6 @@ namespace Complexion.Repository.Dbo
     {
         Task<IEnumerable<Product>> GetAllProductsAsync(string? search);
         Task<Product?> GetProductAsync(Guid id);
-        Task<Product> CreateProductAsync(CreateProductDto dto);
+        Task CreateProductAsync(CreateProductDto dto);
     }
 }

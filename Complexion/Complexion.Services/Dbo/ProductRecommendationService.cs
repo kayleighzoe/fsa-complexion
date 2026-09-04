@@ -35,7 +35,7 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
+        public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
             var result = await _createValidator.ValidateAsync(dto);
             if (!result.IsValid)
@@ -43,7 +43,7 @@ namespace Complexion.Services.Dbo
                 throw new ValidationException(result.Errors);
             }
 
-            return await _repository.CreateProductReccommendationAsync(dto);
+             await _repository.CreateProductReccommendationAsync(dto);
         }
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)

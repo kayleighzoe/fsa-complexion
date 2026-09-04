@@ -1,6 +1,7 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -38,9 +39,9 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
-            var created = await _service.CreateSkinProfileAsync(dto);
+            await _service.CreateSkinProfileAsync(dto);
 
-            return CreatedAtAction(nameof(GetSkinProfile), new {id = created.SkinProfileId}, created);
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }

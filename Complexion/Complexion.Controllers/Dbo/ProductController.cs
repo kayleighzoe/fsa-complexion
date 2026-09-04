@@ -1,6 +1,7 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -37,9 +38,9 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
         {
-            var created = await _service.CreateProductAsync(dto);
+            await _service.CreateProductAsync(dto);
 
-            return CreatedAtAction(nameof(GetProduct), new {id = created.ProductId}, created);
+            return StatusCode(StatusCodes.Status201Created);
 
         }
     }

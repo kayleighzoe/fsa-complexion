@@ -16,7 +16,7 @@ namespace Complexion.Services.Dbo
             _validator = validator;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductAsync(string? search)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
             return await _repository.GetAllProductsAsync(search);
         }
@@ -33,7 +33,7 @@ namespace Complexion.Services.Dbo
             return result;
         }
 
-        public async Task<Product> CreateProductAsync(CreateProductDto dto)
+        public async Task CreateProductAsync(CreateProductDto dto)
         {
             var result = await _validator.ValidateAsync(dto);
             if (!result.IsValid)
@@ -41,7 +41,7 @@ namespace Complexion.Services.Dbo
                 throw new ValidationException(result.Errors);
             }
 
-            return await _repository.CreateProductAsync(dto);
+            await _repository.CreateProductAsync(dto);
         }
 
     }

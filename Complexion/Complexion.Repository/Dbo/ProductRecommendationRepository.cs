@@ -44,7 +44,7 @@ namespace Complexion.Repository.Dbo
             return await _connection.QuerySingleOrDefaultAsync<ProductRecommendation>(sql, new { Id = id });
         }
 
-        public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
+        public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
             var sql = @"INSERT INTO dbo.ProductRecommendation
                         (
@@ -55,7 +55,6 @@ namespace Complexion.Repository.Dbo
                             Comment, 
                             CreatedAt
                         )
-                        OUTPUT INSERTED.*
                         VALUES 
                         (
                             NEWID(), 
@@ -66,7 +65,7 @@ namespace Complexion.Repository.Dbo
                             GETUTCDATE()
                         )";
 
-            return await _connection.QuerySingleAsync<ProductRecommendation>(sql, dto);
+            await _connection.ExecuteAsync(sql, dto);
         }
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)

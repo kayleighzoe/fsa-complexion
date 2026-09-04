@@ -1,6 +1,7 @@
 ﻿using Complexion.DTOs.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -37,9 +38,9 @@ namespace Complexion.Controllers.Dbo
         [HttpPost]
         public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
         {
-            var created = await _service.CreateProductReccommendationAsync(dto);
+            await _service.CreateProductReccommendationAsync(dto);
 
-            return CreatedAtAction(nameof(GetRecommendation), new { id = created.RecommendationId }, created);
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [HttpPatch("{id}")]

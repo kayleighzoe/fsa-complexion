@@ -59,7 +59,7 @@ namespace Complexion.Repository.Dbo
             return await _connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
-        public async Task<Product> CreateProductAsync(CreateProductDto dto)
+        public async Task CreateProductAsync(CreateProductDto dto)
         {
             var sql = @"INSERT INTO dbo.Product 
                         (
@@ -70,7 +70,6 @@ namespace Complexion.Repository.Dbo
                             Brand, 
                             ShadeName
                         )
-                        OUTPUT INSERTED.*
                         VALUES 
                         (
                             NEWID(), 
@@ -81,7 +80,7 @@ namespace Complexion.Repository.Dbo
                             @ShadeName
                         )";
 
-            return await _connection.QuerySingleAsync<Product>(sql, dto);
+            await _connection.ExecuteAsync(sql, dto);
         }
     }
 }
