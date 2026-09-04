@@ -18,17 +18,17 @@ namespace Complexion.Controllers.Dbo
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
-            var result = await _service.GetAllProductsAsync(search);
+            var products = await _service.GetAllProductsAsync(search);
 
-            return Ok(result);
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductsById(Guid id)
         {
-            var result = await _service.GetProductsByIdAsync(id);
+            var product = await _service.GetProductsByIdAsync(id);
 
-            return Ok(result);
+            return Ok(product);
         }
 
         [HttpPost]
