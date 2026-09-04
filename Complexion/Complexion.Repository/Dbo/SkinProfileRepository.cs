@@ -22,7 +22,7 @@ namespace Complexion.Repository.Skin
             return await _connection.QueryAsync<SkinProfile>(sql);
         }
 
-        public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
+        public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
         {
             var sql = "SELECT SkinProfileId, ShadeId, UndertoneId, HasTint FROM dbo.SkinProfile WHERE SkinProfileId = @Id";
 

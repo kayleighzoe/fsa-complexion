@@ -16,14 +16,14 @@ namespace Complexion.Services.Dbo
             _validator = validator;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
+        public async Task<IEnumerable<Product>> GetAllProductAsync(string? search)
         {
             return await _repository.GetAllProductsAsync(search);
         }
 
-        public async Task<Product?> GetProductsByIdAsync(Guid id)
+        public async Task<Product?> GetProductAsync(Guid id)
         {
-            var result = await _repository.GetProductsByIdAsync(id);
+            var result = await _repository.GetProductAsync(id);
 
             if (result == null)
             {

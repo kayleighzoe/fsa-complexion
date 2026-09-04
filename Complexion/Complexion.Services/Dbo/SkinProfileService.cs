@@ -21,9 +21,9 @@ namespace Complexion.Services.Dbo
             return await _repository.GetAllSkinProfilesAsync();
         }
 
-        public async Task<SkinProfile?> GetSkinProfilesByIdAsync(Guid id)
+        public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
         {
-            var result = await _repository.GetSkinProfilesByIdAsync(id);
+            var result = await _repository.GetSkinProfileAsync(id);
 
             if (result == null)
             {

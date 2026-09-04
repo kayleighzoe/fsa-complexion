@@ -1,4 +1,5 @@
 ﻿using Complexion.DTOs.Dbo;
+using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,24 +11,26 @@ namespace Complexion.Controllers.Dbo
     public class SkinProfileController : ControllerBase
     {
         private readonly ISkinProfileService _service;
+        private readonly ISkinProfileRepository _repository;
 
-        public SkinProfileController(ISkinProfileService service)
+        public SkinProfileController(ISkinProfileService service, ISkinProfileRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllSkinProfiles()
         {
-            var skinProfiles = await _service.GetAllSkinProfilesAsync();
+            var skinProfiles = await _repository.GetAllSkinProfilesAsync();
 
             return Ok(skinProfiles);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSkinProfilesById(Guid id)
+        public async Task<IActionResult> GetSkinProfile(Guid id)
         {
-            var skinProfile = await _service.GetSkinProfilesByIdAsync(id);
+            var skinProfile = await _service.GetSkinProfileAsync(id);
 
             return Ok(skinProfile);
         }
@@ -37,7 +40,7 @@ namespace Complexion.Controllers.Dbo
         {
             var created = await _service.CreateSkinProfileAsync(dto);
 
-            return CreatedAtAction(nameof(GetSkinProfilesById), new {id = created.SkinProfileId}, created);
+            return CreatedAtAction(nameof(GetSkinProfile), new {id = created.SkinProfileId}, created);
         }
     }
 }

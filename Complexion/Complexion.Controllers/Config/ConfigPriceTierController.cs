@@ -1,4 +1,4 @@
-﻿using Complexion.Services.Config;
+﻿using Complexion.Repository.Config;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Config
@@ -8,17 +8,17 @@ namespace Complexion.Controllers.Config
     [Route("api/[controller]/[action]")]
     public class ConfigPriceTierController : ControllerBase
     {
-        private readonly IConfigPriceTierService _configPriceTierService;
+        private readonly IConfigPriceTierRepository _configPriceTierRepository;
 
-        public ConfigPriceTierController(IConfigPriceTierService configPriceTierService)
+        public ConfigPriceTierController(IConfigPriceTierRepository configPriceTierRepository)
         {
-            _configPriceTierService = configPriceTierService;
+            _configPriceTierRepository = configPriceTierRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllPriceTiers()
         {
-            var priceTiers = await _configPriceTierService.GetAllPriceTiersAsync();
+            var priceTiers = await _configPriceTierRepository.GetAllPriceTiersAsync();
 
             return Ok(priceTiers);
         }

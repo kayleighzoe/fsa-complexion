@@ -29,7 +29,7 @@ namespace Complexion.Repository.Dbo
             return await _connection.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
         }
 
-        public async Task<Product?> GetProductsByIdAsync(Guid id)
+        public async Task<Product?> GetProductAsync(Guid id)
         {
             var sql = "SELECT ProductId, CategoryId, PriceTierId, Name, Brand, ShadeName FROM dbo.Product WHERE ProductId = @Id";
 

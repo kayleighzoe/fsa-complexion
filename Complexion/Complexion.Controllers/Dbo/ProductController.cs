@@ -1,4 +1,5 @@
 ﻿using Complexion.DTOs.Dbo;
+using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,24 +10,26 @@ namespace Complexion.Controllers.Dbo
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly IProductRepository _repository;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService service, IProductRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
-            var products = await _service.GetAllProductsAsync(search);
+            var products = await _repository.GetAllProductsAsync(search);
 
             return Ok(products);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductsById(Guid id)
+        public async Task<IActionResult> GetProduct(Guid id)
         {
-            var product = await _service.GetProductsByIdAsync(id);
+            var product = await _service.GetProductAsync(id);
 
             return Ok(product);
         }
@@ -36,7 +39,7 @@ namespace Complexion.Controllers.Dbo
         {
             var created = await _service.CreateProductAsync(dto);
 
-            return CreatedAtAction(nameof(GetProductsById), new {id = created.ProductId}, created);
+            return CreatedAtAction(nameof(GetProduct), new {id = created.ProductId}, created);
 
         }
     }

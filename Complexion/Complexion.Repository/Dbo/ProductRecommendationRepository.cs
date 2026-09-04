@@ -22,7 +22,7 @@ namespace Complexion.Repository.Dbo
             return await _connection.QueryAsync<ProductRecommendation>(sql);
         }
 
-        public async Task<ProductRecommendation?> GetProductReccommendationsByIdAsync(Guid id)
+        public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
             var sql = "SELECT RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt FROM dbo.ProductRecommendation WHERE RecommendationId = @Id";
 

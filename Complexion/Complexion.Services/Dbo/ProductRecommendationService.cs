@@ -23,9 +23,9 @@ namespace Complexion.Services.Dbo
             return await _repository.GetAllProductReccommendationsAsync();
         }
 
-        public async Task<ProductRecommendation?> GetProductReccommendationsByIdAsync(Guid id)
+        public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
-            var result = await _repository.GetProductReccommendationsByIdAsync(id);
+            var result = await _repository.GetProductReccommendationAsync(id);
 
             if (result == null)
             {

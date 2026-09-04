@@ -1,4 +1,5 @@
 ﻿using Complexion.DTOs.Dbo;
+using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,24 +10,26 @@ namespace Complexion.Controllers.Dbo
     public class ProductRecommendationController : ControllerBase
     {
         private readonly IProductRecommendationService _service;
+        private readonly IProductRecommendationRepository _repository;
 
-        public ProductRecommendationController(IProductRecommendationService service)
+        public ProductRecommendationController(IProductRecommendationService service, IProductRecommendationRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllRecommendations()
         {
-            var recommendations = await _service.GetAllProductReccommendationsAsync();
+            var recommendations = await _repository.GetAllProductReccommendationsAsync();
 
             return Ok(recommendations);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecommendationsById(Guid id)
+        public async Task<IActionResult> GetRecommendation(Guid id)
         {
-            var recommendation = await _service.GetProductReccommendationsByIdAsync(id);
+            var recommendation = await _service.GetProductReccommendationAsync(id);
 
             return Ok(recommendation);
         }
@@ -36,7 +39,7 @@ namespace Complexion.Controllers.Dbo
         {
             var created = await _service.CreateProductReccommendationAsync(dto);
 
-            return CreatedAtAction(nameof(GetRecommendationsById), new { id = created.RecommendationId }, created);
+            return CreatedAtAction(nameof(GetRecommendation), new { id = created.RecommendationId }, created);
         }
 
         [HttpPatch("{id}")]
@@ -50,7 +53,7 @@ namespace Complexion.Controllers.Dbo
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecommendation(Guid id)
         {
-            await _service.DeleteProductReccommendationAsync(id);
+            await _repository.DeleteProductReccommendationAsync(id);
 
             return NoContent();
         }

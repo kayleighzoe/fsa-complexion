@@ -6,7 +6,7 @@ namespace Complexion.Services.Dbo
     public interface IProductService
     {
         Task<IEnumerable<Product>> GetAllProductsAsync(string? search);
-        Task<Product?> GetProductsByIdAsync(Guid id);
+        Task<Product?> GetProductAsync(Guid id);
         Task<Product> CreateProductAsync(CreateProductDto dto);
     }
 }

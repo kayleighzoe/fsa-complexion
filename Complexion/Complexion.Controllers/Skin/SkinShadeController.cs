@@ -1,4 +1,4 @@
-﻿using Complexion.Services.Skin;
+﻿using Complexion.Repository.Skin;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Skin
@@ -8,17 +8,17 @@ namespace Complexion.Controllers.Skin
     [Route("api/[controller]/[action]")]
     public class SkinShadeController : ControllerBase
     {
-        private readonly ISkinShadeService _skinShadeService;
+        private readonly ISkinShadeRepository _repository;
 
-        public SkinShadeController(ISkinShadeService skinShadeService)
+        public SkinShadeController(ISkinShadeRepository repository)
         {
-            _skinShadeService = skinShadeService;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllSkinShades()
         {
-            var skinShades = await _skinShadeService.GetAllSkinShadesAsync();
+            var skinShades = await _repository.GetAllSkinShadesAsync();
 
             return Ok(skinShades);
         }

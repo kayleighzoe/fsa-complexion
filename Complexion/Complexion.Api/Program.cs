@@ -1,14 +1,10 @@
 using Complexion.Api.Middleware;
-using Complexion.Api.Validators;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
 using Complexion.Repository.Dbo;
 using Complexion.Repository.Skin;
-using Complexion.Services.Catalogue;
-using Complexion.Services.Config;
 using Complexion.Services.Dbo;
-using Complexion.Services.Skin;
 using Serilog;
 using FluentValidation;
 
@@ -40,10 +36,6 @@ builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRecommendationRepository, ProductRecommendationRepository>();
 
-builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
-builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
-builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>();
-builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
 builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationService>();
