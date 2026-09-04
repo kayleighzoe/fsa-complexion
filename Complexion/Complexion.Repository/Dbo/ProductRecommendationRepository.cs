@@ -17,14 +17,29 @@ namespace Complexion.Repository.Dbo
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
         {
-            var sql = "SELECT RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt FROM dbo.ProductRecommendation";
+            var sql = @"SELECT 
+                            RecommendationId, 
+                            UserId, 
+                            ProductId, 
+                            SkinProfileId, 
+                            Comment, 
+                            CreatedAt 
+                        FROM dbo.ProductRecommendation";
 
             return await _connection.QueryAsync<ProductRecommendation>(sql);
         }
 
         public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
-            var sql = "SELECT RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt FROM dbo.ProductRecommendation WHERE RecommendationId = @Id";
+            var sql = @"SELECT 
+                            RecommendationId, 
+                            UserId, 
+                            ProductId, 
+                            SkinProfileId, 
+                            Comment, 
+                            CreatedAt 
+                        FROM dbo.ProductRecommendation 
+                        WHERE RecommendationId = @Id";
 
             return await _connection.QuerySingleOrDefaultAsync<ProductRecommendation>(sql, new { Id = id });
         }
@@ -32,9 +47,24 @@ namespace Complexion.Repository.Dbo
         public async Task<ProductRecommendation> CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
             var sql = @"INSERT INTO dbo.ProductRecommendation
-                        (RecommendationId, UserId, ProductId, SkinProfileId, Comment, CreatedAt)
+                        (
+                            RecommendationId, 
+                            UserId, 
+                            ProductId, 
+                            SkinProfileId, 
+                            Comment, 
+                            CreatedAt
+                        )
                         OUTPUT INSERTED.*
-                        VALUES (NEWID(), @UserId, @ProductId, @SkinProfileId, @Comment, GETUTCDATE())";
+                        VALUES 
+                        (
+                            NEWID(), 
+                            @UserId, 
+                            @ProductId, 
+                            @SkinProfileId, 
+                            @Comment, 
+                            GETUTCDATE()
+                        )";
 
             return await _connection.QuerySingleAsync<ProductRecommendation>(sql, dto);
         }
@@ -50,7 +80,8 @@ namespace Complexion.Repository.Dbo
 
         public async Task DeleteProductReccommendationAsync(Guid id)
         {
-            var sql = "DELETE FROM dbo.ProductRecommendation WHERE RecommendationId = @Id";
+            var sql = @"DELETE FROM dbo.ProductRecommendation 
+                        WHERE RecommendationId = @Id";
 
             await _connection.ExecuteAsync(sql, new { Id = id });
         }

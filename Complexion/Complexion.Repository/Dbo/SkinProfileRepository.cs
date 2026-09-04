@@ -17,23 +17,46 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
-            var sql = "SELECT SkinProfileId, ShadeId, UndertoneId, HasTint FROM dbo.SkinProfile";
+            var sql = @"SELECT 
+                            SkinProfileId, 
+                            ShadeId, 
+                            UndertoneId, 
+                            HasTint 
+                        FROM dbo.SkinProfile";
 
             return await _connection.QueryAsync<SkinProfile>(sql);
         }
 
         public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
         {
-            var sql = "SELECT SkinProfileId, ShadeId, UndertoneId, HasTint FROM dbo.SkinProfile WHERE SkinProfileId = @Id";
+            var sql = @"SELECT 
+                            SkinProfileId, 
+                            ShadeId, 
+                            UndertoneId, 
+                            HasTint
+                        FROM dbo.SkinProfile 
+                        WHERE SkinProfileId = @Id";
 
             return await _connection.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
         public async Task<SkinProfile> CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
-            var sql = @"INSERT INTO dbo.SkinProfile (SkinProfileId, ShadeId, UndertoneId, HasTint)
+            var sql = @"INSERT INTO dbo.SkinProfile 
+                        (
+                            SkinProfileId, 
+                            ShadeId, 
+                            UndertoneId, 
+                            HasTint
+                        )
                         OUTPUT INSERTED.*
-                        VALUES (NEWID(), @ShadeId, @UndertoneId, @HasTint)";
+                        VALUES 
+                        (
+                            NEWID(), 
+                            @ShadeId, 
+                            @UndertoneId, 
+                            @HasTint
+                        )";
 
             return await _connection.QuerySingleAsync<SkinProfile>(sql, dto);
         }

@@ -1,9 +1,9 @@
 IF NOT EXISTS 
 (
     SELECT 
-    1 
+        1 
     FROM sys.schemas 
-    WHERE name = 'auth'
+    WHERE name = 'Auth'
  )
 BEGIN
     EXEC('CREATE SCHEMA Auth');

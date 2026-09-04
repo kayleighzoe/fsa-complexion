@@ -1,11 +1,12 @@
 IF NOT EXISTS 
 (
 	SELECT 
-	1 
+		1 
 	FROM dbo.Product
 )
 BEGIN
-	INSERT INTO dbo.Product (
+	INSERT INTO dbo.Product 
+	(
 		ProductId,
 		CategoryId,
 		PriceTierId,

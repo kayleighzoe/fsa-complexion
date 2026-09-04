@@ -1,9 +1,9 @@
 IF NOT EXISTS 
 (
     SELECT 
-    1 
+        1 
     FROM sys.schemas 
-    WHERE name = 'catalogue'
+    WHERE name = 'Catalogue'
 )
 BEGIN
     EXEC('CREATE SCHEMA Catalogue');

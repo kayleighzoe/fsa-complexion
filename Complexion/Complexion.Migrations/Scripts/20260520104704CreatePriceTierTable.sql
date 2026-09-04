@@ -18,11 +18,12 @@ GO
 IF NOT EXISTS 
 (
     SELECT 
-    1 
+        1 
     FROM config.PriceTier
 )
 BEGIN
-    INSERT INTO Config.PriceTier (
+    INSERT INTO Config.PriceTier 
+    (
 		Name
 	)
     VALUES

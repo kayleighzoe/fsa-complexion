@@ -18,11 +18,12 @@ GO
 IF NOT EXISTS 
 (
 	SELECT 
-	1 
+		1 
 	FROM catalogue.Category
 )
 BEGIN
-    INSERT INTO Catalogue.Category (
+    INSERT INTO Catalogue.Category
+	(
 		Name
 	) 
 	VALUES

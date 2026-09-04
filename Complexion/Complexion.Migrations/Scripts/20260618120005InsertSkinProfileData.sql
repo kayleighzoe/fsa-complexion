@@ -1,7 +1,7 @@
 IF NOT EXISTS 
 (
 	SELECT 
-	1 
+		1 
 	FROM dbo.SkinProfile
 )
 BEGIN

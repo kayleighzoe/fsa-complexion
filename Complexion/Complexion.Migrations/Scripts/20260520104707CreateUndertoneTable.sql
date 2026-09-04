@@ -1,7 +1,7 @@
 ﻿IF NOT EXISTS
 (
 	SELECT
-	1
+		1
 	FROM INFORMATION_SCHEMA.TABLES
 	WHERE TABLE_SCHEMA = 'Skin'
 		AND TABLE_NAME = 'Undertone'
@@ -18,11 +18,12 @@ GO
 IF NOT EXISTS 
 (
 	SELECT 
-	1 
+		1 
 	FROM skin.Undertone
 )
 BEGIN
-    INSERT INTO Skin.Undertone (
+    INSERT INTO Skin.Undertone 
+	(
 		Name
 	) 
 	VALUES
