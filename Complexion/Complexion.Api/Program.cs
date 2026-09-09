@@ -4,9 +4,9 @@ using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
 using Complexion.Repository.Dbo;
 using Complexion.Repository.Skin;
-using Complexion.Services.Dbo;
 using Serilog;
 using FluentValidation;
+using Complexion.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

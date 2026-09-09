@@ -1,6 +1,6 @@
-﻿using Complexion.DTOs.Dbo;
+﻿using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
-using Complexion.Services.Dbo;
+using Complexion.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

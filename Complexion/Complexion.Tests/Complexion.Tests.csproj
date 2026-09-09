@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Complexion.Api\Complexion.Api.csproj" />
-    <ProjectReference Include="..\Complexion.DTOs\Complexion.DTOs.csproj" />
     <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
     <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />
     <ProjectReference Include="..\Complexion.Services\Complexion.Services.csproj" />
@@ -27,10 +26,6 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middleware\" />
   </ItemGroup>
 
 </Project>

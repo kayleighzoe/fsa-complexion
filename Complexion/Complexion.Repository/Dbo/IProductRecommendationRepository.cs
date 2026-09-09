@@ -1,5 +1,4 @@
 ﻿using Complexion.Models.Dbo;
-using Complexion.DTOs.Dbo;
 
 namespace Complexion.Repository.Dbo
 {

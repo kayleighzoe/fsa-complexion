@@ -1,7 +1,6 @@
-﻿using Complexion.DTOs.Dbo;
-using Complexion.Models.Dbo;
+﻿using Complexion.Models.Dbo;
 
-namespace Complexion.Services.Dbo
+namespace Complexion.Services
 {
     public interface IProductRecommendationService
     {

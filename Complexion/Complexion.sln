@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.7.11911.148 stable
+VisualStudioVersion = 18.7.11911.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Api", "Complexion.Api\Complexion.Api.csproj", "{48D537F2-D343-4D8E-A50D-5D5214F4D1D1}"
 EndProject
@@ -19,8 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Models", "Complexion.Models\Complexion.Models.csproj", "{5A03C556-4859-42B8-9B65-9E14C720DD0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Services", "Complexion.Services\Complexion.Services.csproj", "{F218C987-4045-425C-A2EF-679375DE09E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.DTOs", "Complexion.DTOs\Complexion.DTOs.csproj", "{B8B647EB-086F-402A-92A6-3A93B9CAB705}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Tests", "Complexion.Tests\Complexion.Tests.csproj", "{94B79962-5311-49E3-BD0D-16D267DE746E}"
 EndProject
@@ -54,10 +52,6 @@ Global
 		{F218C987-4045-425C-A2EF-679375DE09E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F218C987-4045-425C-A2EF-679375DE09E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F218C987-4045-425C-A2EF-679375DE09E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8B647EB-086F-402A-92A6-3A93B9CAB705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8B647EB-086F-402A-92A6-3A93B9CAB705}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8B647EB-086F-402A-92A6-3A93B9CAB705}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8B647EB-086F-402A-92A6-3A93B9CAB705}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Release|Any CPU.ActiveCfg = Release|Any CPU

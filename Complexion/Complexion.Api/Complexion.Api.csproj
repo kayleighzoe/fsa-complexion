@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Complexion.Controllers\Complexion.Controllers.csproj" />
-    <ProjectReference Include="..\Complexion.DTOs\Complexion.DTOs.csproj" />
     <ProjectReference Include="..\Complexion.Migrations\Complexion.Migrations.csproj" />
     <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
     <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />
