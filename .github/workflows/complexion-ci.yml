@@ -48,10 +48,12 @@ jobs:
         VALIDATE_BIOME_FORMAT: false
         VALIDATE_JSCPD: false
         VALIDATE_YAML_PRETTIER: false
+        VALIDATE_CHECKOV: false
+        VALIDATE_TRIVY: false
 
   docker-build:
     runs-on: ubuntu-latest
-    needs: build-and-check
+    needs: [build-and-check, super-lint]
     steps:
     - uses: actions/checkout@v4
     - name: Build Docker image
