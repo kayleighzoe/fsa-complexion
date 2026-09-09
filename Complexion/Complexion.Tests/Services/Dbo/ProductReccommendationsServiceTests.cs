@@ -1,5 +1,4 @@
-﻿using Complexion.Api.Validators;
-using Complexion.DTOs.Dbo;
+﻿using Complexion.DTOs.Dbo;
 using Complexion.Models.Dbo;
 using Complexion.Repository.Dbo;
 using Complexion.Services.Dbo;
@@ -22,11 +21,13 @@ namespace Complexion.Tests.Services.Dbo
             _productRecommendationRepository = Substitute.For<IProductRecommendationRepository>();
             _createValidator = Substitute.For<IValidator<CreateProductRecommendationDto>>();
             _updateValidator = Substitute.For<IValidator<UpdateProductRecommendationDto>>();
+
             _productRecommendationService = new ProductRecommendationService(_productRecommendationRepository, _createValidator, _updateValidator);
+
         }
 
         [Test]
-        public async Task GivenRecommendationsExistInRepository_WhenGetAllProductReccommendationsAsync_ReturnsRecommendationsFromRepository()
+        public async Task GIVEN_RecommendationsExist_WHEN_GettingAllProductReccommendationsAsync_THEN_ReturnRecommendationsFromRepository()
         {
             // Arrange
             var expectedRecommendations = new List<ProductRecommendation>
@@ -62,7 +63,7 @@ namespace Complexion.Tests.Services.Dbo
         }
 
         [Test]
-        public async Task GivenRecommendationExistsInRepository_WhenGetProductReccommendationsByIdAsync_ReturnsRecommendationFromRepository()
+        public async Task GIVEN_RecommendationExists_WHEN_GettingProductReccommendationAsync_THEN_ReturnRecommendationFromRepository()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -76,29 +77,29 @@ namespace Complexion.Tests.Services.Dbo
                 CreatedAt = DateTime.UtcNow
             };
 
-            _productRecommendationRepository.GetProductReccommendationsByIdAsync(id).Returns(expectedRecommendation);
+            _productRecommendationRepository.GetProductReccommendationAsync(id).Returns(expectedRecommendation);
 
             // Act
-            var result = await _productRecommendationService.GetProductReccommendationsByIdAsync(id);
+            var result = await _productRecommendationService.GetProductReccommendationAsync(id);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedRecommendation));
-            await _productRecommendationRepository.Received(1).GetProductReccommendationsByIdAsync(id);
+            await _productRecommendationRepository.Received(1).GetProductReccommendationAsync(id);
         }
 
         [Test]
-        public void GivenRecommendationDoesNotExistInRepository_WhenGetProductReccommendationsByIdAsync_ThrowsKeyNotFoundException()
+        public void GIVEN_RecommendationDoesNotExist_WHEN_GettingProductReccommendationAsync_THEN_ThrowException()
         {
             // Arrange
             var id = Guid.NewGuid();
-            _productRecommendationRepository.GetProductReccommendationsByIdAsync(id).Returns((ProductRecommendation?)null);
+            _productRecommendationRepository.GetProductReccommendationAsync(id).Returns((ProductRecommendation?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _productRecommendationService.GetProductReccommendationsByIdAsync(id));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _productRecommendationService.GetProductReccommendationAsync(id));
         }
 
         [Test]
-        public async Task GivenValidDto_WhenCreateProductReccommendationAsync_ReturnsCreatedRecommendationFromRepository()
+        public async Task GIVEN_ValidDto_WHEN_CreatingProductReccommendationAsync_THEN_CallRepositoryCreate()
         {
             // Arrange
             var dto = new CreateProductRecommendationDto
@@ -120,19 +121,16 @@ namespace Complexion.Tests.Services.Dbo
             };
 
             _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
-            _updateValidator.ValidateAsync(Arg.Any<UpdateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
-            _productRecommendationRepository.CreateProductReccommendationAsync(dto).Returns(expectedRecommendation);
 
             // Act
-            var result = await _productRecommendationService.CreateProductReccommendationAsync(dto);
+            await _productRecommendationService.CreateProductReccommendationAsync(dto);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedRecommendation));
             await _productRecommendationRepository.Received(1).CreateProductReccommendationAsync(dto);
         }
 
         [Test]
-        public async Task GivenDtoWithNonNullComment_WhenUpdateProductReccommendationAsync_CallsRepositoryUpdate()
+        public async Task GIVEN_DtoWithNonNullComment_WHEN_UpdatingProductReccommendationAsync_THEN_CallRepositoryUpdate()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -149,7 +147,7 @@ namespace Complexion.Tests.Services.Dbo
         }
 
         [Test]
-        public async Task GivenDtoWithNullComment_WhenUpdateProductReccommendationAsync_DoesNotCallRepositoryUpdate()
+        public async Task GIVEN_DtoWithNullComment_WHEN_UpdatingProductReccommendationAsync_THEN_DoesNotCallRepositoryUpdate()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -163,7 +161,7 @@ namespace Complexion.Tests.Services.Dbo
         }
 
         [Test]
-        public async Task GivenValidId_WhenDeleteProductReccommendationAsync_CallsRepositoryDelete()
+        public async Task GIVEN_ValidId_WHEN_DeletingProductReccommendationAsync_THEN_CallRepositoryDelete()
         {
             // Arrange
             var id = Guid.NewGuid();

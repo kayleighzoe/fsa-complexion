@@ -19,11 +19,13 @@ namespace Complexion.Tests.Services.Dbo
         {
             _skinProfileRepository = Substitute.For<ISkinProfileRepository>();
             _createValidator = Substitute.For<IValidator<CreateSkinProfileDto>>();
-            _skinProfileService  = new SkinProfileService(_skinProfileRepository, _createValidator);     
+
+            _skinProfileService  = new SkinProfileService(_skinProfileRepository, _createValidator);
+
         }
 
         [Test]
-        public async Task GivenSkinProfilesExistInRepository_WhenGetAllSkinProfilesAsync_ReturnsSkinProfilesFromRepository()
+        public async Task GIVEN_SkinProfilesExist_WHEN_GettingAllSkinProfilesAsync_THEN_ReturnSkinProfilesFromRepository()
         {
             // Arrange
             var expectedProfiles = new List<SkinProfile>
@@ -50,12 +52,15 @@ namespace Complexion.Tests.Services.Dbo
             var result = await _skinProfileService.GetAllSkinProfilesAsync();
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedProfiles));
-            await _skinProfileRepository.Received(1).GetAllSkinProfilesAsync();
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedProfiles));
+                _skinProfileRepository.Received(1).GetAllSkinProfilesAsync();
+            }); 
         }
 
         [Test]
-        public async Task GivenSkinProfileExistsInRepository_WhenGetSkinProfilesByIdAsync_ReturnsSkinProfileFromRepository()
+        public async Task GIVEN_SkinProfileExists_WHEN_GettingSkinProfileAsync_THEN_ReturnSkinProfileFromRepository()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -67,30 +72,32 @@ namespace Complexion.Tests.Services.Dbo
                 HasTint = true
             };
 
-            _skinProfileRepository.GetSkinProfilesByIdAsync(id).Returns(expectedProfile);
+            _skinProfileRepository.GetSkinProfileAsync(id).Returns(expectedProfile);
 
             // Act
-            var result = await _skinProfileService.GetSkinProfilesByIdAsync(id);
+            var result = await _skinProfileService.GetSkinProfileAsync(id);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedProfile));
-            await _skinProfileRepository.Received(1).GetSkinProfilesByIdAsync(id);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedProfile));
+                _skinProfileRepository.Received(1).GetSkinProfileAsync(id);
+            });
         }
 
         [Test]
-        public void GivenSkinProfileDoesNotExistInRepository_WhenGetSkinProfilesByIdAsync_ThrowsKeyNotFoundException()
+        public void GIVEN_SkinProfileDoesNotExist_WHEN_GettingSkinProfileAsync_THEN_ThrowException()
         {
             // Arrange
             var id = Guid.NewGuid();
-            _skinProfileRepository.GetSkinProfilesByIdAsync(id).Returns((SkinProfile?)null);
+            _skinProfileRepository.GetSkinProfileAsync(id).Returns((SkinProfile?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
-                await _skinProfileService.GetSkinProfilesByIdAsync(id));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _skinProfileService.GetSkinProfileAsync(id));
         }
 
         [Test]
-        public async Task GivenValidDto_WhenCreateSkinProfileAsync_CallsRepositoryCreate()
+        public async Task GIVEN_ValidDto_WHEN_CreatingSkinProfileAsync_THEN_CallRepositoryCreate()
         {
             // Arrange
             var dto = new CreateSkinProfileDto

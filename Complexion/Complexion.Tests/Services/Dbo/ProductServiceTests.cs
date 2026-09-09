@@ -19,11 +19,13 @@ namespace Complexion.Tests.Services.Dbo
         {
             _productRepository = Substitute.For<IProductRepository>();
             _createValidator = Substitute.For<IValidator<CreateProductDto>>();
+
             _productService = new ProductService(_productRepository, _createValidator);
+
         }
 
         [Test]
-        public async Task GivenProductsExistInRepository_WhenGetAllProductsAsync_ReturnsProductsFromRepository()
+        public async Task GIVEN_ProductsExist_WHEN_GettingAllProductsAsync_THEN_ReturnProductsFromRepository()
         {
             // Arrange
             var search = "concealer";
@@ -55,12 +57,16 @@ namespace Complexion.Tests.Services.Dbo
             var result = await _productService.GetAllProductsAsync(search);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedProducts));
-            await _productRepository.Received(1).GetAllProductsAsync(search);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedProducts));
+                _productRepository.Received(1).GetAllProductsAsync(search);
+            });
+            
         }
 
         [Test]
-        public async Task GivenProductExistsInRepository_WhenGetProductsByIdAsync_ReturnsProductFromRepository()
+        public async Task GIVEN_ProductExists_WHEN_GettingProductAsync_THEN_ReturnProductFromRepository()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -74,30 +80,33 @@ namespace Complexion.Tests.Services.Dbo
                 ShadeName = "310"
             };
 
-            _productRepository.GetProductsByIdAsync(id).Returns(expectedProduct);
+            _productRepository.GetProductAsync(id).Returns(expectedProduct);
 
             // Act
-            var result = await _productService.GetProductsByIdAsync(id);
+            var result = await _productService.GetProductAsync(id);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedProduct));
-            await _productRepository.Received(1).GetProductsByIdAsync(id);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedProduct));
+                _productRepository.Received(1).GetProductAsync(id);
+            });
+            
         }
 
         [Test]
-        public void GivenProductDoesNotExistInRepository_WhenGetProductsByIdAsync_ThrowsKeyNotFoundException()
+        public void GIVEN_ProductDoesNotExist_WHEN_GettingProductAsync_THEN_ThrowException()
         {
             // Arrange
             var id = Guid.NewGuid();
-            _productRepository.GetProductsByIdAsync(id).Returns((Product?)null);
+            _productRepository.GetProductAsync(id).Returns((Product?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
-                await _productService.GetProductsByIdAsync(id));
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _productService.GetProductAsync(id));
         }
 
         [Test]
-        public async Task GivenValidDto_WhenCreateProductAsync_CallsRepositoryCreate()
+        public async Task GIVEN_ValidDto_WHEN_CreatingProductAsync_THEN_CallRepositoryCreate()
         {
             // Arrange
             var dto = new CreateProductDto
