@@ -59,7 +59,7 @@ namespace Complexion.Tests
             //arrange
             var dto = new CreateProductRecommendationDto
             {
-                UserId = Guid.Empty,
+                UserId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = ""
