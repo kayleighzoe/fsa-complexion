@@ -1,4 +1,5 @@
 ﻿using Complexion.Models.Products;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -6,11 +7,11 @@ namespace Complexion.Repository.Products
 {
     public class ProductRecommendationRepository : IProductRecommendationRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly IDbContext _dbContext;
 
-        public ProductRecommendationRepository(string connectionString)
+        public ProductRecommendationRepository(IDbContext dbContext)
         {
-            _connection = new SqlConnection(connectionString);
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
@@ -24,7 +25,7 @@ namespace Complexion.Repository.Products
                             CreatedAt 
                         FROM dbo.ProductRecommendation";
 
-            return await _connection.QueryAsync<ProductRecommendation>(sql);
+            return await _dbContext.QueryAsync<ProductRecommendation>(sql);
         }
 
         public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
@@ -39,7 +40,7 @@ namespace Complexion.Repository.Products
                         FROM dbo.ProductRecommendation 
                         WHERE RecommendationId = @Id";
 
-            return await _connection.QuerySingleOrDefaultAsync<ProductRecommendation>(sql, new { Id = id });
+            return await _dbContext.QuerySingleOrDefaultAsync<ProductRecommendation>(sql, new { Id = id });
         }
 
         public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
@@ -63,7 +64,7 @@ namespace Complexion.Repository.Products
                             GETUTCDATE()
                         )";
 
-            await _connection.ExecuteAsync(sql, dto);
+            await _dbContext.ExecuteAsync(sql, dto);
         }
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
@@ -72,7 +73,7 @@ namespace Complexion.Repository.Products
                         SET Comment = @Comment
                         WHERE RecommendationId = @Id";
 
-            await _connection.ExecuteAsync(sql, new { Id = id, dto.Comment });
+            await _dbContext.ExecuteAsync(sql, new { Id = id, dto.Comment });
         }
 
         public async Task DeleteProductReccommendationAsync(Guid id)
@@ -80,7 +81,7 @@ namespace Complexion.Repository.Products
             var sql = @"DELETE FROM dbo.ProductRecommendation 
                         WHERE RecommendationId = @Id";
 
-            await _connection.ExecuteAsync(sql, new { Id = id });
+            await _dbContext.ExecuteAsync(sql, new { Id = id });
         }
     }
 }

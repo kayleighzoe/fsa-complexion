@@ -1,4 +1,5 @@
 ﻿using Complexion.Models.Skin;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -6,11 +7,11 @@ namespace Complexion.Repository.Skin
 {
     public class SkinProfileRepository : ISkinProfileRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly IDbContext _dbContext;
 
-        public SkinProfileRepository(string connectionString)
+        public SkinProfileRepository(IDbContext dbContext)
         {
-            _connection = new SqlConnection(connectionString);
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
@@ -22,7 +23,7 @@ namespace Complexion.Repository.Skin
                             HasTint 
                         FROM dbo.SkinProfile";
 
-            return await _connection.QueryAsync<SkinProfile>(sql);
+            return await _dbContext.QueryAsync<SkinProfile>(sql);
         }
 
         public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
@@ -35,7 +36,7 @@ namespace Complexion.Repository.Skin
                         FROM dbo.SkinProfile 
                         WHERE SkinProfileId = @Id";
 
-            return await _connection.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
+            return await _dbContext.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
         public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
@@ -55,7 +56,7 @@ namespace Complexion.Repository.Skin
                             @HasTint
                         )";
 
-            await _connection.ExecuteAsync(sql, dto);
+            await _dbContext.ExecuteAsync(sql, dto);
         }
     }
 }

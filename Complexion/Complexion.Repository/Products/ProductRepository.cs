@@ -1,4 +1,5 @@
 ﻿using Complexion.Models.Products;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -6,11 +7,11 @@ namespace Complexion.Repository.Products
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly IDbContext _dbContext;
 
-        public ProductRepository(string connectionString)
+        public ProductRepository(IDbContext dbContext)
         {
-            _connection = new SqlConnection(connectionString);
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
@@ -37,10 +38,10 @@ namespace Complexion.Repository.Products
 
             if (string.IsNullOrWhiteSpace(search))
             {
-                return await _connection.QueryAsync<Product>(getAllSql);
+                return await _dbContext.QueryAsync<Product>(getAllSql);
             }
 
-            return await _connection.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
+            return await _dbContext.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
         }
 
         public async Task<Product?> GetProductAsync(Guid id)
@@ -55,7 +56,7 @@ namespace Complexion.Repository.Products
                         FROM dbo.Product 
                         WHERE ProductId = @Id";
 
-            return await _connection.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
+            return await _dbContext.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
         public async Task CreateProductAsync(CreateProductDto dto)
@@ -79,7 +80,7 @@ namespace Complexion.Repository.Products
                             @ShadeName
                         )";
 
-            await _connection.ExecuteAsync(sql, dto);
+            await _dbContext.ExecuteAsync(sql, dto);
         }
     }
 }

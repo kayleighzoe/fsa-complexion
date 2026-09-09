@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using Complexion.Models.Skin;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -7,11 +8,11 @@ namespace Complexion.Repository.Skin
 {
     public class SkinUndertoneRepository : ISkinUndertoneRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly IDbContext _dbContext;
 
-        public SkinUndertoneRepository(string connectionString)
+        public SkinUndertoneRepository(IDbContext dbContext)
         {
-            _connection = new SqlConnection(connectionString);
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync()
@@ -21,7 +22,7 @@ namespace Complexion.Repository.Skin
                             Name 
                         FROM skin.Undertone";
 
-            return await _connection.QueryAsync<SkinUndertone>(sql);
+            return await _dbContext.QueryAsync<SkinUndertone>(sql);
         }
     }
 }

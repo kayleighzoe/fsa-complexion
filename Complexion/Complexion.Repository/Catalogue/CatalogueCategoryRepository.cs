@@ -1,16 +1,17 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Complexion.Models.Catalogue;
+using Complexion.Repository.Data;
 
 namespace Complexion.Repository.Catalogue
 {
     public class CatalogueCategoryRepository : ICatalogueCategoryRepository
     {
-        private readonly SqlConnection _connection;
+        private readonly IDbContext _dbContext;
 
-        public CatalogueCategoryRepository(string connectionString)
+        public CatalogueCategoryRepository(IDbContext dbContext)
         {
-            _connection= new SqlConnection(connectionString);
+            _dbContext = dbContext; 
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
@@ -20,7 +21,7 @@ namespace Complexion.Repository.Catalogue
                             Name 
                         FROM catalogue.Category";
 
-            return await _connection.QueryAsync<CatalogueCategory>(sql);
+            return await _dbContext.QueryAsync<CatalogueCategory>(sql);
         }
     }
 }

@@ -2,12 +2,13 @@ using Complexion.Api.Middleware;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
-using Complexion.Repository.Skin;
-using Serilog;
-using FluentValidation;
+using Complexion.Repository.Data;
 using Complexion.Repository.Products;
+using Complexion.Repository.Skin;
 using Complexion.Services.Products;
 using Complexion.Services.Skin;
+using FluentValidation;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ builder.Services.AddSwaggerGen();
 
 MigrationRunner.Run(connectionString);
 
-builder.Services.AddSingleton(connectionString);
+builder.Services.AddScoped<IDbContext>(_ => new SqlDbContext(connectionString));
 
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>();
 builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>();
