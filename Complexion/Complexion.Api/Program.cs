@@ -2,11 +2,12 @@ using Complexion.Api.Middleware;
 using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
-using Complexion.Repository.Dbo;
 using Complexion.Repository.Skin;
 using Serilog;
 using FluentValidation;
-using Complexion.Services;
+using Complexion.Repository.Products;
+using Complexion.Services.Products;
+using Complexion.Services.Skin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 // Add services to the container.
-builder.Services.AddControllers().AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
+builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,8 +1,8 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.Models.Products;
 
-namespace Complexion.Services
+namespace Complexion.Repository.Products
 {
-    public interface IProductService
+    public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetAllProductsAsync(string? search);
         Task<Product?> GetProductAsync(Guid id);

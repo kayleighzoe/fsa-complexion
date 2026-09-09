@@ -1,4 +1,4 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.Models.Skin;
 using FluentValidation;
 
 namespace Complexion.Api.Validators

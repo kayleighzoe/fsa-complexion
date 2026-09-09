@@ -1,4 +1,4 @@
-﻿namespace Complexion.Models.Dbo
+﻿namespace Complexion.Models.Skin
 {
     public class SkinProfile
     {

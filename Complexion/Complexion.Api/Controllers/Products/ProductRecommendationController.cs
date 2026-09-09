@@ -4,7 +4,7 @@ using Complexion.Services.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Complexion.Controllers.Dbo
+namespace Complexion.Api.Controllers.Products
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

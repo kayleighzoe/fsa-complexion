@@ -1,4 +1,4 @@
-﻿namespace Complexion.Models.Dbo
+﻿namespace Complexion.Models.Products
 {
     public class ProductRecommendation
     {

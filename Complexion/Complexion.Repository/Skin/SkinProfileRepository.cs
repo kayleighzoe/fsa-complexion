@@ -1,5 +1,4 @@
-﻿using Complexion.Models.Dbo;
-using Complexion.Repository.Dbo;
+﻿using Complexion.Models.Skin;
 using Dapper;
 using Microsoft.Data.SqlClient;
 

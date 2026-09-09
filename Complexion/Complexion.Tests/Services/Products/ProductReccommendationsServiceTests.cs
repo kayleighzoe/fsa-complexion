@@ -1,11 +1,11 @@
-﻿using Complexion.Models.Dbo;
-using Complexion.Repository.Dbo;
-using Complexion.Services;
+﻿using Complexion.Models.Products;
+using Complexion.Repository.Products;
+using Complexion.Services.Products;
 using FluentValidation;
 using FluentValidation.Results;
 using NSubstitute;
 
-namespace Complexion.Tests.Services
+namespace Complexion.Tests.Services.Products
 {
     public class ProductReccommendationsServiceTests
     {

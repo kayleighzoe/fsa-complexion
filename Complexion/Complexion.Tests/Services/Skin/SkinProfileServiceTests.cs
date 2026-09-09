@@ -1,11 +1,11 @@
-﻿using Complexion.Models.Dbo;
-using Complexion.Repository.Dbo;
-using Complexion.Services;
+﻿using Complexion.Models.Skin;
+using Complexion.Repository.Skin;
+using Complexion.Services.Skin;
 using FluentValidation;
 using FluentValidation.Results;
 using NSubstitute;
 
-namespace Complexion.Tests.Services
+namespace Complexion.Tests.Services.Skin
 {
     public class SkinProfileServiceTests
     {

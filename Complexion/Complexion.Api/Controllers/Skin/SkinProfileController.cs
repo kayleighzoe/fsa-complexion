@@ -4,7 +4,7 @@ using Complexion.Services.Skin;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Complexion.Controllers.Dbo
+namespace Complexion.Api.Controllers.Skin
 {
 
     [ApiController]

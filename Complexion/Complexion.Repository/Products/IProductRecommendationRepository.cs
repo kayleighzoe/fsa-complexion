@@ -1,6 +1,6 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.Models.Products;
 
-namespace Complexion.Repository.Dbo
+namespace Complexion.Repository.Products
 {
     public interface IProductRecommendationRepository
     {

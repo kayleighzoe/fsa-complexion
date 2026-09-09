@@ -1,8 +1,8 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.Models.Skin;
 
-namespace Complexion.Services
+namespace Complexion.Repository.Skin
 {
-    public interface ISkinProfileService
+    public interface ISkinProfileRepository
     {
         Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync();
         Task<SkinProfile?> GetSkinProfileAsync(Guid id);

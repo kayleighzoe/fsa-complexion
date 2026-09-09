@@ -1,8 +1,8 @@
-﻿using Complexion.Models.Dbo;
+﻿using Complexion.Models.Products;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
-namespace Complexion.Repository.Dbo
+namespace Complexion.Repository.Products
 {
     public class ProductRepository : IProductRepository
     {

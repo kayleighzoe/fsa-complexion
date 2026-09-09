@@ -1,8 +1,8 @@
-﻿using Complexion.Models.Dbo;
-using Complexion.Repository.Dbo;
+﻿using Complexion.Models.Products;
+using Complexion.Repository.Products;
 using FluentValidation;
 
-namespace Complexion.Services
+namespace Complexion.Services.Products
 {
     public class ProductRecommendationService : IProductRecommendationService
     {

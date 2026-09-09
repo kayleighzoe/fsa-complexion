@@ -1,8 +1,8 @@
-﻿using Complexion.Models.Dbo;
-using Complexion.Repository.Dbo;
+﻿using Complexion.Models.Skin;
+using Complexion.Repository.Skin;
 using FluentValidation;
 
-namespace Complexion.Services
+namespace Complexion.Services.Skin
 {
     public class SkinProfileService : ISkinProfileService
     {
