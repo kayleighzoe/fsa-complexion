@@ -8,6 +8,9 @@ RUN dotnet publish "Complexion.Migrations/Complexion.Migrations.csproj" -c Relea
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
+RUN useradd --create-home appuser
+USER appuser
+
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "Complexion.Migrations.dll"]
