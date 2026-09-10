@@ -14,3 +14,5 @@ USER appuser
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "Complexion.Api.dll"]
+
+HEALTHCHECK --interval=30s --timeout=3s CMD bash -c 'exec 3<>/dev/tcp/localhost/8080; echo -e "GET /health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3; grep -q "200" <&3' || exit 1
