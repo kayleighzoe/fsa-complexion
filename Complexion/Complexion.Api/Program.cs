@@ -1,5 +1,4 @@
 using Complexion.Api.Middleware;
-using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
 using Complexion.Repository.Data;
@@ -25,8 +24,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-MigrationRunner.Run(connectionString);
 
 builder.Services.AddScoped<IDbContext>(_ => new SqlDbContext(connectionString));
 
