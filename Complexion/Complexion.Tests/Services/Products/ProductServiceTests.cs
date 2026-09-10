@@ -61,7 +61,7 @@ namespace Complexion.Tests.Services.Products
                 Assert.That(result, Is.EqualTo(expectedProducts));
                 _productRepository.Received(1).GetAllProductsAsync(search);
             });
-            
+
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Complexion.Tests.Services.Products
                 Assert.That(result, Is.EqualTo(expectedProduct));
                 _productRepository.Received(1).GetProductAsync(id);
             });
-            
+
         }
 
         [Test]

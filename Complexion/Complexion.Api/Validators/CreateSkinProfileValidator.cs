@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Complexion.Api.Validators
 {
-    public class CreateSkinProfileValidator: AbstractValidator<CreateSkinProfileDto>
+    public class CreateSkinProfileValidator : AbstractValidator<CreateSkinProfileDto>
     {
         public CreateSkinProfileValidator()
         {

@@ -11,7 +11,7 @@ namespace Complexion.Repository.Catalogue
 
         public CatalogueCategoryRepository(IDbContext dbContext)
         {
-            _dbContext = dbContext; 
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()

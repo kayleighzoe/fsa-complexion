@@ -42,7 +42,7 @@ namespace Complexion.Services.Products
                 throw new ValidationException(result.Errors);
             }
 
-             await _repository.CreateProductReccommendationAsync(dto);
+            await _repository.CreateProductReccommendationAsync(dto);
         }
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)

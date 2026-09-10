@@ -19,7 +19,7 @@ namespace Complexion.Tests.Services.Skin
             _skinProfileRepository = Substitute.For<ISkinProfileRepository>();
             _createValidator = Substitute.For<IValidator<CreateSkinProfileDto>>();
 
-            _skinProfileService  = new SkinProfileService(_skinProfileRepository, _createValidator);
+            _skinProfileService = new SkinProfileService(_skinProfileRepository, _createValidator);
 
         }
 
@@ -55,7 +55,7 @@ namespace Complexion.Tests.Services.Skin
             {
                 Assert.That(result, Is.EqualTo(expectedProfiles));
                 _skinProfileRepository.Received(1).GetAllSkinProfilesAsync();
-            }); 
+            });
         }
 
         [Test]

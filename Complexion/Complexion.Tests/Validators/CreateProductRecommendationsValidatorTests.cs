@@ -7,7 +7,7 @@ namespace Complexion.Tests
     public class CreateProductRecommendationsValidatorTests
     {
         private CreateProductRecommendationsValidator _validator;
-        
+
         [SetUp]
         public void Setup()
         {
@@ -19,11 +19,11 @@ namespace Complexion.Tests
         public void GIVEN_EmptyUserId_WHEN_ValidatingCreateProductRecommendation_THEN_ReturnValidationError()
         {
             //arrange
-            var dto = new CreateProductRecommendationDto 
-            { 
-                UserId = Guid.Empty, 
-                ProductId = Guid.NewGuid(), 
-                SkinProfileId = Guid.NewGuid() 
+            var dto = new CreateProductRecommendationDto
+            {
+                UserId = Guid.Empty,
+                ProductId = Guid.NewGuid(),
+                SkinProfileId = Guid.NewGuid()
             };
             var expectedMessage = "UserId is required.";
 

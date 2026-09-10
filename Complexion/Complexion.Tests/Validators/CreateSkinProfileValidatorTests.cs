@@ -53,7 +53,7 @@ namespace Complexion.Tests.Validators
                 result.ShouldNotHaveValidationErrorFor(x => x.ShadeId);
                 result.ShouldNotHaveValidationErrorFor(x => x.UndertoneId);
             });
-            
+
         }
 
         [Test]

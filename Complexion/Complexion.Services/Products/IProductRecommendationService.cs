@@ -7,7 +7,7 @@ namespace Complexion.Services.Products
         Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync();
         Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id);
         Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto);
-        Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto); 
+        Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto);
         Task DeleteProductReccommendationAsync(Guid id);
     }
 }

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Complexion.Api.Validators
 {
-    public class UpdateProductRecommendationValidator: AbstractValidator<UpdateProductRecommendationDto>
+    public class UpdateProductRecommendationValidator : AbstractValidator<UpdateProductRecommendationDto>
     {
         public UpdateProductRecommendationValidator()
         {
