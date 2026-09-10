@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Data
 {
-    public sealed class SqlDbContext : IDbContext, IAsyncDisposable
+    public class SqlDbContext : IDbContext, IAsyncDisposable
     {
         private readonly SqlConnection _connection;
 
