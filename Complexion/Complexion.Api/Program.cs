@@ -1,34 +1,31 @@
 using Complexion.Api.Middleware;
-using Complexion.Migrations;
 using Complexion.Repository.Catalogue;
 using Complexion.Repository.Config;
-using Complexion.Repository.Dbo;
+using Complexion.Repository.Data;
+using Complexion.Repository.Products;
 using Complexion.Repository.Skin;
-using Complexion.Services.Catalogue;
-using Complexion.Services.Config;
-using Complexion.Services.Dbo;
+using Complexion.Services.Products;
 using Complexion.Services.Skin;
+using FluentValidation;
 using Serilog;
-
-Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day).CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
-    configuration.Enrich.FromLogContext().WriteTo.Console().WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day);
+    configuration.ReadFrom.Configuration(context.Configuration);
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 // Add services to the container.
-builder.Services.AddControllers().AddApplicationPart(typeof(Complexion.Controllers.Skin.SkinShadeController).Assembly);
+builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-MigrationRunner.Run(connectionString);
+builder.Services.AddScoped<IDbContext>(_ => new SqlDbContext(connectionString));
 
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>();
 builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>();
@@ -38,16 +35,14 @@ builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRecommendationRepository, ProductRecommendationRepository>();
 
-builder.Services.AddScoped<ISkinShadeService, SkinShadeService>();
-builder.Services.AddScoped<ISkinUndertoneService, SkinUndertoneService>();
-builder.Services.AddScoped<ICatalogueCategoryService, CatalogueCategoryService>();
-builder.Services.AddScoped<IConfigPriceTierService, ConfigPriceTierService>();
 builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationService>();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 

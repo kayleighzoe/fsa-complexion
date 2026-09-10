@@ -1,40 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	  <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\20260520104702CreateCategoryTable.sql" />
-    <None Remove="Scripts\20260520104703CreateShadeTable.sql" />
-    <None Remove="Scripts\20260520104704CreateUndertoneTable.sql" />
-    <None Remove="Scripts\20260520104705CreateSkinProfileTable.sql" />
-    <None Remove="Scripts\20260520104706CreateUserTable.sql" />
-    <None Remove="Scripts\20260520104707CreateProductTable.sql" />
-    <None Remove="Scripts\20260520104708CreateProductRecommendationTable.sql" />
-    <None Remove="Scripts\20260618120001InsertPriceTierData.sql" />
-    <None Remove="Scripts\20260618120002InsertUndertoneData.sql" />
-    <None Remove="Scripts\20260618120003InsertCategoryData.sql" />
+    <None Remove="Scripts\20260520104700CreateAuthSchema.sql" />
+    <None Remove="Scripts\20260520104702CreateCatalogueSchema.sql" />
+    <None Remove="Scripts\20260520104702CreateConfigSchema.sql" />
+    <None Remove="Scripts\20260520104703CreateSkinSchemas.sql" />
     <None Remove="Scripts\20260618120004InsertProductData.sql" />
     <None Remove="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\20260520104700CreateSchemas.sql" />
-    <EmbeddedResource Include="Scripts\20260520104701CreatePriceTierTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104702CreateCategoryTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104703CreateShadeTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104704CreateUndertoneTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104705CreateSkinProfileTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104706CreateUserTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104707CreateProductTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104708CreateProductRecommendationTable.sql" />
-    <EmbeddedResource Include="Scripts\20260618120000InsertShadeData.sql" />
-    <EmbeddedResource Include="Scripts\20260618120001InsertPriceTierData.sql" />
-    <EmbeddedResource Include="Scripts\20260618120002InsertUndertoneData.sql" />
-    <EmbeddedResource Include="Scripts\20260618120003InsertCategoryData.sql" />
+    <EmbeddedResource Include="Scripts\20260520104700CreateAuthSchema.sql" />
+    <EmbeddedResource Include="Scripts\20260520104702CreateCatalogueSchema.sql" />
+    <EmbeddedResource Include="Scripts\20260520104702CreateConfigSchema.sql" />
+    <EmbeddedResource Include="Scripts\20260520104703CreateSkinSchemas.sql" />
+    <EmbeddedResource Include="Scripts\20260520104704CreatePriceTierTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104705CreateCategoryTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104706CreateShadeTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104707CreateUndertoneTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104708CreateSkinProfileTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104709CreateUserTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104710CreateProductTable.sql" />
+    <EmbeddedResource Include="Scripts\20260520104711CreateProductRecommendationTable.sql" />
     <EmbeddedResource Include="Scripts\20260618120004InsertProductData.sql" />
     <EmbeddedResource Include="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>

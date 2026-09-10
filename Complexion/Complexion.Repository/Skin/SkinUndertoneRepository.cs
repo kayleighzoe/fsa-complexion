@@ -1,23 +1,28 @@
-﻿using Complexion.Models.Skin;
+﻿using System.Data.Common;
+using Complexion.Models.Skin;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Complexion.Repository.Skin
 {
     public class SkinUndertoneRepository : ISkinUndertoneRepository
     {
-        private readonly string _connectionString;
+        private readonly IDbContext _dbContext;
 
-        public SkinUndertoneRepository(IConfiguration configuration)
+        public SkinUndertoneRepository(IDbContext dbContext)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<SkinUndertone>> GetAllAsync()
+        public async Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<SkinUndertone>("SELECT * FROM skin.Undertone");
+            var sql = @"SELECT 
+                            UndertoneId, 
+                            Name 
+                        FROM skin.Undertone";
+
+            return await _dbContext.QueryAsync<SkinUndertone>(sql);
         }
     }
 }

@@ -1,13 +1,21 @@
-IF NOT EXISTS (SELECT 1 FROM dbo.Product)
+IF NOT EXISTS 
+(
+	SELECT 
+		1 
+	FROM dbo.Product
+)
 BEGIN
-	INSERT INTO dbo.Product (
+	INSERT INTO dbo.Product 
+	(
 		ProductId,
 		CategoryId,
 		PriceTierId,
 		Name,
 		Brand,
 		ShadeName
-	) VALUES (
+	) 
+	VALUES 
+	(
 		NEWID(),
 		1,
 		1,

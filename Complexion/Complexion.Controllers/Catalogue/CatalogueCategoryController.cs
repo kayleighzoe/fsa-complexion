@@ -1,4 +1,4 @@
-﻿using Complexion.Services.Catalogue;
+﻿using Complexion.Repository.Catalogue;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Catalogue
@@ -8,17 +8,18 @@ namespace Complexion.Controllers.Catalogue
     [Route("api/[controller]/[action]")]
     public class CatalogueCategoryController : ControllerBase
     {
-        private readonly ICatalogueCategoryService _catalogueCategoryService;
+        private readonly ICatalogueCategoryRepository _catalogueCategoryRepository;
 
-        public CatalogueCategoryController(ICatalogueCategoryService catalogueCategoryService)
+        public CatalogueCategoryController(ICatalogueCategoryRepository catalogueCategoryRepository)
         {
-            _catalogueCategoryService = catalogueCategoryService;
+            _catalogueCategoryRepository = catalogueCategoryRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _catalogueCategoryService.GetAllAsync();
+            var categories = await _catalogueCategoryRepository.GetAllCategoriesAsync();
+
             return Ok(categories);
         }
     }

@@ -8,17 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.22" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Complexion.Controllers\Complexion.Controllers.csproj" />
-    <ProjectReference Include="..\Complexion.DTOs\Complexion.DTOs.csproj" />
     <ProjectReference Include="..\Complexion.Migrations\Complexion.Migrations.csproj" />
     <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
     <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />

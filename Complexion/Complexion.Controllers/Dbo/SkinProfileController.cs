@@ -1,5 +1,7 @@
-﻿using Complexion.DTOs.Dbo;
-using Complexion.Services.Dbo;
+﻿using Complexion.Models.Skin;
+using Complexion.Repository.Skin;
+using Complexion.Services.Skin;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -10,31 +12,36 @@ namespace Complexion.Controllers.Dbo
     public class SkinProfileController : ControllerBase
     {
         private readonly ISkinProfileService _service;
+        private readonly ISkinProfileRepository _repository;
 
-        public SkinProfileController(ISkinProfileService service)
+        public SkinProfileController(ISkinProfileService service, ISkinProfileRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllSkinProfiles()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var skinProfiles = await _repository.GetAllSkinProfilesAsync();
+
+            return Ok(skinProfiles);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetSkinProfile(Guid id)
         {
-            var result = await _service.GetByIdAsync(id);
-            return Ok(result);
+            var skinProfile = await _service.GetSkinProfileAsync(id);
+
+            return Ok(skinProfile);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateSkinProfileDto dto)
+        public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
-            var result = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = result.SkinProfileId }, result);
+            await _service.CreateSkinProfileAsync(dto);
+
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }

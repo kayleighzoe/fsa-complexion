@@ -1,24 +1,29 @@
-﻿using Complexion.Models.Config;
+﻿using System.Data.Common;
+using Complexion.Models.Config;
+using Complexion.Repository.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 
 namespace Complexion.Repository.Config
 {
     public class ConfigPriceTierRepository : IConfigPriceTierRepository
     {
-        private readonly string _connectionString;
+        private readonly IDbContext _dbContext;
 
-        public ConfigPriceTierRepository(IConfiguration configuration)
+        public ConfigPriceTierRepository(IDbContext dbContext)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<ConfigPriceTier>> GetAllAsync()
+        public async Task<IEnumerable<ConfigPriceTier>> GetAllPriceTiersAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<ConfigPriceTier>("SELECT * FROM config.PriceTier");
+            var sql = @"SELECT 
+                            PriceTierId, 
+                            Name 
+                        FROM config.PriceTier";
+
+            return await _dbContext.QueryAsync<ConfigPriceTier>(sql);
         }
     }
 }
