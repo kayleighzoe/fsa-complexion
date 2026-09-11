@@ -1,5 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { PageBackground } from './PageBackground';
 import createAccountBackground from './assets/createAccountBackground.jpg';
+import { TextField } from './TextField';
+import { SelectField } from './SelectField';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -10,6 +14,7 @@ export function CreateAccountPage() {
     const [hasOliveOvertone, setHasOliveOvertone] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function handleSignUp() {
         console.log({
@@ -27,15 +32,9 @@ export function CreateAccountPage() {
 
     return (
         <div className="min-h-screen flex items-center relative bg-[#645b50]">
-            <img
-                src={createAccountBackground}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover opacity-10"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/0 to-transparent" />
+            <PageBackground image={createAccountBackground} />
 
-            <div className="relative z-10 w-full max-w-6xl mx-auto px-10 flex items-center gap-12">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-10 flex items-center gap-12 page-fade">
                 <div className="w-2/5">
                     <h1
                         className="text-6xl font-['Cormorant_Garamond'] font-bold text-[#fbeee0]"
@@ -55,54 +54,39 @@ export function CreateAccountPage() {
                     <div className="bg-[#fbeee0] rounded-2xl p-10 ml-auto">
                         <div className="flex gap-4">
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Name</label>
-                                <input
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
-                                />
+                                <TextField label="Name" value={name} onChange={setName} />
                             </div>
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Surname</label>
-                                <input
-                                    type="text"
-                                    value={surname}
-                                    onChange={(e) => setSurname(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
-                                />
+                                <TextField label="Surname" value={surname} onChange={setSurname} />
                             </div>
                         </div>
 
                         <div className="flex gap-4 mt-5">
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Skin shade</label>
-                                <input
-                                    type="text"
+                                <SelectField
+                                    label="Skin shade"
                                     value={skinShade}
-                                    onChange={(e) => setSkinShade(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
+                                    onChange={setSkinShade}
+                                    options={['Fair', 'Light', 'Medium', 'Tan', 'Deep']}
                                 />
                             </div>
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Skin undertone</label>
-                                <input
-                                    type="text"
+                                <SelectField
+                                    label="Skin undertone"
                                     value={skinUndertone}
-                                    onChange={(e) => setSkinUndertone(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
+                                    onChange={setSkinUndertone}
+                                    options={['Warm', 'Cool', 'Neutral']}
                                 />
                             </div>
                         </div>
 
                         <div className="flex gap-4 mt-5">
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Email</label>
-                                <input
-                                    type="email"
+                                <TextField
+                                    label="Email"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
+                                    onChange={setEmail}
+                                    type="email"
                                 />
                             </div>
                             <div className="w-1/2 flex items-end pb-2.5">
@@ -119,27 +103,23 @@ export function CreateAccountPage() {
 
                         <div className="flex gap-4 mt-5">
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Username</label>
-                                <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
-                                />
+                                <TextField label="Username" value={username} onChange={setUsername} />
                             </div>
                             <div className="w-1/2">
-                                <label className="block mb-1.5 text-[#3b2a20]">Password</label>
-                                <input
-                                    type="password"
+                                <TextField
+                                    label="Password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full rounded-lg px-4 py-2.5 bg-white"
+                                    onChange={setPassword}
+                                    type="password"
                                 />
                             </div>
                         </div>
 
                         <div className="flex gap-4 mt-8">
-                            <button className="w-1/2 bg-[#72594a] text-white rounded-lg py-3 font-semibold">
+                            <button
+                                onClick={() => navigate('/login')}
+                                className="w-1/2 bg-[#72594a] text-white rounded-lg py-3 font-semibold"
+                            >
                                 Return to login
                             </button>
                             <button

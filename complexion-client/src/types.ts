@@ -8,3 +8,14 @@ export interface Recommendation {
     recommendedByCount: number;
     priceTier: string;
 }
+
+export interface MyRecommendation {
+    id: string;
+    brandName: string;
+    productName: string;
+    category: string;
+    shadeName: string;
+    priceTier: string;
+    comment?: string;
+    sharedOn: string;
+}
