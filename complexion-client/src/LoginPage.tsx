@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import backgroundImage from './assets/loginBackground.jpg';
+import { useNavigate } from 'react-router';
+import { PageBackground } from './PageBackground';
+import loginBackground from './assets/loginBackground.jpg';
+import { TextField } from './TextField';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function handleLogin() {
         console.log('Logging in as', username);
@@ -12,16 +16,9 @@ export function LoginPage() {
 
     return (
         <div className="min-h-screen flex items-center relative bg-[#645b50]">
-            <img
-                src={backgroundImage}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover opacity-10"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/0 to-transparent" />
+            <PageBackground image={loginBackground} />
 
-
-            <div className="relative z-10 w-full max-w-6xl mx-auto px-10 flex items-center gap-12">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-10 flex items-center gap-12 page-fade">
                 <div className="w-1/2">
                     <h1
                         className="text-6xl font-['Cormorant_Garamond'] font-bold text-[#fbeee0]"
@@ -38,20 +35,21 @@ export function LoginPage() {
                 </div>
 
                 <div className="w-1/2">
-                    <div className="bg-[#fbeee0] rounded-2xl p-10 max-w-sm ml-auto">
-                        <label className="block mb-1.5 text-[#3b2a20]">Username / Email</label>
-                        <input
-                            type="text"
+                    <div className="bg-[#fbeee0] rounded-2xl p-10 max-w-6xl ml-auto">
+                        <TextField
+                            label="Username / Email"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="w-full rounded-lg px-4 py-2.5 bg-white" />
+                            onChange={setUsername}
+                        />
 
-                        <label className="block mb-1.5 mt-5 text-[#3b2a20]">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full rounded-lg px-4 py-2.5 bg-white" />
+                        <div className="mt-5">
+                            <TextField
+                                label="Password"
+                                value={password}
+                                onChange={setPassword}
+                                type="password"
+                            />
+                        </div>
 
                         <p className="text-right text-sm text-[#8a7060] mt-2">Forgot password?</p>
 
@@ -62,9 +60,14 @@ export function LoginPage() {
                             Log in
                         </button>
 
-                        <p className="text-center text-sm text-[#8a7060] mt-4">Don't have an account?</p>
+                        <p className="text-center text-sm text-[#8a7060] mt-4">
+                            Don't have an account?
+                        </p>
 
-                        <button className="w-full mt-2 bg-[#72594a] text-white rounded-lg py-3 font-semibold">
+                        <button
+                            onClick={() => navigate('/register')}
+                            className="w-full mt-2 rounded-lg py-3 font-semibold text-white cursor-pointer bg-gradient-to-b from-[#8a6b58] to-[#5f4638] shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                        >
                             Create account
                         </button>
                     </div>
