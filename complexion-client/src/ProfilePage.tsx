@@ -1,7 +1,9 @@
 import type { MyRecommendation } from './types';
 import { PageBackground } from './PageBackground';
+import { Pencil, Trash2 } from 'lucide-react';
 import profileBackground from './assets/profileBackground.jpg';
 import { NavBar } from './NavBar';
+import { useNavigate } from 'react-router';
 
 const USER = {
     name: 'Someone Someone',
@@ -19,13 +21,15 @@ const MY_RECOMMENDATIONS: MyRecommendation[] = [
         productName: 'Studio Fix',
         category: 'Foundation',
         shadeName: 'NC44.5',
-        priceTier: '$$$ High-end',
+        priceTier: 'High-end',
         comment: 'Leans more warm on warm-neutral undertones',
         sharedOn: '11 May 2026',
     },
 ];
 
 export function ProfilePage() {
+    const navigate = useNavigate();
+
     return (
         <div className="min-h-screen relative bg-[#645b50] flex flex-col">
             <PageBackground image={profileBackground} />
@@ -79,7 +83,9 @@ export function ProfilePage() {
                             <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
                                 My perfect shade matches
                             </h2>
-                            <button className="bg-[#9db4c0] rounded-full px-6 py-2.5">
+                            <button
+                                onClick={() => navigate('/share')}
+                                className="bg-[#9db4c0] rounded-full px-6 py-2.5">
                                 + Share a recommendation
                             </button>
                         </div>
@@ -102,8 +108,12 @@ export function ProfilePage() {
                                     <p className="text-xs text-[#a89684] mt-3">Shared {item.sharedOn}</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10">✎</button>
-                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10">🗑</button>
+                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10 flex items-center justify-center cursor-pointer">
+                                        <Pencil size={16} className="text-[#3b2a20]"/>
+                                    </button>
+                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10 flex items-center justify-center cursor-pointer">
+                                        <Trash2 size={16} className="text-[#3b2a20]"/>
+                                    </button>
                                 </div>
                             </div>
                         ))}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { House, Upload, CircleUser, BookOpenText } from 'lucide-react';
 
 export function NavBar() {
     return (
@@ -14,10 +15,22 @@ export function NavBar() {
                 Complexion
             </Link>
             <div className="flex gap-8 text-[#fbeee0]">
-                <Link to="/">Home</Link>
-                <Link to="/guide">Complexion Guide</Link>
-                <Link to="/share">Share</Link>
-                <Link to="/profile">Profile</Link>
+                <Link to="/" className="flex items-center gap-1.5">
+                    <House size={16}/>
+                    Home
+                </Link>
+                <Link to="/guide" className="flex items-center gap-1.5">
+                    <BookOpenText size={16}/>
+                    Complexion Guide
+                </Link>
+                <Link to="/share" className="flex items-center gap-1.5">
+                    <Upload size={16}/>
+                    Share
+                </Link>
+                <Link to="/profile" className="flex items-center gap-1.5">
+                    <CircleUser size={16}/>
+                    Profile
+                </Link>
             </div>
         </nav>
     );
