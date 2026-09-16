@@ -4,6 +4,7 @@ import { ProductCard } from './ProductCard';
 import { PageBackground } from './PageBackground';
 import homeBackground from './assets/homeBackground.jpg';
 import { NavBar } from './NavBar';
+import { Search } from 'lucide-react'
 
 const RESULTS: Recommendation[] = [
     {
@@ -65,13 +66,18 @@ export function HomePage() {
                     personalized foundation and concealer recommendations from our community
                 </p>
 
-                <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search by skin profile - e.g. warm, medium…"
-                    className="w-full rounded-full px-8 py-4 mt-10 mb-8 bg-[#fbeee0]"
-                />
+                <div className="relative mt-10 mb-8">
+                    <Search
+                        className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8a7060]"
+                    />
+                    <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Search by skin profile - e.g. warm, medium…"
+                        className="w-full rounded-full pl-14 pr-8 py-4 bg-[#fbeee0]"
+                    />
+                </div>
 
                 <div className="min-h-[500px]">
                     {filtered.length === 0 ? (
