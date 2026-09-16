@@ -1,3 +1,9 @@
+import {
+    Accordion,
+    AccordionItem,
+    AccordionTrigger,
+    AccordionContent,
+} from '@/components/ui/accordion';
 import type { Recommendation } from './types';
 
 interface ProductCardProps {
@@ -33,6 +39,28 @@ export function ProductCard({ recommendation }: ProductCardProps) {
                 </p>
                 <p>{recommendation.priceTier}</p>
             </div>
+
+            <Accordion>
+                <AccordionItem value="comments">
+                    <AccordionTrigger className="text-[#3b2a20]">
+                        Community comments ({recommendation.comments.length})
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        {recommendation.comments.length === 0 ? (
+                            <p className="text-[#8a7060]">No comments yet.</p>
+                        ) : (
+                            recommendation.comments.map((comment) => (
+                                <div key={comment.id} className="mb-4">
+                                    <p className="italic text-[#5a4a3f]">"{comment.text}"</p>
+                                    <p className="text-xs text-[#a89684] mt-1">
+                                        {comment.author} ({comment.skinProfile})
+                                    </p>
+                                </div>
+                            ))
+                        )}
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </div>
     );
 }

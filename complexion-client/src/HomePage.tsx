@@ -16,6 +16,14 @@ const RESULTS: Recommendation[] = [
         shade: 'Medium',
         recommendedByCount: 342,
         priceTier: 'High-end',
+        comments: [
+            {
+                id: 'c1',
+                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
+                author: 'thandi_m',
+                skinProfile: 'Warm, Medium',
+            },
+        ],
     },
     {
         id: '2',
@@ -26,6 +34,14 @@ const RESULTS: Recommendation[] = [
         shade: 'Light',
         recommendedByCount: 189,
         priceTier: 'High-end',
+        comments: [
+            {
+                id: 'c1',
+                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
+                author: 'thandi_m',
+                skinProfile: 'Warm, Medium',
+            },
+        ],
     },
     {
         id: '3',
@@ -36,6 +52,14 @@ const RESULTS: Recommendation[] = [
         shade: 'Deep',
         recommendedByCount: 517,
         priceTier: 'Drugstore',
+        comments: [
+            {
+                id: 'c1',
+                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
+                author: 'thandi_m',
+                skinProfile: 'Warm, Medium',
+            },
+        ],
     },
 ];
 

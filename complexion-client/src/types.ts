@@ -1,3 +1,10 @@
+export interface Comment {
+    id: string;
+    text: string;
+    author: string;
+    skinProfile: string;
+}
+
 export interface Recommendation {
     id: string;
     brandName: string;
@@ -7,6 +14,7 @@ export interface Recommendation {
     shade: string;
     recommendedByCount: number;
     priceTier: string;
+    comments: Comment[];
 }
 
 export interface MyRecommendation {
