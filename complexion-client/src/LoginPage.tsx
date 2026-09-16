@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { PageBackground } from './PageBackground';
 import loginBackground from './assets/loginBackground.jpg';
 import { TextField } from './TextField';
+import { Button } from './Button';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
@@ -53,23 +54,23 @@ export function LoginPage() {
 
                         <p className="text-right text-sm text-[#8a7060] mt-2">Forgot password?</p>
 
-                        <button
+                        <Button
                             onClick={handleLogin}
-                            className="w-full mt-6 bg-[#9db4c0] rounded-lg py-3 font-semibold"
+                            className="w-full mt-2"
                         >
-                            Log in
-                        </button>
+                            Login
+                        </Button>
 
                         <p className="text-center text-sm text-[#8a7060] mt-4">
                             Don't have an account?
                         </p>
-
-                        <button
+                        <Button
+                            variant="secondary"
                             onClick={() => navigate('/register')}
-                            className="w-full mt-2 rounded-lg py-3 font-semibold text-white cursor-pointer bg-gradient-to-b from-[#8a6b58] to-[#5f4638] shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                            className="w-full mt-2"
                         >
                             Create account
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

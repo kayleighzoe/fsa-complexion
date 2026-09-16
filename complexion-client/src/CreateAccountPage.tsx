@@ -4,6 +4,7 @@ import { PageBackground } from './PageBackground';
 import createAccountBackground from './assets/createAccountBackground.jpg';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
+import { Button } from './Button';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -116,18 +117,19 @@ export function CreateAccountPage() {
                         </div>
 
                         <div className="flex gap-4 mt-8">
-                            <button
+                            <Button
+                                variant="secondary"
                                 onClick={() => navigate('/login')}
-                                className="w-1/2 bg-[#72594a] text-white rounded-lg py-3 font-semibold"
+                                className="w-1/2 "
                             >
                                 Return to login
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                                 onClick={handleSignUp}
-                                className="w-1/2 bg-[#9db4c0] rounded-lg py-3 font-semibold"
+                                className="w-1/2"
                             >
                                 Sign up
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>

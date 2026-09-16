@@ -5,6 +5,7 @@ import { NavBar } from './NavBar';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
 import shareBackground from './assets/shareBackground.png';
+import { Button } from './Button';
 
 export function SharePage() {
     const [category, setCategory] = useState('');
@@ -142,18 +143,19 @@ export function SharePage() {
                     </div>
 
                     <div className="flex gap-4 mt-8">
-                        <button
-                            onClick={() => navigate('/')}
-                            className="w-1/2 bg-[#72594a] text-white rounded-lg py-3 font-semibold"
+                        <Button
+                            variant="secondary"
+                            onClick={() => navigate('/profile')}
+                            className="w-1/2"
                         >
                             Cancel
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             onClick={handleShare}
-                            className="w-1/2 bg-[#9db4c0] rounded-lg py-3 font-semibold"
+                            className="w-1/2"
                         >
                             Share recommendation
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import profileBackground from './assets/profileBackground.jpg';
 import { NavBar } from './NavBar';
 import { useNavigate } from 'react-router';
+import { Button } from './Button';
 
 const USER = {
     name: 'Someone Someone',
@@ -43,10 +44,19 @@ export function ProfilePage() {
                                 My profile
                             </h1>
                             <div className="flex gap-3">
-                                <button className="bg-[#f0d5c0] rounded-full px-6 py-2.5">Edit</button>
-                                <button className="bg-[#3b2a20] text-white rounded-full px-6 py-2.5">
+                                <Button
+                                    variant="pale"
+                                    rounded="full"
+                                    className="px-6 py-2.5">
+                                    Edit
+                                </Button>
+                                <Button
+                                    onClick={() => navigate('/login')}
+                                    variant="secondary"
+                                    rounded="full"
+                                    className="px-6 py-2.5">
                                     Logout
-                                </button>
+                                </Button>
                             </div>
                         </div>
 
@@ -83,11 +93,12 @@ export function ProfilePage() {
                             <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
                                 My perfect shade matches
                             </h2>
-                            <button
+                            <Button
                                 onClick={() => navigate('/share')}
-                                className="bg-[#9db4c0] rounded-full px-6 py-2.5">
+                                rounded="full"
+                                className="px-6 py-2.5">
                                 + Share a recommendation
-                            </button>
+                            </Button>
                         </div>
 
                         {MY_RECOMMENDATIONS.map((item) => (
@@ -108,12 +119,20 @@ export function ProfilePage() {
                                     <p className="text-xs text-[#a89684] mt-3">Shared {item.sharedOn}</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10 flex items-center justify-center cursor-pointer">
+                                    <Button
+                                        variant="pale"
+                                        rounded="full"
+                                        size="icon"
+                                        className="w-10 h-10 flex items-center justify-center cursor-pointer">
                                         <Pencil size={16} className="text-[#3b2a20]"/>
-                                    </button>
-                                    <button className="bg-[#f0d5c0] rounded-full w-10 h-10 flex items-center justify-center cursor-pointer">
+                                    </Button>
+                                    <Button
+                                        variant="pale"
+                                        rounded="full"
+                                        size="icon"
+                                        className="w-10 h-10 flex items-center justify-center cursor-pointer">
                                         <Trash2 size={16} className="text-[#3b2a20]"/>
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         ))}
