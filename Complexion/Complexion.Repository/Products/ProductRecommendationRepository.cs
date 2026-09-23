@@ -1,7 +1,5 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Data;
-using Dapper;
-using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Products
 {
@@ -16,7 +14,7 @@ namespace Complexion.Repository.Products
 
         public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             RecommendationId, 
                             UserId, 
                             ProductId, 
@@ -30,7 +28,7 @@ namespace Complexion.Repository.Products
 
         public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             RecommendationId, 
                             UserId, 
                             ProductId, 
@@ -45,7 +43,7 @@ namespace Complexion.Repository.Products
 
         public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
-            var sql = @"INSERT INTO dbo.ProductRecommendation
+            const string sql = @"INSERT INTO dbo.ProductRecommendation
                         (
                             RecommendationId, 
                             UserId, 
@@ -69,7 +67,7 @@ namespace Complexion.Repository.Products
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
         {
-            var sql = @"UPDATE dbo.ProductRecommendation
+            const string sql = @"UPDATE dbo.ProductRecommendation
                         SET Comment = @Comment
                         WHERE RecommendationId = @Id";
 
@@ -78,7 +76,7 @@ namespace Complexion.Repository.Products
 
         public async Task DeleteProductReccommendationAsync(Guid id)
         {
-            var sql = @"DELETE FROM dbo.ProductRecommendation 
+            const string sql = @"DELETE FROM dbo.ProductRecommendation 
                         WHERE RecommendationId = @Id";
 
             await _dbContext.ExecuteAsync(sql, new { Id = id });

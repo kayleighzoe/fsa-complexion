@@ -1,7 +1,5 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Data;
-using Dapper;
-using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Products
 {
@@ -16,7 +14,7 @@ namespace Complexion.Repository.Products
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
-            var getAllSql = @"SELECT 
+            const string getAllSql = @"SELECT 
                                 ProductId, 
                                 CategoryId, 
                                 PriceTierId, 
@@ -25,7 +23,7 @@ namespace Complexion.Repository.Products
                                 ShadeName 
                             FROM dbo.Product";
 
-            var seachSql = @"SELECT 
+            const string seachSql = @"SELECT 
                                 ProductId, 
                                 CategoryId, 
                                 PriceTierId, 
@@ -46,7 +44,7 @@ namespace Complexion.Repository.Products
 
         public async Task<Product?> GetProductAsync(Guid id)
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             ProductId, 
                             CategoryId, 
                             PriceTierId, 
@@ -61,7 +59,7 @@ namespace Complexion.Repository.Products
 
         public async Task CreateProductAsync(CreateProductDto dto)
         {
-            var sql = @"INSERT INTO dbo.Product 
+            const string sql = @"INSERT INTO dbo.Product 
                         (
                             ProductId, 
                             CategoryId,

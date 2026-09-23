@@ -1,7 +1,5 @@
 ﻿using Complexion.Models.Skin;
 using Complexion.Repository.Data;
-using Dapper;
-using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Skin
 {
@@ -16,7 +14,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             SkinProfileId, 
                             ShadeId, 
                             UndertoneId, 
@@ -28,7 +26,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             SkinProfileId, 
                             ShadeId, 
                             UndertoneId, 
@@ -41,7 +39,7 @@ namespace Complexion.Repository.Skin
 
         public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
-            var sql = @"INSERT INTO dbo.SkinProfile 
+            const string sql = @"INSERT INTO dbo.SkinProfile 
                         (
                             SkinProfileId, 
                             ShadeId, 

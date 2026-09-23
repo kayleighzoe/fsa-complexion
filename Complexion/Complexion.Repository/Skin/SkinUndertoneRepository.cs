@@ -1,8 +1,5 @@
-﻿using System.Data.Common;
-using Complexion.Models.Skin;
+﻿using Complexion.Models.Skin;
 using Complexion.Repository.Data;
-using Dapper;
-using Microsoft.Data.SqlClient;
 
 namespace Complexion.Repository.Skin
 {
@@ -17,7 +14,7 @@ namespace Complexion.Repository.Skin
 
         public async Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync()
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             UndertoneId, 
                             Name 
                         FROM skin.Undertone";

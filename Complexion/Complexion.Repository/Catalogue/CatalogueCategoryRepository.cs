@@ -1,6 +1,4 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
-using Complexion.Models.Catalogue;
+﻿using Complexion.Models.Catalogue;
 using Complexion.Repository.Data;
 
 namespace Complexion.Repository.Catalogue
@@ -16,7 +14,7 @@ namespace Complexion.Repository.Catalogue
 
         public async Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync()
         {
-            var sql = @"SELECT 
+            const string sql = @"SELECT 
                             CategoryId, 
                             Name 
                         FROM catalogue.Category";
