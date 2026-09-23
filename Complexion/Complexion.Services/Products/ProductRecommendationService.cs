@@ -37,6 +37,7 @@ namespace Complexion.Services.Products
         public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
             var result = await _createValidator.ValidateAsync(dto);
+
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
@@ -53,6 +54,7 @@ namespace Complexion.Services.Products
             }
 
             var result = await _updateValidator.ValidateAsync(dto);
+
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);

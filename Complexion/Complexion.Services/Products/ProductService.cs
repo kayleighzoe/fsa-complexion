@@ -35,6 +35,7 @@ namespace Complexion.Services.Products
         public async Task CreateProductAsync(CreateProductDto dto)
         {
             var result = await _validator.ValidateAsync(dto);
+
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
