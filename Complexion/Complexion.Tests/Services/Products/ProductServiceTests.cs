@@ -18,7 +18,6 @@ namespace Complexion.Tests.Services.Products
         {
             _productRepository = Substitute.For<IProductRepository>();
             _createValidator = Substitute.For<IValidator<CreateProductDto>>();
-
             _productService = new ProductService(_productRepository, _createValidator);
 
         }

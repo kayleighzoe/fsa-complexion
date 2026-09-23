@@ -14,7 +14,6 @@ namespace Complexion.Tests
             _validator = new CreateProductRecommendationsValidator();
         }
 
-
         [Test]
         public void GIVEN_EmptyUserId_WHEN_ValidatingCreateProductRecommendation_THEN_ReturnValidationError()
         {

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Skin
 {
-
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class SkinShadeController : ControllerBase

@@ -1,7 +1,6 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using Complexion.Services.Products;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Products
@@ -41,7 +40,6 @@ namespace Complexion.Api.Controllers.Products
             await _service.CreateProductAsync(dto);
 
             return StatusCode(StatusCodes.Status201Created);
-
         }
     }
 }
