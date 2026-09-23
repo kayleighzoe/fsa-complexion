@@ -1,10 +1,11 @@
+
 import type { ReactNode } from 'react';
 
 interface ButtonProps {
     children: ReactNode;
     onClick?: () => void;
     variant?: 'primary' | 'secondary' | 'pale';
-    rounded?: 'lg' | "full",
+    rounded?: 'lg' | 'full',
     size?: 'default' | 'icon',
     className?: string;
 }

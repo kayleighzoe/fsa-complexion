@@ -13,7 +13,7 @@ export function TextField({ label, value, onChange, type = 'text' }: TextFieldPr
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full rounded-lg px-4 py-2.5 bg-white border border-[#e8ddd4]"
+                className="w-full rounded-lg px-4 py-2.5 bg-white border border-[#e8ddd4] outline-none focus:ring-2 focus:ring-[#8a7060]/50 focus:border-[#8a7060]"
             />
         </div>
     );

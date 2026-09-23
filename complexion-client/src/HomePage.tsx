@@ -72,7 +72,7 @@ export function HomePage() {
 
     return (
         <div className="min-h-screen bg-[#645b50] flex flex-col relative">
-            <PageBackground image={homeBackground} position="object-top" />
+            <PageBackground image={homeBackground}/>
             <NavBar />
 
             <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-12 page-fade">

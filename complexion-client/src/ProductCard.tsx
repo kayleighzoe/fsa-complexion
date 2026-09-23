@@ -50,11 +50,15 @@ export function ProductCard({ recommendation }: ProductCardProps) {
                             <p className="text-[#8a7060]">No comments yet.</p>
                         ) : (
                             recommendation.comments.map((comment) => (
-                                <div key={comment.id} className="mb-4">
-                                    <p className="italic text-[#5a4a3f]">"{comment.text}"</p>
-                                    <p className="text-xs text-[#a89684] mt-1">
-                                        {comment.author} ({comment.skinProfile})
-                                    </p>
+                                <div
+                                    key={comment.id}
+                                    className="bg-[#faf6f2] rounded-xl px-5 py-4 mb-3 border border-[#f0e8e0]"
+                                >
+                                    <div className="flex items-baseline gap-2">
+                                        <span className="font-semibold text-[#3b2a20]">{comment.author}</span>
+                                        <span className="text-xs text-[#a89684]">({comment.skinProfile})</span>
+                                    </div>
+                                    <p className="text-[#5a4a3f] mt-1.5">{comment.text}</p>
                                 </div>
                             ))
                         )}
