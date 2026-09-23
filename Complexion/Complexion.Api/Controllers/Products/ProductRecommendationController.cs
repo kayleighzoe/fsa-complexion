@@ -1,7 +1,6 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using Complexion.Services.Products;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Products
@@ -10,19 +9,19 @@ namespace Complexion.Api.Controllers.Products
     [Route("api/[controller]/[action]")]
     public class ProductRecommendationController : ControllerBase
     {
-        private readonly IProductRecommendationService _service;
-        private readonly IProductRecommendationRepository _repository;
+        private readonly IProductRecommendationService _productRecommendationService;
+        private readonly IProductRecommendationRepository _productRecommendationRepository;
 
         public ProductRecommendationController(IProductRecommendationService service, IProductRecommendationRepository repository)
         {
-            _service = service;
-            _repository = repository;
+            _productRecommendationService = service;
+            _productRecommendationRepository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllRecommendations()
         {
-            var recommendations = await _repository.GetAllProductReccommendationsAsync();
+            var recommendations = await _productRecommendationRepository.GetAllProductReccommendationsAsync();
 
             return Ok(recommendations);
         }
@@ -30,7 +29,7 @@ namespace Complexion.Api.Controllers.Products
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecommendation(Guid id)
         {
-            var recommendation = await _service.GetProductReccommendationAsync(id);
+            var recommendation = await _productRecommendationService.GetProductReccommendationAsync(id);
 
             return Ok(recommendation);
         }
@@ -38,7 +37,7 @@ namespace Complexion.Api.Controllers.Products
         [HttpPost]
         public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
         {
-            await _service.CreateProductReccommendationAsync(dto);
+            await _productRecommendationService.CreateProductReccommendationAsync(dto);
 
             return StatusCode(StatusCodes.Status201Created);
         }
@@ -46,7 +45,7 @@ namespace Complexion.Api.Controllers.Products
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateRecommendation(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
-            await _service.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
 
             return NoContent();
         }
@@ -54,7 +53,7 @@ namespace Complexion.Api.Controllers.Products
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecommendation(Guid id)
         {
-            await _repository.DeleteProductReccommendationAsync(id);
+            await _productRecommendationRepository.DeleteProductReccommendationAsync(id);
 
             return NoContent();
         }

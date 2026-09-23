@@ -8,18 +8,18 @@ namespace Complexion.Api.Controllers.Skin
     [Route("api/[controller]/[action]")]
     public class SkinUndertoneController : ControllerBase
     {
-        private readonly ISkinUndertoneRepository _repository;
+        private readonly ISkinUndertoneRepository _skinUndertoneRepository;
 
         public SkinUndertoneController(ISkinUndertoneRepository repository)
         {
-            _repository = repository;
+            _skinUndertoneRepository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllSkinUndertones()
         {
-            var skinUndertones = await _repository.GetAllUndertonesAsync();
-
+            var skinUndertones = await _skinUndertoneRepository.GetAllUndertonesAsync();
+            
             return Ok(skinUndertones);
         }
     }
