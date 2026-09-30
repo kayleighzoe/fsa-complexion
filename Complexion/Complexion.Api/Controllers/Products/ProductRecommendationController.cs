@@ -47,7 +47,7 @@ namespace Complexion.Api.Controllers.Products
         {
             await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -55,7 +55,7 @@ namespace Complexion.Api.Controllers.Products
         {
             await _productRecommendationRepository.DeleteProductReccommendationAsync(id);
 
-            return NoContent();
+            return Ok();
         }
     }
 }
