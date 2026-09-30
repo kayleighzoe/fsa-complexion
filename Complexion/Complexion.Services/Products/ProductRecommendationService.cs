@@ -57,10 +57,5 @@ namespace Complexion.Services.Products
 
             await _repository.UpdateProductReccommendationAsync(id, dto);
         }
-
-        public async Task DeleteProductReccommendationAsync(Guid id)
-        {
-            await _repository.DeleteProductReccommendationAsync(id);
-        }
     }
 }

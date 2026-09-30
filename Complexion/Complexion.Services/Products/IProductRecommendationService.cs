@@ -7,6 +7,5 @@ namespace Complexion.Services.Products
         Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id);
         Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto);
         Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto);
-        Task DeleteProductReccommendationAsync(Guid id);
     }
 }
