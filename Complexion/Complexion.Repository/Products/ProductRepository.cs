@@ -61,7 +61,6 @@ namespace Complexion.Repository.Products
         {
             const string sql = @"INSERT INTO dbo.Product 
                         (
-                            ProductId, 
                             CategoryId,
                             PriceTierId, 
                             Name, 
@@ -69,8 +68,7 @@ namespace Complexion.Repository.Products
                             ShadeName
                         )
                         VALUES 
-                        (
-                            NEWID(), 
+                        ( 
                             @CategoryId, 
                             @PriceTierId, 
                             @Name, 
