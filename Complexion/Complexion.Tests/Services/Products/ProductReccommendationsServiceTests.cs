@@ -57,8 +57,11 @@ namespace Complexion.Tests.Services.Products
             var result = await _productRecommendationService.GetAllProductReccommendationsAsync();
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedRecommendations));
-            await _productRecommendationRepository.Received(1).GetAllProductReccommendationsAsync();
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedRecommendations));
+                _productRecommendationRepository.Received(1).GetAllProductReccommendationsAsync();
+            });
         }
 
         [Test]
@@ -82,8 +85,11 @@ namespace Complexion.Tests.Services.Products
             var result = await _productRecommendationService.GetProductReccommendationAsync(id);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedRecommendation));
-            await _productRecommendationRepository.Received(1).GetProductReccommendationAsync(id);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedRecommendation));
+                _productRecommendationRepository.Received(1).GetProductReccommendationAsync(id);
+            });
         }
 
         [Test]
