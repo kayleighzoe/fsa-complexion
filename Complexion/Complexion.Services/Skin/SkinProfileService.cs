@@ -22,22 +22,23 @@ namespace Complexion.Services.Skin
 
         public async Task<SkinProfile?> GetSkinProfileAsync(Guid id)
         {
-            var result = await _repository.GetSkinProfileAsync(id);
+            var skinProfile = await _repository.GetSkinProfileAsync(id);
 
-            if (result == null)
+            if (skinProfile == null)
             {
-                throw new NotFoundException($"SkinProfile with id {id} was not found.");
+                throw new KeyNotFoundException($"SkinProfile with id {id} was not found.");
             }
 
-            return result;
+            return skinProfile;
         }
 
         public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
-            var result = await _validator.ValidateAsync(dto);
-            if (!result.IsValid)
+            var skinProfile = await _validator.ValidateAsync(dto);
+
+            if (!skinProfile.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                throw new ValidationException(skinProfile.Errors);
             }
 
             await _repository.CreateSkinProfileAsync(dto);

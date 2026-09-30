@@ -24,23 +24,23 @@ namespace Complexion.Services.Products
 
         public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
-            var result = await _repository.GetProductReccommendationAsync(id);
+            var productRecommendation = await _repository.GetProductReccommendationAsync(id);
 
-            if (result == null)
+            if (productRecommendation == null)
             {
                 throw new KeyNotFoundException($"ProductRecommendation with id {id} was not found.");
             }
 
-            return result;
+            return productRecommendation;
         }
 
         public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
         {
-            var result = await _createValidator.ValidateAsync(dto);
+            var productRecommendation = await _createValidator.ValidateAsync(dto);
 
-            if (!result.IsValid)
+            if (!productRecommendation.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                throw new ValidationException(productRecommendation.Errors);
             }
 
             await _repository.CreateProductReccommendationAsync(dto);
@@ -48,16 +48,16 @@ namespace Complexion.Services.Products
 
         public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
         {
-            if (dto.Comment == null)
+            if (dto.Comment is null)
             {
                 return;
             }
 
-            var result = await _updateValidator.ValidateAsync(dto);
+            var productRecommendation = await _updateValidator.ValidateAsync(dto);
 
-            if (!result.IsValid)
+            if (!productRecommendation.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                throw new ValidationException(productRecommendation.Errors);
             }
 
             await _repository.UpdateProductReccommendationAsync(id, dto);

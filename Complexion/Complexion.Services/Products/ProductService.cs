@@ -22,23 +22,23 @@ namespace Complexion.Services.Products
 
         public async Task<Product?> GetProductAsync(Guid id)
         {
-            var result = await _repository.GetProductAsync(id);
+            var product = await _repository.GetProductAsync(id);
 
-            if (result == null)
+            if (product == null)
             {
                 throw new KeyNotFoundException($"Product with id {id} was not found.");
             }
 
-            return result;
+            return product;
         }
 
         public async Task CreateProductAsync(CreateProductDto dto)
         {
-            var result = await _validator.ValidateAsync(dto);
+            var product = await _validator.ValidateAsync(dto);
 
-            if (!result.IsValid)
+            if (!product.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                throw new ValidationException(product.Errors);
             }
 
             await _repository.CreateProductAsync(dto);
