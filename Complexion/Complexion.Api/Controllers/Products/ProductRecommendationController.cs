@@ -27,33 +27,33 @@ namespace Complexion.Api.Controllers.Products
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecommendation(Guid id)
+        public async Task<IActionResult> GetRecommendation(Guid recommendationId)
         {
-            var recommendation = await _productRecommendationService.GetProductReccommendationAsync(id);
+            var recommendation = await _productRecommendationService.GetProductReccommendationAsync(recommendationId);
 
             return Ok(recommendation);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
+        public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto createProductRecommentationDto)
         {
-            await _productRecommendationService.CreateProductReccommendationAsync(dto);
+            await _productRecommendationService.CreateProductReccommendationAsync(createProductRecommentationDto);
 
             return StatusCode(StatusCodes.Status201Created);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateRecommendation(Guid id, [FromBody] UpdateProductRecommendationDto dto)
+        public async Task<IActionResult> UpdateRecommendation(Guid recommendationId, [FromBody] UpdateProductRecommendationDto createProductRecommentationDto)
         {
-            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductReccommendationAsync(recommendationId, createProductRecommentationDto);
 
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecommendation(Guid id)
+        public async Task<IActionResult> DeleteRecommendation(Guid recommendationId)
         {
-            await _productRecommendationRepository.DeleteProductReccommendationAsync(id);
+            await _productRecommendationRepository.DeleteProductReccommendationAsync(recommendationId);
 
             return Ok();
         }

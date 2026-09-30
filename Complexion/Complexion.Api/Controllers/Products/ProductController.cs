@@ -27,17 +27,17 @@ namespace Complexion.Api.Controllers.Products
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(Guid id)
+        public async Task<IActionResult> GetProduct(Guid productId)
         {
-            var product = await _productService.GetProductAsync(id);
+            var product = await _productService.GetProductAsync(productId);
 
             return Ok(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateProductDto createProductDto)
         {
-            await _productService.CreateProductAsync(dto);
+            await _productService.CreateProductAsync(createProductDto);
 
             return StatusCode(StatusCodes.Status201Created);
         }
