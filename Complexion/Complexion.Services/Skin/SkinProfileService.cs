@@ -26,7 +26,7 @@ namespace Complexion.Services.Skin
 
             if (result == null)
             {
-                throw new KeyNotFoundException($"SkinProfile with id {id} was not found.");
+                throw new NotFoundException($"SkinProfile with id {id} was not found.");
             }
 
             return result;

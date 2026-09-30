@@ -68,10 +68,10 @@ namespace Complexion.Tests.Services.Products
         public async Task GIVEN_RecommendationExists_WHEN_GettingProductReccommendationAsync_THEN_ReturnRecommendationFromRepository()
         {
             // Arrange
-            var id = Guid.NewGuid();
+            var recommendationId = Guid.NewGuid();
             var expectedRecommendation = new ProductRecommendation
             {
-                RecommendationId = id,
+                RecommendationId = recommendationId,
                 UserId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
