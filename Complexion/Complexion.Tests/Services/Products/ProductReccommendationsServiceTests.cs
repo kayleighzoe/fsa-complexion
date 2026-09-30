@@ -54,7 +54,7 @@ namespace Complexion.Tests.Services.Products
             _productRecommendationRepository.GetAllProductReccommendationsAsync().Returns(expectedRecommendations);
 
             // Act
-            var result = await _productRecommendationService.GetAllProductReccommendationsAsync();
+            var result = await _productRecommendationRepository.GetAllProductReccommendationsAsync();
 
             // Assert
             Assert.Multiple(() =>
@@ -79,16 +79,16 @@ namespace Complexion.Tests.Services.Products
                 CreatedAt = DateTime.UtcNow
             };
 
-            _productRecommendationRepository.GetProductReccommendationAsync(id).Returns(expectedRecommendation);
+            _productRecommendationRepository.GetProductReccommendationAsync(recommendationId).Returns(expectedRecommendation);
 
             // Act
-            var result = await _productRecommendationService.GetProductReccommendationAsync(id);
+            var result = await _productRecommendationService.GetProductReccommendationAsync(recommendationId);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.EqualTo(expectedRecommendation));
-                _productRecommendationRepository.Received(1).GetProductReccommendationAsync(id);
+                _productRecommendationRepository.Received(1).GetProductReccommendationAsync(recommendationId);
             });
         }
 

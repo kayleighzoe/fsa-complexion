@@ -17,11 +17,6 @@ namespace Complexion.Services.Products
             _updateValidator = updateValidator;
         }
 
-        public async Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync()
-        {
-            return await _repository.GetAllProductReccommendationsAsync();
-        }
-
         public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
         {
             var productRecommendation = await _repository.GetProductReccommendationAsync(id);
