@@ -1,6 +1,6 @@
 ﻿namespace Complexion.Models.Skin
 {
-    public class SkinUndertone
+    public record SkinUndertone
     {
         public int UndertoneId { get; set; }
         public string Name { get; set; }

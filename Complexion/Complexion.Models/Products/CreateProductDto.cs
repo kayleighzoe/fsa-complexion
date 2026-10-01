@@ -1,6 +1,6 @@
 ﻿namespace Complexion.Models.Products
 {
-    public class CreateProductDto
+    public record CreateProductDto
     {
         public int CategoryId { get; set; }
         public int PriceTierId { get; set; }

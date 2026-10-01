@@ -1,6 +1,6 @@
 ﻿namespace Complexion.Models.Products
 {
-    public class ProductRecommendation
+    public record ProductRecommendation
     {
         public Guid RecommendationId { get; set; }
         public Guid UserId { get; set; }
