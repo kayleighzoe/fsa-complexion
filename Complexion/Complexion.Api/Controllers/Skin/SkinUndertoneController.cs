@@ -19,7 +19,7 @@ namespace Complexion.Api.Controllers.Skin
         public async Task<IActionResult> GetAllSkinUndertones()
         {
             var skinUndertones = await _skinUndertoneRepository.GetAllUndertonesAsync();
-            
+
             return Ok(skinUndertones);
         }
     }
