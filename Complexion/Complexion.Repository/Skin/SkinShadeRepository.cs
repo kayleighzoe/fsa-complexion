@@ -1,23 +1,25 @@
 ﻿using Complexion.Models.Skin;
-using Dapper;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+using Complexion.Repository.Data;
 
 namespace Complexion.Repository.Skin
 {
     public class SkinShadeRepository : ISkinShadeRepository
     {
-        private readonly string _connectionString;
+        private readonly IDbContext _dbContext;
 
-        public SkinShadeRepository(IConfiguration configuration)
+        public SkinShadeRepository(IDbContext dbContext)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<SkinShade>> GetAllAsync()
+        public async Task<IEnumerable<SkinShade>> GetAllSkinShadesAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QueryAsync<SkinShade>("SELECT * FROM skin.Shade");
+            const string sql = @"SELECT 
+                            ShadeId, 
+                            Name 
+                        FROM skin.Shade";
+
+            return await _dbContext.QueryAsync<SkinShade>(sql);
         }
     }
 }

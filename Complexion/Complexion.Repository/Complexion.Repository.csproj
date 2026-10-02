@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Complexion.DTOs\Complexion.DTOs.csproj" />
     <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
   </ItemGroup>
 

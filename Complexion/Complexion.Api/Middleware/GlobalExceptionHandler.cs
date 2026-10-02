@@ -14,40 +14,55 @@ namespace Complexion.Api.Middleware
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            _logger.LogError(
-                exception,
-                "Unhandled exception: {Message}",
-                exception.Message);
-
             var statusCode = exception switch
             {
-                AppException ex => ex.StatusCode,
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
                 ArgumentException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
 
-            var problemDetails = new ProblemDetails
+            var response = new ProblemDetails
             {
                 Status = statusCode,
                 Title = GetTitle(statusCode),
                 Detail = exception.Message
             };
 
+            if (exception is FluentValidation.ValidationException validationException)
+            {
+                response.Extensions["errors"] = validationException.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+            }
+
+            _logger.LogError(
+                exception,
+               "Unhandled exception: {Message} | StatusCode: {StatusCode}",
+                exception.Message,
+                statusCode);
+
             httpContext.Response.StatusCode = statusCode;
 
-            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
 
             return true;
         }
 
-        private static string GetTitle(int statusCode) => statusCode switch
+        private static string GetTitle(int statusCode)
         {
-            400 => "Bad Request",
-            401 => "Unauthorised",
-            404 => "Not Found",
-            _ => "An unexpected error occurred"
-        };
+            switch (statusCode)
+            {
+                case 400:
+                    return "Bad Request";
+                case 401:
+                    return "Unauthorised";
+                case 404:
+                    return "Not Found";
+                default:
+                    return "An unexpected error occurred";
+            }
+        }
     }
 }

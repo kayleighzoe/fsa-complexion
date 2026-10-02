@@ -4,6 +4,6 @@ namespace Complexion.Repository.Catalogue
 {
     public interface ICatalogueCategoryRepository
     {
-        Task<IEnumerable<CatalogueCategory>> GetAllAsync();
+        Task<IEnumerable<CatalogueCategory>> GetAllCategoriesAsync();
     }
 }
