@@ -1,5 +1,4 @@
 ﻿using Complexion.Models.Products;
-using Complexion.Repository.Products;
 using Complexion.Services.Products;
 using Microsoft.AspNetCore.Mvc;
 

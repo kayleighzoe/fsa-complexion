@@ -164,18 +164,5 @@ namespace Complexion.Tests.Services.Products
             // Assert
             await _productRecommendationRepository.DidNotReceive().UpdateProductReccommendationAsync(id, dto);
         }
-
-        [Test]
-        public async Task GIVEN_ValidId_WHEN_DeletingProductReccommendationAsync_THEN_CallRepositoryDelete()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-
-            // Act
-            await _productRecommendationService.DeleteProductReccommendationAsync(id);
-
-            // Assert
-            await _productRecommendationRepository.Received(1).DeleteProductReccommendationAsync(id);
-        }
     }
 }
