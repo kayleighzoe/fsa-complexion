@@ -12,34 +12,34 @@ namespace Complexion.Repository.Products
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            const string getAllSql = @"SELECT 
-                                ProductId, 
-                                CategoryId, 
-                                PriceTierId, 
-                                Name, 
-                                Brand, 
-                                ShadeName 
-                            FROM dbo.Product";
+            const string sql = @"SELECT 
+                            ProductId, 
+                            CategoryId, 
+                            PriceTierId, 
+                            Name, 
+                            Brand, 
+                            ShadeName 
+                        FROM dbo.Product";
 
-            const string seachSql = @"SELECT 
-                                ProductId, 
-                                CategoryId, 
-                                PriceTierId, 
-                                Name, 
-                                Brand, 
-                                ShadeName 
-                            FROM dbo.Product
-                            WHERE Name LIKE @Search
-                            OR Brand LIKE @Search";
+            return await _dbContext.QueryAsync<Product>(sql);
+        }
 
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return await _dbContext.QueryAsync<Product>(getAllSql);
-            }
+        public async Task<IEnumerable<Product>> SearchProductsAsync(string search)
+        {
+            const string sql = @"SELECT 
+                            ProductId, 
+                            CategoryId, 
+                            PriceTierId, 
+                            Name, 
+                            Brand, 
+                            ShadeName 
+                        FROM dbo.Product
+                        WHERE Name LIKE @Search
+                        OR Brand LIKE @Search";
 
-            return await _dbContext.QueryAsync<Product>(seachSql, new { Search = $"%{search}%" });
+            return await _dbContext.QueryAsync<Product>(sql, new { Search = $"%{search}%" });
         }
 
         public async Task<Product?> GetProductAsync(Guid id)

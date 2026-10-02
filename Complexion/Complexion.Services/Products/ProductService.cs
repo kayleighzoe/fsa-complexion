@@ -17,7 +17,12 @@ namespace Complexion.Services.Products
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync(string? search)
         {
-            return await _repository.GetAllProductsAsync(search);
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return await _repository.GetAllProductsAsync();
+            }
+
+            return await _repository.SearchProductsAsync(search);
         }
 
         public async Task<Product?> GetProductAsync(Guid id)

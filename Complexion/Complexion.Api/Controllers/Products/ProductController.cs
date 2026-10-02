@@ -10,18 +10,16 @@ namespace Complexion.Api.Controllers.Products
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly IProductRepository _productRepository;
 
-        public ProductController(IProductService service, IProductRepository repository)
+        public ProductController(IProductService service)
         {
             _productService = service;
-            _productRepository = repository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
-            var products = await _productRepository.GetAllProductsAsync(search);
+            var products = await _productService.GetAllProductsAsync(search);
 
             return Ok(products);
         }

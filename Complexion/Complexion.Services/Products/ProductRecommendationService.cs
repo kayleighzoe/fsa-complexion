@@ -52,7 +52,7 @@ namespace Complexion.Services.Products
 
             if (!productRecommendation.IsValid)
             {
-                throw new BadRequestException(productRecommendation.Errors);
+                throw new ValidationException(productRecommendation.Errors);
             }
 
             await _repository.UpdateProductReccommendationAsync(id, dto);
