@@ -12,8 +12,6 @@
     <None Remove="Scripts\20260520104702CreateCatalogueSchema.sql" />
     <None Remove="Scripts\20260520104702CreateConfigSchema.sql" />
     <None Remove="Scripts\20260520104703CreateSkinSchemas.sql" />
-    <None Remove="Scripts\20260618120004InsertProductData.sql" />
-    <None Remove="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,8 +27,6 @@
     <EmbeddedResource Include="Scripts\20260520104709CreateUserTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104710CreateProductTable.sql" />
     <EmbeddedResource Include="Scripts\20260520104711CreateProductRecommendationTable.sql" />
-    <EmbeddedResource Include="Scripts\20260618120004InsertProductData.sql" />
-    <EmbeddedResource Include="Scripts\20260618120005InsertSkinProfileData.sql" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Complexion.Tests.Services.Products
         }
 
         [Test]
-        public async Task GIVEN_ProductsExist_WHEN_GettingAllProductsAsync_THEN_ReturnProductsFromRepository()
+        public async Task GIVEN_SearchTerm_WHEN_GettingAllProductsAsync_THEN_ReturnSearchResultsFromRepository()
         {
             // Arrange
             var search = "concealer";
@@ -49,7 +49,7 @@ namespace Complexion.Tests.Services.Products
                 }
             };
 
-            _productRepository.GetAllProductsAsync(search).Returns(expectedProducts);
+            _productRepository.SearchProductsAsync(search).Returns(expectedProducts);
 
             // Act
             var result = await _productService.GetAllProductsAsync(search);
@@ -58,9 +58,39 @@ namespace Complexion.Tests.Services.Products
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.EqualTo(expectedProducts));
-                _productRepository.Received(1).GetAllProductsAsync(search);
+                _productRepository.Received(1).SearchProductsAsync(search);
             });
 
+        }
+
+        [Test]
+        public async Task GIVEN_NoSearchTerm_WHEN_GettingAllProductsAsync_THEN_ReturnAllProductsFromRepository()
+        {
+            // Arrange
+            var expectedProducts = new List<Product>
+            {
+                new Product
+                {
+                    ProductId = Guid.NewGuid(),
+                    CategoryId = 1,
+                    PriceTierId = 1,
+                    Name = "Full Coverage Concealer",
+                    Brand = "Fenty Beauty",
+                    ShadeName = "220"
+                }
+            };
+
+            _productRepository.GetAllProductsAsync().Returns(expectedProducts);
+
+            // Act
+            var result = await _productService.GetAllProductsAsync(null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedProducts));
+                _productRepository.Received(1).GetAllProductsAsync();
+            });
         }
 
         [Test]
@@ -126,4 +156,3 @@ namespace Complexion.Tests.Services.Products
         }
     }
 }
-
