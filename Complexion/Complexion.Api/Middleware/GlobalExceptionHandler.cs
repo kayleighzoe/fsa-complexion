@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Complexion.Exceptions;
 
 namespace Complexion.Api.Middleware
 {
@@ -16,6 +17,7 @@ namespace Complexion.Api.Middleware
         {
             var statusCode = exception switch
             {
+                NotFoundException => StatusCodes.Status404NotFound,
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
                 FluentValidation.ValidationException => StatusCodes.Status400BadRequest,

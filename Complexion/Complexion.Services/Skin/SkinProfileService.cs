@@ -1,6 +1,7 @@
 ﻿using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
 using FluentValidation;
+using Complexion.Exceptions;
 
 namespace Complexion.Services.Skin
 {
@@ -26,7 +27,7 @@ namespace Complexion.Services.Skin
 
             if (skinProfile == null)
             {
-                throw new KeyNotFoundException($"SkinProfile with id {id} was not found.");
+                throw new NotFoundException($"SkinProfile with id {id} was not found.");
             }
 
             return skinProfile;

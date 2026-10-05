@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Services", "Comp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Tests", "Complexion.Tests\Complexion.Tests.csproj", "{94B79962-5311-49E3-BD0D-16D267DE746E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complexion.Exceptions", "Complexion.Exceptions\Complexion.Exceptions.csproj", "{A1A23B55-B11A-4742-8AA0-D97182294B5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94B79962-5311-49E3-BD0D-16D267DE746E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1A23B55-B11A-4742-8AA0-D97182294B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A23B55-B11A-4742-8AA0-D97182294B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A23B55-B11A-4742-8AA0-D97182294B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A23B55-B11A-4742-8AA0-D97182294B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
