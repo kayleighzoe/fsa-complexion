@@ -4,6 +4,7 @@ using Complexion.Services.Skin;
 using FluentValidation;
 using FluentValidation.Results;
 using NSubstitute;
+using Complexion.Exceptions;
 
 namespace Complexion.Tests.Services.Skin
 {
@@ -92,7 +93,7 @@ namespace Complexion.Tests.Services.Skin
             _skinProfileRepository.GetSkinProfileAsync(id).Returns((SkinProfile?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _skinProfileService.GetSkinProfileAsync(id));
+            Assert.ThrowsAsync<NotFoundException>(async () => await _skinProfileService.GetSkinProfileAsync(id));
         }
 
         [Test]
