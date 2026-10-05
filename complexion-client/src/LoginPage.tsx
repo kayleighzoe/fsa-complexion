@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { PageBackground } from './PageBackground';
 import loginBackground from './assets/loginBackground.jpg';
 import { TextField } from './TextField';
 import { Button } from './Button';
