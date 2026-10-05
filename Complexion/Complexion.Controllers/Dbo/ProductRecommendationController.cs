@@ -1,5 +1,7 @@
-﻿using Complexion.DTOs.Dbo;
-using Complexion.Services.Dbo;
+﻿using Complexion.Models.Products;
+using Complexion.Repository.Products;
+using Complexion.Services.Products;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Controllers.Dbo
@@ -9,44 +11,51 @@ namespace Complexion.Controllers.Dbo
     public class ProductRecommendationController : ControllerBase
     {
         private readonly IProductRecommendationService _service;
+        private readonly IProductRecommendationRepository _repository;
 
-        public ProductRecommendationController(IProductRecommendationService service)
+        public ProductRecommendationController(IProductRecommendationService service, IProductRecommendationRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllRecommendations()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var recommendations = await _repository.GetAllProductReccommendationsAsync();
+
+            return Ok(recommendations);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetRecommendation(Guid id)
         {
-            var result = await _service.GetByIdAsync(id);
-            return Ok(result);
+            var recommendation = await _service.GetProductReccommendationAsync(id);
+
+            return Ok(recommendation);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductRecommendationDto dto)
+        public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto dto)
         {
-            var result = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = result.RecommendationId }, result);
+            await _service.CreateProductReccommendationAsync(dto);
+
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductRecommendationDto dto)
+        public async Task<IActionResult> UpdateRecommendation(Guid id, [FromBody] UpdateProductRecommendationDto dto)
         {
-            var result = await _service.UpdateAsync(id, dto);
-            return Ok(result);
+            await _service.UpdateProductReccommendationAsync(id, dto);
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteRecommendation(Guid id)
         {
-            await _service.DeleteAsync(id);
+            await _repository.DeleteProductReccommendationAsync(id);
+
             return NoContent();
         }
     }

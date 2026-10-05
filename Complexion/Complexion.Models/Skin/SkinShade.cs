@@ -1,6 +1,6 @@
 ﻿namespace Complexion.Models.Skin
 {
-    public class SkinShade
+    public record SkinShade
     {
         public int ShadeId { get; set; }
         public string Name { get; set; }

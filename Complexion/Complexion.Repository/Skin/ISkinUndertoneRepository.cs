@@ -4,6 +4,6 @@ namespace Complexion.Repository.Skin
 {
     public interface ISkinUndertoneRepository
     {
-        Task<IEnumerable<SkinUndertone>> GetAllAsync();
+        Task<IEnumerable<SkinUndertone>> GetAllUndertonesAsync();
     }
 }
