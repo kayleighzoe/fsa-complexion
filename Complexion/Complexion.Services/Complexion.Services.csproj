@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Complexion.Exceptions\Complexion.Exceptions.csproj" />
     <ProjectReference Include="..\Complexion.Models\Complexion.Models.csproj" />
     <ProjectReference Include="..\Complexion.Repository\Complexion.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
   </ItemGroup>
 
 </Project>
