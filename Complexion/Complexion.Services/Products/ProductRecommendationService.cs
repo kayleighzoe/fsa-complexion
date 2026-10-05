@@ -1,6 +1,7 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using FluentValidation;
+using Complexion.Exceptions;
 
 namespace Complexion.Services.Products
 {
@@ -23,7 +24,7 @@ namespace Complexion.Services.Products
 
             if (productRecommendation == null)
             {
-                throw new KeyNotFoundException($"ProductRecommendation with id {id} was not found.");
+                throw new NotFoundException($"ProductRecommendation with id {id} was not found.");
             }
 
             return productRecommendation;

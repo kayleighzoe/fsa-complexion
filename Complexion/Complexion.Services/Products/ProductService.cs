@@ -1,6 +1,7 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using FluentValidation;
+using Complexion.Exceptions;
 
 namespace Complexion.Services.Products
 {
@@ -31,7 +32,7 @@ namespace Complexion.Services.Products
 
             if (product == null)
             {
-                throw new KeyNotFoundException($"Product with id {id} was not found.");
+                throw new NotFoundException($"Product with id {id} was not found.");
             }
 
             return product;

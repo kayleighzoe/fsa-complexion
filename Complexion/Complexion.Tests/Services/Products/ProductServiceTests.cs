@@ -4,6 +4,7 @@ using Complexion.Services.Products;
 using FluentValidation;
 using FluentValidation.Results;
 using NSubstitute;
+using Complexion.Exceptions;
 
 namespace Complexion.Tests.Services.Products
 {
@@ -130,7 +131,7 @@ namespace Complexion.Tests.Services.Products
             _productRepository.GetProductAsync(id).Returns((Product?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _productService.GetProductAsync(id));
+            Assert.ThrowsAsync<NotFoundException>(async () => await _productService.GetProductAsync(id));
         }
 
         [Test]
