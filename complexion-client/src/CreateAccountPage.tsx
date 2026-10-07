@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import createAccountBackground from './assets/createAccountBackground.jpg';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
 import { Button } from './Button';
 import { AuthLayout } from './AuthLayout';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import { api } from './api/client';
+import type { SkinShade, SkinUndertone } from './types';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -17,6 +19,34 @@ export function CreateAccountPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [shades, setShades] = useState<SkinShade[]>([]);
+    const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
+
+    useEffect(() => {
+        const fetchShades = async () => {
+            try {
+                const { data } = await api.get<SkinShade[]>('/SkinShade/GetAllSkinShades');
+                setShades(data);
+            } catch (error) {
+                console.error('Could not load skin shades', error);
+            }
+        };
+
+        fetchShades();
+    }, []);
+
+    useEffect(() => {
+        const fetchUndertones = async () => {
+            try {
+                const { data } = await api.get<SkinUndertone[]>('/SkinUndertone/GetAllSkinUndertones');
+                setUndertones(data);
+            } catch (error) {
+                console.error('Could not load skin undertones', error);
+            }
+        };
+
+        fetchUndertones();
+    }, []);
 
     function handleSignUp() {
         console.log({
@@ -85,7 +115,7 @@ export function CreateAccountPage() {
                         label="Skin shade"
                         value={skinShade}
                         onChange={setSkinShade}
-                        options={['Fair', 'Light', 'Medium', 'Tan', 'Deep', 'Very deep']}
+                        options={shades.map((shade) => shade.name)}
                     />
                 </div>
                 <div className="w-1/2">
@@ -93,7 +123,7 @@ export function CreateAccountPage() {
                         label="Skin undertone"
                         value={skinUndertone}
                         onChange={setSkinUndertone}
-                        options={['Cool', 'Cool-neutral', 'True neutral', 'Warm-neutral', 'Warm']}
+                        options={undertones.map((undertones) => undertones.name)}
                     />
                 </div>
             </div>

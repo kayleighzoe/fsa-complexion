@@ -27,3 +27,13 @@ export interface MyRecommendation {
     comment?: string;
     sharedOn: string;
 }
+
+export interface SkinShade {
+    shadeId: number;
+    name: string;
+}
+
+export interface SkinUndertone {
+    undertoneId: number;
+    name: string;
+}
