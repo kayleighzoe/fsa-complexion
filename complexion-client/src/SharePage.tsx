@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PageBackground } from './PageBackground';
 import { NavBar } from './NavBar';
@@ -6,6 +6,18 @@ import { TextField } from './TextField';
 import { SelectField } from './SelectField';
 import shareBackground from './assets/shareBackground.png';
 import { Button } from './Button';
+import { api } from './api/client';
+import type { SkinShade, SkinUndertone } from './types';
+
+interface CatalogueCategory {
+    categoryId: number;
+    name: string;
+}
+
+interface ConfigPriceTier {
+    priceTierId: number;
+    name: string;
+}
 
 export function SharePage() {
     const [category, setCategory] = useState('');
@@ -18,6 +30,63 @@ export function SharePage() {
     const [hasOliveOvertone, setHasOliveOvertone] = useState(false);
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
+    const [shades, setShades] = useState<SkinShade[]>([]);
+    const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
+    const [catergories, setCategories] = useState<CatalogueCategory[]>([]);
+    const [priceTiers, setPriceTiers] = useState<ConfigPriceTier[]>([]);
+    
+        useEffect(() => {
+            const fetchShades = async () => {
+                try {
+                    const { data } = await api.get<SkinShade[]>('/SkinShade/GetAllSkinShades');
+                    setShades(data);
+                } catch (error) {
+                    console.error('Could not load skin shades', error);
+                }
+            };
+    
+            fetchShades();
+        }, []);
+    
+        useEffect(() => {
+            const fetchUndertones = async () => {
+                try {
+                    const { data } = await api.get<SkinUndertone[]>('/SkinUndertone/GetAllSkinUndertones');
+                    setUndertones(data);
+                } catch (error) {
+                    console.error('Could not load skin undertones', error);
+                }
+            };
+    
+            fetchUndertones();
+        }, []);
+
+        useEffect(() => {
+            const fetchCategories = async () => {
+                try {
+                    const { data } = await api.get<CatalogueCategory[]>('/CatalogueCategory/GetAllCategories');
+                    setCategories(data);
+                } catch (error) {
+                    console.error('Could not load catagories', error);
+                }
+            };
+    
+            fetchCategories();
+        }, []);
+
+        useEffect(() => {
+            const fetchPriceTiers = async () => {
+                try {
+                    const { data } = await api.get<ConfigPriceTier[]>('/ConfigPriceTier/GetAllPriceTiers');
+                    setPriceTiers(data);
+                } catch (error) {
+                    console.error('Could not load price tiers', error);
+                }
+            };
+    
+            fetchPriceTiers();
+        }, []);
+    
 
     function handleShare() {
         console.log({
@@ -54,7 +123,7 @@ export function SharePage() {
                                 label="Product category"
                                 value={category}
                                 onChange={setCategory}
-                                options={['Foundation', 'Concealer']}
+                                options={catergories.map((catergories) => catergories.name)}
                             />
                         </div>
                         <div className="w-1/2">
@@ -62,7 +131,7 @@ export function SharePage() {
                                 label="Price tier"
                                 value={priceTier}
                                 onChange={setPriceTier}
-                                options={['Drugstore', 'Mid-range', 'High-end']}
+                                options={priceTiers.map((priceTiers) => priceTiers.name)}
                             />
                         </div>
                     </div>
@@ -97,7 +166,7 @@ export function SharePage() {
                                 label="Matched skin shade"
                                 value={matchedShade}
                                 onChange={setMatchedShade}
-                                options={['Fair', 'Light', 'Medium', 'Tan', 'Deep', 'Very deep']}
+                                options={shades.map((shades) => shades.name)}
                             />
                         </div>
                     </div>
@@ -108,13 +177,7 @@ export function SharePage() {
                                 label="Matched skin undertone"
                                 value={matchedUndertone}
                                 onChange={setMatchedUndertone}
-                                options={[
-                                    'Cool',
-                                    'Cool-neutral',
-                                    'True neutral',
-                                    'Warm-neutral',
-                                    'Warm',
-                                ]}
+                                options={undertones.map((undertones) => undertones.name)}
                             />
                         </div>
                         <div className="w-1/2" />
