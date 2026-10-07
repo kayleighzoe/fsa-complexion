@@ -97,7 +97,7 @@ namespace Complexion.Tests.Services.Skin
         }
 
         [Test]
-        public async Task GIVEN_ValidDto_WHEN_CreatingSkinProfileAsync_THEN_CallRepositoryCreate()
+        public async Task GIVEN_ValidDto_WHEN_CreatingSkinProfileAsync_THEN_ReturnIdFromRepository()
         {
             // Arrange
             var dto = new CreateSkinProfileDto
@@ -106,14 +106,20 @@ namespace Complexion.Tests.Services.Skin
                 UndertoneId = 5,
                 HasTint = false
             };
+            var expectedId = Guid.NewGuid();
 
             _createValidator.ValidateAsync(Arg.Any<CreateSkinProfileDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _skinProfileRepository.CreateSkinProfileAsync(dto).Returns(expectedId);
 
             // Act
-            await _skinProfileService.CreateSkinProfileAsync(dto);
+            var result = await _skinProfileService.CreateSkinProfileAsync(dto);
 
             // Assert
-            await _skinProfileRepository.Received(1).CreateSkinProfileAsync(dto);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedId));
+                _skinProfileRepository.Received(1).CreateSkinProfileAsync(dto);
+            });
         }
     }
 

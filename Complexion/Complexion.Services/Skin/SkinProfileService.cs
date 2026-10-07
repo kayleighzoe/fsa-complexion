@@ -33,7 +33,7 @@ namespace Complexion.Services.Skin
             return skinProfile;
         }
 
-        public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
+        public async Task<Guid> CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
             var skinProfile = await _validator.ValidateAsync(dto);
 
@@ -42,7 +42,7 @@ namespace Complexion.Services.Skin
                 throw new ValidationException(skinProfile.Errors);
             }
 
-            await _repository.CreateSkinProfileAsync(dto);
+            return await _repository.CreateSkinProfileAsync(dto);
         }
     }
 }

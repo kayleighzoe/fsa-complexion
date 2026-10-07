@@ -6,6 +6,6 @@ namespace Complexion.Repository.Skin
     {
         Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync();
         Task<SkinProfile?> GetSkinProfileAsync(Guid id);
-        Task CreateSkinProfileAsync(CreateSkinProfileDto dto);
+        Task<Guid> CreateSkinProfileAsync(CreateSkinProfileDto dto);
     }
 }

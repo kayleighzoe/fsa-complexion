@@ -37,24 +37,25 @@ namespace Complexion.Repository.Skin
             return await _dbContext.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
-        public async Task CreateSkinProfileAsync(CreateSkinProfileDto dto)
+        public async Task<Guid> CreateSkinProfileAsync(CreateSkinProfileDto dto)
         {
             const string sql = @"INSERT INTO dbo.SkinProfile 
-                        (
-                            SkinProfileId, 
-                            ShadeId, 
-                            UndertoneId, 
-                            HasTint
-                        )
-                        VALUES 
-                        (
-                            NEWID(), 
-                            @ShadeId, 
-                            @UndertoneId, 
-                            @HasTint
-                        )";
+                (
+                    SkinProfileId, 
+                    ShadeId, 
+                    UndertoneId, 
+                    HasTint
+                )
+                OUTPUT INSERTED.SkinProfileId
+                VALUES 
+                (
+                    NEWID(), 
+                    @ShadeId, 
+                    @UndertoneId, 
+                    @HasTint
+                )";
 
-            await _dbContext.ExecuteAsync(sql, dto);
+            return await _dbContext.QuerySingleAsync<Guid>(sql, dto);
         }
     }
 }
