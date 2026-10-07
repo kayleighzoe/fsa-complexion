@@ -32,7 +32,7 @@ export function SharePage() {
     const navigate = useNavigate();
     const [shades, setShades] = useState<SkinShade[]>([]);
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
-    const [catergories, setCategories] = useState<CatalogueCategory[]>([]);
+    const [categories, setCategories] = useState<CatalogueCategory[]>([]);
     const [priceTiers, setPriceTiers] = useState<ConfigPriceTier[]>([]);
     
         useEffect(() => {
@@ -123,7 +123,7 @@ export function SharePage() {
                                 label="Product category"
                                 value={category}
                                 onChange={setCategory}
-                                options={catergories.map((catergories) => catergories.name)}
+                                options={categories.map((categories) => categories.name)}
                             />
                         </div>
                         <div className="w-1/2">
