@@ -6,6 +6,8 @@ using Complexion.Repository.Products;
 using Complexion.Repository.Skin;
 using Complexion.Services.Products;
 using Complexion.Services.Skin;
+using Complexion.Repository.Auth;
+using Complexion.Services.Auth;
 using FluentValidation;
 using Serilog;
 
@@ -38,6 +40,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDbContext>(_ => new SqlDbContext(connectionString));
 
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
 builder.Services.AddScoped<ISkinShadeRepository, SkinShadeRepository>();
 builder.Services.AddScoped<ISkinUndertoneRepository, SkinUndertoneRepository>();
 builder.Services.AddScoped<ICatalogueCategoryRepository, CatalogueCategoryRepository>();
@@ -45,10 +49,13 @@ builder.Services.AddScoped<IConfigPriceTierRepository, ConfigPriceTierRepository
 builder.Services.AddScoped<ISkinProfileRepository, SkinProfileRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRecommendationRepository, ProductRecommendationRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<ISkinProfileService, SkinProfileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRecommendationService, ProductRecommendationService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
