@@ -44,5 +44,17 @@ namespace Complexion.Services.Skin
 
             return await _repository.CreateSkinProfileAsync(dto);
         }
+
+        public async Task<Guid> GetOrCreateSkinProfileAsync(CreateSkinProfileDto dto)
+        {
+            var existing = await _repository.GetSkinProfileByCombinationAsync(dto.ShadeId, dto.UndertoneId, dto.HasTint);
+
+            if (existing != null)
+            {
+                return existing.SkinProfileId;
+            }
+
+            return await CreateSkinProfileAsync(dto);
+        }
     }
 }

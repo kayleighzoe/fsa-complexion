@@ -17,6 +17,7 @@ namespace Complexion.Api.Middleware
         {
             var statusCode = exception switch
             {
+                ConflictException => StatusCodes.Status409Conflict,
                 NotFoundException => StatusCodes.Status404NotFound,
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
@@ -62,6 +63,8 @@ namespace Complexion.Api.Middleware
                     return "Unauthorised";
                 case 404:
                     return "Not Found";
+                case 409:
+                    return "Conflict";
                 default:
                     return "An unexpected error occurred";
             }
