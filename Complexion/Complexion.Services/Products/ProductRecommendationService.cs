@@ -1,7 +1,8 @@
-﻿using Complexion.Models.Products;
+﻿using Complexion.Exceptions;
+using Complexion.Models.Auth;
+using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using FluentValidation;
-using Complexion.Exceptions;
 
 namespace Complexion.Services.Products
 {
@@ -76,6 +77,11 @@ namespace Complexion.Services.Products
             }
 
             return recommendation;
+        }
+
+        public async Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId)
+        {
+            return await _repository.GetMyProductRecommendationsAsync(userId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Complexion.Models.Products;
+﻿using Complexion.Models.Auth;
+using Complexion.Models.Products;
 using Complexion.Repository.Data;
 
 namespace Complexion.Repository.Products
@@ -80,6 +81,27 @@ namespace Complexion.Repository.Products
                                 WHERE RecommendationId = @Id";
 
             await _dbContext.ExecuteAsync(sql, new { Id = id });
+        }
+
+        public async Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId)
+        {
+            const string sql = @"SELECT
+                                    pr.RecommendationId,
+                                    p.Brand,
+                                    p.Name AS ProductName,
+                                    c.Name AS CategoryName,
+                                    p.ShadeName,
+                                    pt.Name AS PriceTierName,
+                                    pr.Comment,
+                                    pr.CreatedAt
+                                FROM dbo.ProductRecommendation pr
+                                INNER JOIN dbo.Product p ON p.ProductId = pr.ProductId
+                                INNER JOIN catalogue.Category c ON c.CategoryId = p.CategoryId
+                                INNER JOIN config.PriceTier pt ON pt.PriceTierId = p.PriceTierId
+                                WHERE pr.UserId = @UserId
+                                ORDER BY pr.CreatedAt DESC";
+
+            return await _dbContext.QueryAsync<MyRecommendationDto>(sql, new { UserId = userId });
         }
     }
 }

@@ -61,5 +61,13 @@ namespace Complexion.Api.Controllers.Products
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMyRecommendations()
+        {
+            var recommendations = await _productRecommendationService.GetMyProductRecommendationsAsync(User.GetUserId());
+
+            return Ok(recommendations);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Complexion.Models.Products;
+﻿using Complexion.Models.Auth;
+using Complexion.Models.Products;
 
 namespace Complexion.Repository.Products
 {
@@ -9,5 +10,6 @@ namespace Complexion.Repository.Products
         Task CreateProductRecommendationAsync(Guid userId, CreateProductRecommendationDto dto);
         Task UpdateProductRecommendationAsync(Guid id, UpdateProductRecommendationDto dto);
         Task DeleteProductRecommendationAsync(Guid id);
+        Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId);
     }
 }

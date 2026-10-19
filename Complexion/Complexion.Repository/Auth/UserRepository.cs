@@ -68,5 +68,44 @@ namespace Complexion.Repository.Auth
 
             return await _dbContext.QuerySingleOrDefaultAsync<User>(sql, new { Email = email });
         }
+
+        public async Task<UserProfileDto?> GetUserProfileAsync(Guid userId)
+        {
+            const string sql = @"SELECT
+                                    u.FirstName,
+                                    u.Surname,
+                                    u.Email,
+                                    s.Name AS ShadeName,
+                                    ut.Name AS UndertoneName,
+                                    sp.HasTint
+                                FROM auth.[User] u
+                                INNER JOIN dbo.SkinProfile sp ON sp.SkinProfileId = u.SkinProfileId
+                                INNER JOIN skin.Shade s ON s.ShadeId = sp.ShadeId
+                                INNER JOIN skin.Undertone ut ON ut.UndertoneId = sp.UndertoneId
+                                WHERE u.UserId = @UserId";
+
+            return await _dbContext.QuerySingleOrDefaultAsync<UserProfileDto>(sql, new { UserId = userId });
+        }
+
+        public async Task<bool> UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto dto)
+        {
+            const string sql = @"UPDATE auth.[User]
+                                SET FirstName = @FirstName,
+                                    Surname = @Surname,
+                                    Email = @Email,
+                                    SkinProfileId = @SkinProfileId
+                                WHERE UserId = @UserId";
+
+            var rowsAffected = await _dbContext.ExecuteAsync(sql, new
+            {
+                UserId = userId,
+                SkinProfileId = skinProfileId,
+                dto.FirstName,
+                dto.Surname,
+                dto.Email
+            });
+
+            return rowsAffected > 0;
+        }
     }
 }
