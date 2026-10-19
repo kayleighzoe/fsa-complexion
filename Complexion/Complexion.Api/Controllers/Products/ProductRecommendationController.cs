@@ -1,7 +1,9 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using Complexion.Services.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Complexion.Api.Extensions;
 
 namespace Complexion.Api.Controllers.Products
 {
@@ -18,18 +20,20 @@ namespace Complexion.Api.Controllers.Products
             _productRecommendationRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllRecommendations()
         {
-            var recommendations = await _productRecommendationRepository.GetAllProductReccommendationsAsync();
+            var recommendations = await _productRecommendationRepository.GetAllProductRecommendationsAsync();
 
             return Ok(recommendations);
         }
 
-        [HttpGet("{id}")]
+        [AllowAnonymous]
+        [HttpGet("{recommendationId}")]
         public async Task<IActionResult> GetRecommendation(Guid recommendationId)
         {
-            var recommendation = await _productRecommendationService.GetProductReccommendationAsync(recommendationId);
+            var recommendation = await _productRecommendationService.GetProductRecommendationAsync(recommendationId);
 
             return Ok(recommendation);
         }
@@ -37,23 +41,23 @@ namespace Complexion.Api.Controllers.Products
         [HttpPost]
         public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto createProductRecommentationDto)
         {
-            await _productRecommendationService.CreateProductReccommendationAsync(createProductRecommentationDto);
+            await _productRecommendationService.CreateProductRecommendationAsync(User.GetUserId(), createProductRecommentationDto);
 
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{recommendationId}")]
         public async Task<IActionResult> UpdateRecommendation(Guid recommendationId, [FromBody] UpdateProductRecommendationDto createProductRecommentationDto)
         {
-            await _productRecommendationService.UpdateProductReccommendationAsync(recommendationId, createProductRecommentationDto);
+            await _productRecommendationService.UpdateProductRecommendationAsync(User.GetUserId(), recommendationId, createProductRecommentationDto);
 
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{recommendationId}")]
         public async Task<IActionResult> DeleteRecommendation(Guid recommendationId)
         {
-            await _productRecommendationRepository.DeleteProductReccommendationAsync(recommendationId);
+            await _productRecommendationService.DeleteProductRecommendationAsync(User.GetUserId(), recommendationId);
 
             return Ok();
         }

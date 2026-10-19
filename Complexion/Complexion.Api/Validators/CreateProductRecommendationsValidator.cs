@@ -7,10 +7,6 @@ namespace Complexion.Api.Validators
     {
         public CreateProductRecommendationsValidator()
         {
-            RuleFor(productRecommendation => productRecommendation.UserId)
-                .NotEmpty()
-                .WithMessage("UserId is required.");
-
             RuleFor(productRecommendation => productRecommendation.ProductId)
                 .NotEmpty()
                 .WithMessage("ProductId is required.");

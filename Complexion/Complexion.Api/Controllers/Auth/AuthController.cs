@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
+using Complexion.Api.Extensions;
 
 namespace Complexion.Api.Controllers
 {
@@ -21,6 +22,7 @@ namespace Complexion.Api.Controllers
             _jwtSettings = jwtSettings.Value;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
@@ -29,6 +31,7 @@ namespace Complexion.Api.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
@@ -37,6 +40,7 @@ namespace Complexion.Api.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Logout()
         {
@@ -48,8 +52,7 @@ namespace Complexion.Api.Controllers
         [HttpGet]
         public IActionResult Me()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                      ?? User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            var userId = User.GetUserId();
 
             var username = User.FindFirst(ClaimTypes.Name)?.Value
                         ?? User.FindFirst(JwtRegisteredClaimNames.UniqueName)?.Value;

@@ -5,6 +5,7 @@ import profileBackground from './assets/profileBackground.jpg';
 import { NavBar } from './NavBar';
 import { useNavigate } from 'react-router';
 import { Button } from './Button';
+import { logout } from './api/auth';
 
 const USER = {
     name: 'Someone Someone',
@@ -31,6 +32,15 @@ const MY_RECOMMENDATIONS: MyRecommendation[] = [
 export function ProfilePage() {
     const navigate = useNavigate();
 
+    async function handleLogout() {
+    try {
+        await logout();
+        navigate('/login');
+    } catch (error) {
+        console.error('Could not log out', error);
+    }
+}
+
     return (
         <div className="min-h-screen relative bg-[#645b50] flex flex-col">
             <PageBackground image={profileBackground} />
@@ -51,7 +61,7 @@ export function ProfilePage() {
                                     Edit
                                 </Button>
                                 <Button
-                                    onClick={() => navigate('/login')}
+                                    onClick={handleLogout}
                                     variant="secondary"
                                     rounded="full"
                                     className="px-6 py-2.5">

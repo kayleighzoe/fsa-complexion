@@ -52,16 +52,16 @@ namespace Complexion.Tests.Services.Products
                 }
             };
 
-            _productRecommendationRepository.GetAllProductReccommendationsAsync().Returns(expectedRecommendations);
+            _productRecommendationRepository.GetAllProductRecommendationsAsync().Returns(expectedRecommendations);
 
             // Act
-            var result = await _productRecommendationRepository.GetAllProductReccommendationsAsync();
+            var result = await _productRecommendationRepository.GetAllProductRecommendationsAsync();
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.EqualTo(expectedRecommendations));
-                _productRecommendationRepository.Received(1).GetAllProductReccommendationsAsync();
+                _productRecommendationRepository.Received(1).GetAllProductRecommendationsAsync();
             });
         }
 
@@ -80,16 +80,16 @@ namespace Complexion.Tests.Services.Products
                 CreatedAt = DateTime.UtcNow
             };
 
-            _productRecommendationRepository.GetProductReccommendationAsync(recommendationId).Returns(expectedRecommendation);
+            _productRecommendationRepository.GetProductRecommendationAsync(recommendationId).Returns(expectedRecommendation);
 
             // Act
-            var result = await _productRecommendationService.GetProductReccommendationAsync(recommendationId);
+            var result = await _productRecommendationService.GetProductRecommendationAsync(recommendationId);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.EqualTo(expectedRecommendation));
-                _productRecommendationRepository.Received(1).GetProductReccommendationAsync(recommendationId);
+                _productRecommendationRepository.Received(1).GetProductRecommendationAsync(recommendationId);
             });
         }
 
@@ -98,47 +98,48 @@ namespace Complexion.Tests.Services.Products
         {
             // Arrange
             var id = Guid.NewGuid();
-            _productRecommendationRepository.GetProductReccommendationAsync(id).Returns((ProductRecommendation?)null);
+            _productRecommendationRepository.GetProductRecommendationAsync(id).Returns((ProductRecommendation?)null);
 
             // Act & Assert
-            Assert.ThrowsAsync<NotFoundException>(async () => await _productRecommendationService.GetProductReccommendationAsync(id));
+            Assert.ThrowsAsync<NotFoundException>(async () => await _productRecommendationService.GetProductRecommendationAsync(id));
         }
 
         [Test]
         public async Task GIVEN_ValidDto_WHEN_CreatingProductReccommendationAsync_THEN_CallRepositoryCreate()
         {
             // Arrange
+            var userId = Guid.NewGuid();
             var dto = new CreateProductRecommendationDto
-            {
-                UserId = Guid.NewGuid(),
+            { 
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = "This shade is a great warm-neutral match"
             };
 
-            var expectedRecommendation = new ProductRecommendation
-            {
-                RecommendationId = Guid.NewGuid(),
-                UserId = dto.UserId,
-                ProductId = dto.ProductId,
-                SkinProfileId = dto.SkinProfileId,
-                Comment = dto.Comment,
-                CreatedAt = DateTime.UtcNow
-            };
+            //var expectedRecommendation = new ProductRecommendation
+            //{
+            //    RecommendationId = Guid.NewGuid(),
+            //    UserId = dto.UserId,
+            //    ProductId = dto.ProductId,
+            //    SkinProfileId = dto.SkinProfileId,
+            //    Comment = dto.Comment,
+            //    CreatedAt = DateTime.UtcNow
+            //};
 
             _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
-            await _productRecommendationService.CreateProductReccommendationAsync(dto);
+            await _productRecommendationService.CreateProductRecommendationAsync(userId, dto);
 
             // Assert
-            await _productRecommendationRepository.Received(1).CreateProductReccommendationAsync(dto);
+            await _productRecommendationRepository.Received(1).CreateProductRecommendationAsync(userId, dto);
         }
 
         [Test]
         public async Task GIVEN_DtoWithNonNullComment_WHEN_UpdatingProductReccommendationAsync_THEN_CallRepositoryUpdate()
         {
             // Arrange
+            var userId = Guid.NewGuid();
             var id = Guid.NewGuid();
             var dto = new UpdateProductRecommendationDto { Comment = "Updated: great match for warm undertones" };
 
@@ -146,24 +147,25 @@ namespace Complexion.Tests.Services.Products
             _updateValidator.ValidateAsync(Arg.Any<UpdateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
-            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductRecommendationAsync(userId, id, dto);
 
             // Assert
-            await _productRecommendationRepository.Received(1).UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationRepository.Received(1).UpdateProductRecommendationAsync(id, dto);
         }
 
         [Test]
         public async Task GIVEN_DtoWithNullComment_WHEN_UpdatingProductReccommendationAsync_THEN_DoesNotCallRepositoryUpdate()
         {
             // Arrange
+            var userId = Guid.NewGuid();
             var id = Guid.NewGuid();
             var dto = new UpdateProductRecommendationDto { Comment = null };
 
             // Act
-            await _productRecommendationService.UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationService.UpdateProductRecommendationAsync(userId, id, dto);
 
             // Assert
-            await _productRecommendationRepository.DidNotReceive().UpdateProductReccommendationAsync(id, dto);
+            await _productRecommendationRepository.DidNotReceive().UpdateProductRecommendationAsync(id, dto);
         }
     }
 }

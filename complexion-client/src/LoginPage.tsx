@@ -4,14 +4,24 @@ import loginBackground from './assets/loginBackground.jpg';
 import { TextField } from './TextField';
 import { Button } from './Button';
 import { AuthLayout } from './AuthLayout';
+import { getErrorMessage } from './api/errors';
+import { login } from './api/auth';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
-    function handleLogin() {
-        console.log('Logging in as', username);
+    async function handleLogin() {
+        //console.log('Logging in as', username);
+        setError('');
+        try {
+            await login({ usernameOrEmail: username, password });
+            navigate('/');
+        } catch (err) {
+            setError(getErrorMessage(err));
+        }
     }
 
     return (
@@ -31,7 +41,7 @@ export function LoginPage() {
                 />
             </div>
 
-            <p className="text-right text-sm text-[#8a7060] mt-2">Forgot password?</p>
+            {error && <p className="text-sm text-red-700 mt-3">{error}</p>}
 
             <Button onClick={handleLogin} className="w-full mt-6">
                 Log in

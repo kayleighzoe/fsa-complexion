@@ -37,3 +37,24 @@ export interface SkinUndertone {
     undertoneId: number;
     name: string;
 }
+
+export interface RegisterRequest {
+    firstName: string;
+    surname: string;
+    email: string;
+    username: string;
+    password: string;
+    shadeId: number;
+    undertoneId: number;
+    hasTint: boolean;
+}
+
+export interface LoginRequest {
+    usernameOrEmail: string;
+    password: string;
+}
+
+export interface CurrentUser {
+    userId: string;
+    username: string;
+}

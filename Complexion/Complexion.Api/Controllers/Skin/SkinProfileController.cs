@@ -1,6 +1,7 @@
 ﻿using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
 using Complexion.Services.Skin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Skin
@@ -19,6 +20,7 @@ namespace Complexion.Api.Controllers.Skin
             _skinProfileRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllSkinProfiles()
         {
@@ -27,6 +29,7 @@ namespace Complexion.Api.Controllers.Skin
             return Ok(skinProfiles);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSkinProfile(Guid id)
         {

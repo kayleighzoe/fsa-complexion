@@ -8,6 +8,8 @@ import { AuthLayout } from './AuthLayout';
 import { Link } from 'react-router';
 import { api } from './api/client';
 import type { SkinShade, SkinUndertone } from './types';
+import { getErrorMessage } from './api/errors';
+import { register } from './api/auth';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -21,6 +23,7 @@ export function CreateAccountPage() {
     const navigate = useNavigate();
     const [shades, setShades] = useState<SkinShade[]>([]);
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchShades = async () => {
@@ -48,18 +51,32 @@ export function CreateAccountPage() {
         fetchUndertones();
     }, []);
 
-    function handleSignUp() {
-        console.log({
-            name,
-            surname,
-            skinShade,
-            skinUndertone,
-            email,
-            hasOliveOvertone,
-            username,
-            password,
-        });
-        // call API here later
+    async function handleSignUp() {
+        setError('');
+
+        const shade = shades.find((s) => s.name === skinShade);
+        const undertone = undertones.find((u) => u.name === skinUndertone);
+
+        if (!shade || !undertone) {
+            setError('Please choose a skin shade and undertone.');
+            return;
+        }
+
+        try {
+            await register({
+                firstName: name,
+                surname,
+                email,
+                username,
+                password,
+                shadeId: shade.shadeId,
+                undertoneId: undertone.undertoneId,
+                hasTint: hasOliveOvertone,
+            });
+            navigate('/');
+        } catch (err) {
+            setError(getErrorMessage(err));
+        }
     }
 
     return (
@@ -159,6 +176,8 @@ export function CreateAccountPage() {
                     />
                 </div>
             </div>
+
+            {error && <p className="text-sm text-red-700 mt-3">{error}</p>}
 
             <div className="flex gap-4 mt-8">
                 <Button
