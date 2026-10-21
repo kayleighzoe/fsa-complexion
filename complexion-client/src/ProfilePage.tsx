@@ -8,7 +8,7 @@ import { NavBar } from './NavBar';
 import { useNavigate } from 'react-router';
 import { Button } from './Button';
 import { logout } from './api/auth';
-import { getMyProfile, getMyRecommendations } from './api/profile';
+import { getMyProfile, getMyRecommendations, deleteRecommendation } from './api/profile';
 import { getErrorMessage } from './api/errors';
 
 function formatDate(value: string) {
@@ -25,6 +25,7 @@ export function ProfilePage() {
     const [recommendations, setRecommendations] = useState<MyRecommendation[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [actionError, setActionError] = useState('');
 
     useEffect(() => {
         async function loadProfile() {
@@ -58,6 +59,27 @@ export function ProfilePage() {
         }
     }
 
+    async function handleDelete(recommendationId: string) {
+    if (!window.confirm('Delete this recommendation? This cannot be undone.')) {
+        return;
+    }
+
+    setActionError('');
+
+    try {
+        await deleteRecommendation(recommendationId);
+        setRecommendations((current) =>
+            current.filter((r) => r.recommendationId !== recommendationId)
+        );
+    } catch (err) {
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+            navigate('/login');
+            return;
+        }
+        setActionError(getErrorMessage(err));
+    }
+}
+
     return (
         <div className="min-h-screen relative bg-[#645b50] flex flex-col">
             <PageBackground image={profileBackground} />
@@ -72,6 +94,7 @@ export function ProfilePage() {
                             </h1>
                             <div className="flex gap-3">
                                 <Button
+                                    onClick={() => navigate('/profile/edit')}
                                     variant="pale"
                                     rounded="full"
                                     className="px-6 py-2.5">
@@ -168,6 +191,7 @@ export function ProfilePage() {
                                         <Pencil size={16} className="text-[#3b2a20]"/>
                                     </Button>
                                     <Button
+                                        onClick={() => handleDelete(item.recommendationId)}
                                         variant="pale"
                                         rounded="full"
                                         size="icon"

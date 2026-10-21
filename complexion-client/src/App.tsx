@@ -6,6 +6,7 @@ import { ProfilePage } from './ProfilePage';
 import { GuidePage } from './GuidePage';
 import { SharePage } from './SharePage';
 import { EditRecommendationPage } from './EditRecommendationPage';
+import { EditProfilePage } from './EditProfilePage';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/share" element={<SharePage />} />
             <Route path="/recommendations/:recommendationId/edit" element={<EditRecommendationPage />} />
+            <Route path="/profile/edit" element={<EditProfilePage />} />
         </Routes>
     );
 }

@@ -6,10 +6,10 @@ import { SelectField } from './SelectField';
 import { Button } from './Button';
 import { AuthLayout } from './AuthLayout';
 import { Link } from 'react-router';
-import { api } from './api/client';
 import type { SkinShade, SkinUndertone } from './types';
 import { getErrorMessage } from './api/errors';
 import { register } from './api/auth';
+import { getSkinShades, getSkinUndertones } from './api/lookups';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -28,8 +28,7 @@ export function CreateAccountPage() {
     useEffect(() => {
         const fetchShades = async () => {
             try {
-                const { data } = await api.get<SkinShade[]>('/SkinShade/GetAllSkinShades');
-                setShades(data);
+                setShades(await getSkinShades());
             } catch (error) {
                 console.error('Could not load skin shades', error);
             }
@@ -41,8 +40,7 @@ export function CreateAccountPage() {
     useEffect(() => {
         const fetchUndertones = async () => {
             try {
-                const { data } = await api.get<SkinUndertone[]>('/SkinUndertone/GetAllSkinUndertones');
-                setUndertones(data);
+                setUndertones(await getSkinUndertones());
             } catch (error) {
                 console.error('Could not load skin undertones', error);
             }
