@@ -6,18 +6,20 @@ import { Button } from './Button';
 import { AuthLayout } from './AuthLayout';
 import { getErrorMessage } from './api/errors';
 import { login } from './api/auth';
+import { useAuth } from './AuthContext';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const { refreshUser } = useAuth();
 
     async function handleLogin() {
-        //console.log('Logging in as', username);
         setError('');
         try {
             await login({ usernameOrEmail: username, password });
+            await refreshUser();
             navigate('/');
         } catch (err) {
             setError(getErrorMessage(err));

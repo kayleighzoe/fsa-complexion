@@ -7,9 +7,9 @@ import profileBackground from './assets/profileBackground.jpg';
 import { NavBar } from './NavBar';
 import { useNavigate } from 'react-router';
 import { Button } from './Button';
-import { logout } from './api/auth';
 import { getMyProfile, getMyRecommendations, deleteRecommendation } from './api/profile';
 import { getErrorMessage } from './api/errors';
+import { useAuth } from './AuthContext';
 
 function formatDate(value: string) {
     return new Date(value).toLocaleDateString('en-GB', {
@@ -26,6 +26,7 @@ export function ProfilePage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [actionError, setActionError] = useState('');
+    const { logout } = useAuth();
 
     useEffect(() => {
         async function loadProfile() {
@@ -155,6 +156,8 @@ export function ProfilePage() {
                                 + Share a recommendation
                             </Button>
                         </div>
+                        
+                        {actionError && <p className="mt-4 text-sm text-red-600">{actionError}</p>}
 
                         {!loading && !error && recommendations.length === 0 && (
                             <p className="mt-6 text-[#8a7060]">

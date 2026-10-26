@@ -1,7 +1,10 @@
 import { Link } from 'react-router';
-import { House, Upload, CircleUser, BookOpenText } from 'lucide-react';
+import { House, Upload, CircleUser, BookOpenText, LogIn } from 'lucide-react';
+import { useAuth } from './AuthContext';
 
 export function NavBar() {
+    const { user, loading } = useAuth();
+
     return (
         <nav className="relative z-20 bg-[#3b2a20] px-8 py-5 flex justify-between items-center p-4 border-b-2 border-slate-200">
             <Link
@@ -23,14 +26,26 @@ export function NavBar() {
                     <BookOpenText size={16}/>
                     Complexion Guide
                 </Link>
-                <Link to="/share" className="flex items-center gap-1.5">
-                    <Upload size={16}/>
-                    Share
-                </Link>
-                <Link to="/profile" className="flex items-center gap-1.5">
-                    <CircleUser size={16}/>
-                    Profile
-                </Link>
+
+                {!loading && user && (
+                    <>
+                        <Link to="/share" className="flex items-center gap-1.5">
+                            <Upload size={16}/>
+                            Share
+                        </Link>
+                        <Link to="/profile" className="flex items-center gap-1.5">
+                            <CircleUser size={16}/>
+                            Profile
+                        </Link>
+                    </>
+                )}
+
+                {!loading && !user && (
+                    <Link to="/login" className="flex items-center gap-1.5">
+                        <LogIn size={16}/>
+                        Log in / Sign up
+                    </Link>
+                )}
             </div>
         </nav>
     );
