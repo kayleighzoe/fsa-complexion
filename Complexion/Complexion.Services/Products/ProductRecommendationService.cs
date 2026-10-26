@@ -1,7 +1,8 @@
-﻿using Complexion.Models.Products;
+﻿using Complexion.Exceptions;
+using Complexion.Models.Auth;
+using Complexion.Models.Products;
 using Complexion.Repository.Products;
 using FluentValidation;
-using Complexion.Exceptions;
 
 namespace Complexion.Services.Products
 {
@@ -18,9 +19,9 @@ namespace Complexion.Services.Products
             _updateValidator = updateValidator;
         }
 
-        public async Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id)
+        public async Task<ProductRecommendation?> GetProductRecommendationAsync(Guid id)
         {
-            var productRecommendation = await _repository.GetProductReccommendationAsync(id);
+            var productRecommendation = await _repository.GetProductRecommendationAsync(id);
 
             if (productRecommendation == null)
             {
@@ -30,7 +31,7 @@ namespace Complexion.Services.Products
             return productRecommendation;
         }
 
-        public async Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto)
+        public async Task CreateProductRecommendationAsync(Guid userId, CreateProductRecommendationDto dto)
         {
             var productRecommendation = await _createValidator.ValidateAsync(dto);
 
@@ -39,10 +40,10 @@ namespace Complexion.Services.Products
                 throw new ValidationException(productRecommendation.Errors);
             }
 
-            await _repository.CreateProductReccommendationAsync(dto);
+            await _repository.CreateProductRecommendationAsync(userId, dto);
         }
 
-        public async Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto)
+        public async Task UpdateProductRecommendationAsync(Guid userId, Guid id, UpdateProductRecommendationDto dto)
         {
             if (dto.Comment is null)
             {
@@ -56,7 +57,31 @@ namespace Complexion.Services.Products
                 throw new ValidationException(productRecommendation.Errors);
             }
 
-            await _repository.UpdateProductReccommendationAsync(id, dto);
+            await GetOwnedRecommendationAsync(userId, id);
+            await _repository.UpdateProductRecommendationAsync(id, dto);
+        }
+
+        public async Task DeleteProductRecommendationAsync(Guid userId, Guid id)
+        {
+            await GetOwnedRecommendationAsync(userId, id);
+            await _repository.DeleteProductRecommendationAsync(id);
+        }
+
+        private async Task<ProductRecommendation> GetOwnedRecommendationAsync(Guid userId, Guid id)
+        {
+            var recommendation = await _repository.GetProductRecommendationAsync(id);
+
+            if (recommendation == null || recommendation.UserId != userId)
+            {
+                throw new NotFoundException($"ProductRecommendation with id {id} was not found.");
+            }
+
+            return recommendation;
+        }
+
+        public async Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId)
+        {
+            return await _repository.GetMyProductRecommendationsAsync(userId);
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Complexion.Repository.Products
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             const string sql = @"SELECT 
-                            ProductId, 
-                            CategoryId, 
-                            PriceTierId, 
-                            Name, 
-                            Brand, 
-                            ShadeName 
-                        FROM dbo.Product";
+                                    ProductId, 
+                                    CategoryId, 
+                                    PriceTierId, 
+                                    Name, 
+                                    Brand, 
+                                    ShadeName 
+                                FROM dbo.Product";
 
             return await _dbContext.QueryAsync<Product>(sql);
         }
@@ -29,15 +29,15 @@ namespace Complexion.Repository.Products
         public async Task<IEnumerable<Product>> SearchProductsAsync(string search)
         {
             const string sql = @"SELECT 
-                            ProductId, 
-                            CategoryId, 
-                            PriceTierId, 
-                            Name, 
-                            Brand, 
-                            ShadeName 
-                        FROM dbo.Product
-                        WHERE Name LIKE @Search
-                        OR Brand LIKE @Search";
+                                    ProductId, 
+                                    CategoryId, 
+                                    PriceTierId, 
+                                    Name, 
+                                    Brand, 
+                                    ShadeName 
+                                FROM dbo.Product
+                                WHERE Name LIKE @Search
+                                    OR Brand LIKE @Search";
 
             return await _dbContext.QueryAsync<Product>(sql, new { Search = $"%{search}%" });
         }
@@ -45,14 +45,14 @@ namespace Complexion.Repository.Products
         public async Task<Product?> GetProductAsync(Guid id)
         {
             const string sql = @"SELECT 
-                            ProductId, 
-                            CategoryId, 
-                            PriceTierId, 
-                            Name, 
-                            Brand, 
-                            ShadeName 
-                        FROM dbo.Product 
-                        WHERE ProductId = @Id";
+                                    ProductId, 
+                                    CategoryId, 
+                                    PriceTierId, 
+                                    Name, 
+                                    Brand, 
+                                    ShadeName 
+                                FROM dbo.Product 
+                                WHERE ProductId = @Id";
 
             return await _dbContext.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
@@ -60,21 +60,21 @@ namespace Complexion.Repository.Products
         public async Task CreateProductAsync(CreateProductDto dto)
         {
             const string sql = @"INSERT INTO dbo.Product 
-                        (
-                            CategoryId,
-                            PriceTierId, 
-                            Name, 
-                            Brand, 
-                            ShadeName
-                        )
-                        VALUES 
-                        ( 
-                            @CategoryId, 
-                            @PriceTierId, 
-                            @Name, 
-                            @Brand, 
-                            @ShadeName
-                        )";
+                                (
+                                    CategoryId,
+                                    PriceTierId, 
+                                    Name, 
+                                    Brand, 
+                                    ShadeName
+                                )
+                                VALUES 
+                                ( 
+                                    @CategoryId, 
+                                    @PriceTierId, 
+                                    @Name, 
+                                    @Brand, 
+                                    @ShadeName
+                                )";
 
             await _dbContext.ExecuteAsync(sql, dto);
         }

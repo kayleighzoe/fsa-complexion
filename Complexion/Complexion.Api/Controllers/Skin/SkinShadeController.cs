@@ -1,8 +1,10 @@
 ﻿using Complexion.Repository.Skin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Skin
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class SkinShadeController : ControllerBase

@@ -1,13 +1,15 @@
-﻿using Complexion.Models.Products;
+﻿using Complexion.Models.Auth;
+using Complexion.Models.Products;
 
 namespace Complexion.Repository.Products
 {
     public interface IProductRecommendationRepository
     {
-        Task<IEnumerable<ProductRecommendation>> GetAllProductReccommendationsAsync();
-        Task<ProductRecommendation?> GetProductReccommendationAsync(Guid id);
-        Task CreateProductReccommendationAsync(CreateProductRecommendationDto dto);
-        Task UpdateProductReccommendationAsync(Guid id, UpdateProductRecommendationDto dto);
-        Task DeleteProductReccommendationAsync(Guid id);
+        Task<IEnumerable<ProductRecommendation>> GetAllProductRecommendationsAsync();
+        Task<ProductRecommendation?> GetProductRecommendationAsync(Guid id);
+        Task CreateProductRecommendationAsync(Guid userId, CreateProductRecommendationDto dto);
+        Task UpdateProductRecommendationAsync(Guid id, UpdateProductRecommendationDto dto);
+        Task DeleteProductRecommendationAsync(Guid id);
+        Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId);
     }
 }

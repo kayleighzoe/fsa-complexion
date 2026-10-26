@@ -8,6 +8,7 @@ import shareBackground from './assets/shareBackground.png';
 import { Button } from './Button';
 import { api } from './api/client';
 import type { SkinShade, SkinUndertone } from './types';
+import { getSkinShades, getSkinUndertones } from './api/lookups';
 
 interface CatalogueCategory {
     categoryId: number;
@@ -38,8 +39,7 @@ export function SharePage() {
         useEffect(() => {
             const fetchShades = async () => {
                 try {
-                    const { data } = await api.get<SkinShade[]>('/SkinShade/GetAllSkinShades');
-                    setShades(data);
+                    setShades(await getSkinShades());
                 } catch (error) {
                     console.error('Could not load skin shades', error);
                 }
@@ -51,8 +51,7 @@ export function SharePage() {
         useEffect(() => {
             const fetchUndertones = async () => {
                 try {
-                    const { data } = await api.get<SkinUndertone[]>('/SkinUndertone/GetAllSkinUndertones');
-                    setUndertones(data);
+                    setUndertones(await getSkinUndertones());
                 } catch (error) {
                     console.error('Could not load skin undertones', error);
                 }

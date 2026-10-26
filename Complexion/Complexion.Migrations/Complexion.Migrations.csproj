@@ -1,36 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-	  <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Scripts\20260520104700CreateAuthSchema.sql" />
-    <None Remove="Scripts\20260520104702CreateCatalogueSchema.sql" />
-    <None Remove="Scripts\20260520104702CreateConfigSchema.sql" />
-    <None Remove="Scripts\20260520104703CreateSkinSchemas.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\20260520104700CreateAuthSchema.sql" />
-    <EmbeddedResource Include="Scripts\20260520104702CreateCatalogueSchema.sql" />
-    <EmbeddedResource Include="Scripts\20260520104702CreateConfigSchema.sql" />
-    <EmbeddedResource Include="Scripts\20260520104703CreateSkinSchemas.sql" />
-    <EmbeddedResource Include="Scripts\20260520104704CreatePriceTierTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104705CreateCategoryTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104706CreateShadeTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104707CreateUndertoneTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104708CreateSkinProfileTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104709CreateUserTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104710CreateProductTable.sql" />
-    <EmbeddedResource Include="Scripts\20260520104711CreateProductRecommendationTable.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="dbup-sqlserver" Version="7.2.0" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Scripts\20260520104700CreateAuthSchema.sql" />
+		<None Remove="Scripts\20260520104702CreateCatalogueSchema.sql" />
+		<None Remove="Scripts\20260520104702CreateConfigSchema.sql" />
+		<None Remove="Scripts\20260520104703CreateSkinSchemas.sql" />
+		<None Remove="Scripts\20261014111112AlterTableSkinProfile.sql" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Scripts\20260520104700CreateAuthSchema.sql" />
+		<EmbeddedResource Include="Scripts\20260520104702CreateCatalogueSchema.sql" />
+		<EmbeddedResource Include="Scripts\20260520104702CreateConfigSchema.sql" />
+		<EmbeddedResource Include="Scripts\20260520104703CreateSkinSchemas.sql" />
+		<EmbeddedResource Include="Scripts\20260520104704CreatePriceTierTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104705CreateCategoryTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104706CreateShadeTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104707CreateUndertoneTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104708CreateSkinProfileTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104709CreateUserTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104710CreateProductTable.sql" />
+		<EmbeddedResource Include="Scripts\20260520104711CreateProductRecommendationTable.sql" />
+		<EmbeddedResource Include="Scripts\20261014111112AlterTableSkinProfile.sql" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="dbup-sqlserver" Version="7.2.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.5" />
+	</ItemGroup>
 </Project>

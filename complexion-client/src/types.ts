@@ -18,14 +18,14 @@ export interface Recommendation {
 }
 
 export interface MyRecommendation {
-    id: string;
-    brandName: string;
+    recommendationId: string;
+    brand: string;
     productName: string;
-    category: string;
+    categoryName: string;
     shadeName: string;
-    priceTier: string;
-    comment?: string;
-    sharedOn: string;
+    priceTierName: string;
+    comment?: string | null;
+    createdAt: string;
 }
 
 export interface SkinShade {
@@ -36,4 +36,43 @@ export interface SkinShade {
 export interface SkinUndertone {
     undertoneId: number;
     name: string;
+}
+
+export interface RegisterRequest {
+    firstName: string;
+    surname: string;
+    email: string;
+    username: string;
+    password: string;
+    shadeId: number;
+    undertoneId: number;
+    hasTint: boolean;
+}
+
+export interface LoginRequest {
+    usernameOrEmail: string;
+    password: string;
+}
+
+export interface CurrentUser {
+    userId: string;
+    username: string;
+}
+
+export interface UserProfile {
+    firstName: string;
+    surname: string;
+    email: string;
+    shadeName: string;
+    undertoneName: string;
+    hasTint: boolean;
+}
+
+export interface UpdateProfileRequest {
+    firstName: string;
+    surname: string;
+    email: string;
+    shadeId: number;
+    undertoneId: number;
+    hasTint: boolean;
 }
