@@ -27,45 +27,6 @@ namespace Complexion.Tests.Services.Products
         }
 
         [Test]
-        public async Task GIVEN_RecommendationsExist_WHEN_GettingAllProductReccommendationsAsync_THEN_ReturnRecommendationsFromRepository()
-        {
-            // Arrange
-            var expectedRecommendations = new List<ProductRecommendation>
-            {
-                new ProductRecommendation
-                {
-                    RecommendationId = Guid.NewGuid(),
-                    UserId = Guid.NewGuid(),
-                    ProductId = Guid.NewGuid(),
-                    SkinProfileId = Guid.NewGuid(),
-                    Comment = "Great match for cool undertones",
-                    CreatedAt = DateTime.UtcNow
-                },
-                new ProductRecommendation
-                {
-                    RecommendationId = Guid.NewGuid(),
-                    UserId = Guid.NewGuid(),
-                    ProductId = Guid.NewGuid(),
-                    SkinProfileId = Guid.NewGuid(),
-                    Comment = null,
-                    CreatedAt = DateTime.UtcNow
-                }
-            };
-
-            _productRecommendationRepository.GetAllProductRecommendationsAsync().Returns(expectedRecommendations);
-
-            // Act
-            var result = await _productRecommendationRepository.GetAllProductRecommendationsAsync();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result, Is.EqualTo(expectedRecommendations));
-                _productRecommendationRepository.Received(1).GetAllProductRecommendationsAsync();
-            });
-        }
-
-        [Test]
         public async Task GIVEN_RecommendationExists_WHEN_GettingProductReccommendationAsync_THEN_ReturnRecommendationFromRepository()
         {
             // Arrange
@@ -116,16 +77,6 @@ namespace Complexion.Tests.Services.Products
                 Comment = "This shade is a great warm-neutral match"
             };
 
-            //var expectedRecommendation = new ProductRecommendation
-            //{
-            //    RecommendationId = Guid.NewGuid(),
-            //    UserId = dto.UserId,
-            //    ProductId = dto.ProductId,
-            //    SkinProfileId = dto.SkinProfileId,
-            //    Comment = dto.Comment,
-            //    CreatedAt = DateTime.UtcNow
-            //};
-
             _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
@@ -143,7 +94,17 @@ namespace Complexion.Tests.Services.Products
             var id = Guid.NewGuid();
             var dto = new UpdateProductRecommendationDto { Comment = "Updated: great match for warm undertones" };
 
-            _createValidator.ValidateAsync(Arg.Any<CreateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            var existingRecommendation = new ProductRecommendation
+            {
+                RecommendationId = id,
+                UserId = userId,
+                ProductId = Guid.NewGuid(),
+                SkinProfileId = Guid.NewGuid(),
+                Comment = "Old comment",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _productRecommendationRepository.GetProductRecommendationAsync(id).Returns(existingRecommendation);
             _updateValidator.ValidateAsync(Arg.Any<UpdateProductRecommendationDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
             // Act
