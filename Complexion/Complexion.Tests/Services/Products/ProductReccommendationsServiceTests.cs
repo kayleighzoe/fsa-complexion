@@ -71,7 +71,7 @@ namespace Complexion.Tests.Services.Products
             // Arrange
             var userId = Guid.NewGuid();
             var dto = new CreateProductRecommendationDto
-            { 
+            {
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = "This shade is a great warm-neutral match"

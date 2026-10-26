@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Complexion.Services.Auth
 {
-    public class UserService :IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly ISkinProfileService _skinProfileService;

@@ -41,7 +41,7 @@ namespace Complexion.Api.Controllers.Skin
         [HttpPost]
         public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
-             var skinProfileId = await _skinProfileService.CreateSkinProfileAsync(dto);
+            var skinProfileId = await _skinProfileService.CreateSkinProfileAsync(dto);
 
             return StatusCode(StatusCodes.Status201Created, skinProfileId);
         }
