@@ -6,7 +6,7 @@ import { NavBar } from './NavBar';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
 import { Button } from './Button';
-import profileBackground from './assets/profileBackground.jpg';
+import profileBackground from './assets/profileBackground.webp';
 import { getMyProfile, updateMyProfile } from './api/profile';
 import { getSkinShades, getSkinUndertones } from './api/lookups';
 import { getErrorMessage } from './api/errors';

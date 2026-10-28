@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { PageBackground } from './PageBackground';
 import { NavBar } from './NavBar';
 import { Button } from './Button';
-import profileBackground from './assets/profileBackground.jpg';
+import profileBackground from './assets/profileBackground.webp';
 import type { MyRecommendation } from './types';
 import { getMyRecommendations, updateRecommendation } from './api/profile';
 import { getErrorMessage } from './api/errors';

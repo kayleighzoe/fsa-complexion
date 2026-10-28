@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import loginBackground from './assets/loginBackground.jpg';
+import loginBackground from './assets/loginBackground.webp';
 import { TextField } from './TextField';
 import { Button } from './Button';
 import { AuthLayout } from './AuthLayout';

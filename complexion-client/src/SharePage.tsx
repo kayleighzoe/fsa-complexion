@@ -4,7 +4,7 @@ import { PageBackground } from './PageBackground';
 import { NavBar } from './NavBar';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
-import shareBackground from './assets/shareBackground.png';
+import shareBackground from './assets/shareBackground.webp';
 import { Button } from './Button';
 import { api } from './api/client';
 import type { SkinShade, SkinUndertone } from './types';

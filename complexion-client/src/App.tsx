@@ -9,6 +9,7 @@ import { GuidePage } from './GuidePage';
 import { SharePage } from './SharePage';
 import { EditRecommendationPage } from './EditRecommendationPage';
 import { EditProfilePage } from './EditProfilePage';
+import { NotFoundPage } from './NotFoundPage';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/register" element={<CreateAccountPage />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/guide" element={<GuidePage />} />
+                <Route path="*" element={<NotFoundPage />} />
 
                 <Route element={<ProtectedRoute />}>
                     <Route path="/profile" element={<ProfilePage />} />

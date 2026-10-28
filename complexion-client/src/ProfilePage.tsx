@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { MyRecommendation, UserProfile } from './types';
 import { PageBackground } from './PageBackground';
 import { Pencil, Trash2 } from 'lucide-react';
-import profileBackground from './assets/profileBackground.jpg';
+import profileBackground from './assets/profileBackground.webp';
 import { NavBar } from './NavBar';
 import { useNavigate } from 'react-router';
 import { Button } from './Button';

@@ -1,6 +1,6 @@
 import { PageBackground } from './PageBackground';
 import { NavBar } from './NavBar';
-import homeBackground from './assets/homeBackground.jpg';
+import homeBackground from './assets/homeBackground.webp';
 import fitzpatrickScale from './assets/fitzpatrickScale.jpg';
 
 export function GuidePage() {

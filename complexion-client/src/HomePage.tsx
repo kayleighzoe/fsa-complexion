@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Recommendation } from './types';
 import { ProductCard } from './ProductCard';
 import { PageBackground } from './PageBackground';
-import homeBackground from './assets/homeBackground.jpg';
+import homeBackground from './assets/homeBackground.webp';
 import { NavBar } from './NavBar';
 import { Search } from 'lucide-react'
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import createAccountBackground from './assets/createAccountBackground.jpg';
+import createAccountBackground from './assets/createAccountBackground.webp';
 import { TextField } from './TextField';
 import { SelectField } from './SelectField';
 import { Button } from './Button';
