@@ -7,6 +7,7 @@ import { AuthLayout } from './AuthLayout';
 import { getErrorMessage } from './api/errors';
 import { login } from './api/auth';
 import { useAuth } from './AuthContext';
+import { passwordRequirements } from './passwordRequirements';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
@@ -40,6 +41,16 @@ export function LoginPage() {
                     value={password}
                     onChange={setPassword}
                     type="password"
+                    hint={
+                        <>
+                            <p className="font-semibold mb-1">Your password needs:</p>
+                            <ul className="list-disc pl-5 space-y-0.5">
+                                {passwordRequirements.map((requirement) => (
+                                    <li key={requirement}>{requirement}</li>
+                                ))}
+                            </ul>
+                        </>
+                    }
                 />
             </div>
 

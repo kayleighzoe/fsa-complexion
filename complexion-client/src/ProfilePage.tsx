@@ -61,25 +61,25 @@ export function ProfilePage() {
     }
 
     async function handleDelete(recommendationId: string) {
-    if (!window.confirm('Delete this recommendation? This cannot be undone.')) {
-        return;
-    }
-
-    setActionError('');
-
-    try {
-        await deleteRecommendation(recommendationId);
-        setRecommendations((current) =>
-            current.filter((r) => r.recommendationId !== recommendationId)
-        );
-    } catch (err) {
-        if (axios.isAxiosError(err) && err.response?.status === 401) {
-            navigate('/login');
+        if (!window.confirm('Delete this recommendation? This cannot be undone.')) {
             return;
         }
-        setActionError(getErrorMessage(err));
+
+        setActionError('');
+
+        try {
+            await deleteRecommendation(recommendationId);
+            setRecommendations((current) =>
+                current.filter((r) => r.recommendationId !== recommendationId)
+            );
+        } catch (err) {
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                navigate('/login');
+                return;
+            }
+            setActionError(getErrorMessage(err));
+        }
     }
-}
 
     return (
         <div className="min-h-screen relative bg-[#645b50] flex flex-col">
@@ -156,7 +156,7 @@ export function ProfilePage() {
                                 + Share a recommendation
                             </Button>
                         </div>
-                        
+
                         {actionError && <p className="mt-4 text-sm text-red-600">{actionError}</p>}
 
                         {!loading && !error && recommendations.length === 0 && (
@@ -171,11 +171,12 @@ export function ProfilePage() {
                                 className="border border-[#e8ddd4] rounded-xl p-6 mt-6 flex justify-between items-center"
                             >
                                 <div>
-                                    <h3 className="text-xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
-                                        {item.brand} — {item.productName}
+                                    <h3 className="text-xl font-['Cormorant_Garamond'] text-[#3b2a20]">
+                                        <span className="font-bold">{item.brand} - </span>{' '}
+                                        <span className="font-normal">{item.productName}</span>
                                     </h3>
                                     <p className="text-sm text-[#5a4a3f] mt-1">
-                                        {item.categoryName} · Shade {item.shadeName} · {item.priceTierName}
+                                        {item.categoryName} | Shade {item.shadeName} | {item.priceTierName}
                                     </p>
                                     {item.comment && (
                                         <p className="italic text-sm text-[#5a4a3f] mt-2">"{item.comment}"</p>
@@ -191,7 +192,7 @@ export function ProfilePage() {
                                         rounded="full"
                                         size="icon"
                                         className="w-10 h-10 flex items-center justify-center cursor-pointer">
-                                        <Pencil size={16} className="text-[#3b2a20]"/>
+                                        <Pencil size={16} className="text-[#3b2a20]" />
                                     </Button>
                                     <Button
                                         onClick={() => handleDelete(item.recommendationId)}
@@ -199,7 +200,7 @@ export function ProfilePage() {
                                         rounded="full"
                                         size="icon"
                                         className="w-10 h-10 flex items-center justify-center cursor-pointer">
-                                        <Trash2 size={16} className="text-[#3b2a20]"/>
+                                        <Trash2 size={16} className="text-[#3b2a20]" />
                                     </Button>
                                 </div>
                             </div>

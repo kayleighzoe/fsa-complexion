@@ -11,6 +11,7 @@ import { getErrorMessage } from './api/errors';
 import { register, login } from './api/auth';
 import { useAuth } from './AuthContext';
 import { getSkinShades, getSkinUndertones } from './api/lookups';
+import { passwordRequirements } from './passwordRequirements';
 
 export function CreateAccountPage() {
     const [name, setName] = useState('');
@@ -181,6 +182,16 @@ export function CreateAccountPage() {
                         value={password}
                         onChange={setPassword}
                         type="password"
+                        hint={
+                            <>
+                                <p className="font-semibold mb-1">Your password needs:</p>
+                                <ul className="list-disc pl-5 space-y-0.5">
+                                    {passwordRequirements.map((requirement) => (
+                                        <li key={requirement}>{requirement}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        }
                     />
                 </div>
             </div>
