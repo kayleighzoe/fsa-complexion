@@ -8,7 +8,8 @@ import { AuthLayout } from './AuthLayout';
 import { Link } from 'react-router';
 import type { SkinShade, SkinUndertone } from './types';
 import { getErrorMessage } from './api/errors';
-import { register } from './api/auth';
+import { register, login } from './api/auth';
+import { useAuth } from './AuthContext';
 import { getSkinShades, getSkinUndertones } from './api/lookups';
 
 export function CreateAccountPage() {
@@ -24,6 +25,7 @@ export function CreateAccountPage() {
     const [shades, setShades] = useState<SkinShade[]>([]);
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
     const [error, setError] = useState('');
+    const { refreshUser } = useAuth();
 
     useEffect(() => {
         const fetchShades = async () => {
@@ -71,9 +73,17 @@ export function CreateAccountPage() {
                 undertoneId: undertone.undertoneId,
                 hasTint: hasOliveOvertone,
             });
-            navigate('/');
         } catch (err) {
             setError(getErrorMessage(err));
+            return;
+        }
+
+        try {
+            await login({ usernameOrEmail: username, password });
+            await refreshUser();
+            navigate('/');
+        } catch {
+            navigate('/login');
         }
     }
 
