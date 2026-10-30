@@ -57,7 +57,7 @@ namespace Complexion.Repository.Products
             return await _dbContext.QuerySingleOrDefaultAsync<Product>(sql, new { Id = id });
         }
 
-        public async Task CreateProductAsync(CreateProductDto dto)
+        public async Task<Guid> CreateProductAsync(CreateProductDto dto)
         {
             const string sql = @"INSERT INTO dbo.Product 
                                 (
@@ -67,6 +67,7 @@ namespace Complexion.Repository.Products
                                     Brand, 
                                     ShadeName
                                 )
+                                OUTPUT INSERTED.ProductId
                                 VALUES 
                                 ( 
                                     @CategoryId, 
@@ -76,7 +77,26 @@ namespace Complexion.Repository.Products
                                     @ShadeName
                                 )";
 
-            await _dbContext.ExecuteAsync(sql, dto);
+            return await _dbContext.QuerySingleAsync<Guid>(sql, dto);
+        }
+
+        public async Task<Product?> FindProductAsync(CreateProductDto dto)
+        {
+            const string sql = @"SELECT TOP 1
+                                    ProductId,
+                                    CategoryId,
+                                    PriceTierId,
+                                    Name,
+                                    Brand,
+                                    ShadeName
+                                FROM dbo.Product
+                                WHERE CategoryId = @CategoryId
+                                    AND PriceTierId = @PriceTierId
+                                    AND Name = @Name
+                                    AND Brand = @Brand
+                                    AND ShadeName = @ShadeName";
+
+            return await _dbContext.QuerySingleOrDefaultAsync<Product>(sql, dto);
         }
     }
 }

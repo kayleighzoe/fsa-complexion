@@ -76,3 +76,15 @@ export interface UpdateProfileRequest {
     undertoneId: number;
     hasTint: boolean;
 }
+
+export interface ShareRecommendationRequest {
+    categoryName: string;
+    priceTierName: string;
+    brand: string;
+    productName: string;
+    shadeName: string;
+    matchedShadeName: string;
+    matchedUndertoneName: string;
+    hasTint: boolean;
+    comment?: string;
+}

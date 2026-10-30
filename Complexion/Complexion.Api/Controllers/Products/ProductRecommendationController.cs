@@ -13,11 +13,13 @@ namespace Complexion.Api.Controllers.Products
     {
         private readonly IProductRecommendationService _productRecommendationService;
         private readonly IProductRecommendationRepository _productRecommendationRepository;
+        private readonly IShareRecommendationService _shareRecommendationService;
 
-        public ProductRecommendationController(IProductRecommendationService service, IProductRecommendationRepository repository)
+        public ProductRecommendationController(IProductRecommendationService service, IProductRecommendationRepository repository, IShareRecommendationService shareRecommendationService)
         {
             _productRecommendationService = service;
             _productRecommendationRepository = repository;
+            _shareRecommendationService = shareRecommendationService;
         }
 
         [AllowAnonymous]
@@ -39,9 +41,9 @@ namespace Complexion.Api.Controllers.Products
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecommendation([FromBody] CreateProductRecommendationDto createProductRecommentationDto)
+        public async Task<IActionResult> CreateRecommendation([FromBody] ShareRecommendationDto shareRecommendationDto)
         {
-            await _productRecommendationService.CreateProductRecommendationAsync(User.GetUserId(), createProductRecommentationDto);
+            await _shareRecommendationService.ShareRecommendationAsync(User.GetUserId(), shareRecommendationDto);
 
             return StatusCode(StatusCodes.Status201Created);
         }

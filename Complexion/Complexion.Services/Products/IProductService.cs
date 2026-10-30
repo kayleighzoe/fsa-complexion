@@ -7,5 +7,6 @@ namespace Complexion.Services.Products
         Task<IEnumerable<Product>> GetAllProductsAsync(string? search);
         Task<Product?> GetProductAsync(Guid id);
         Task CreateProductAsync(CreateProductDto dto);
+        Task<Guid> GetOrCreateProductAsync(CreateProductDto dto);
     }
 }

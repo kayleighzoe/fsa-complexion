@@ -9,6 +9,9 @@ import { Button } from './Button';
 import { api } from './api/client';
 import type { SkinShade, SkinUndertone } from './types';
 import { getSkinShades, getSkinUndertones } from './api/lookups';
+import axios from 'axios';
+import { shareRecommendation } from './api/recommendations';
+import { getErrorMessage } from './api/errors';
 
 interface CatalogueCategory {
     categoryId: number;
@@ -35,6 +38,7 @@ export function SharePage() {
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
     const [categories, setCategories] = useState<CatalogueCategory[]>([]);
     const [priceTiers, setPriceTiers] = useState<ConfigPriceTier[]>([]);
+    const [error, setError] = useState('');
     
         useEffect(() => {
             const fetchShades = async () => {
@@ -87,20 +91,30 @@ export function SharePage() {
         }, []);
     
 
-    function handleShare() {
-        console.log({
-            category,
-            priceTier,
-            brandName,
+    async function handleShare() {
+    setError('');
+
+    try {
+        await shareRecommendation({
+            categoryName: category,
+            priceTierName: priceTier,
+            brand: brandName,
             productName,
             shadeName,
-            matchedShade,
-            matchedUndertone,
-            hasOliveOvertone,
+            matchedShadeName: matchedShade,
+            matchedUndertoneName: matchedUndertone,
+            hasTint: hasOliveOvertone,
             comment,
         });
-        //call API here later
+        navigate('/profile');
+    } catch (err) {
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+            navigate('/login');
+            return;
+        }
+        setError(getErrorMessage(err));
     }
+}
 
     return (
         <div className="min-h-screen bg-[#645b50] flex flex-col relative">
@@ -203,6 +217,8 @@ export function SharePage() {
                             className="w-full rounded-lg px-4 py-2.5 bg-[#faf6f2] border border-[#e8ddd4]"
                         />
                     </div>
+
+                    {error && <p className="mt-5 text-sm text-red-600">{error}</p>}
 
                     <div className="flex gap-4 mt-8">
                         <Button
