@@ -1,15 +1,15 @@
 import { Routes, Route } from 'react-router';
-import { AuthProvider } from './AuthContext';
-import { ProtectedRoute } from './ProtectedRoute';
-import { LoginPage } from './LoginPage';
-import { CreateAccountPage } from './CreateAccountPage';
-import { HomePage } from './HomePage';
-import { ProfilePage } from './ProfilePage';
-import { GuidePage } from './GuidePage';
-import { SharePage } from './SharePage';
-import { EditRecommendationPage } from './EditRecommendationPage';
-import { EditProfilePage } from './EditProfilePage';
-import { NotFoundPage } from './NotFoundPage';
+import { AuthProvider } from './context/AuthContext/index';
+import { ProtectedRoute } from './routes/ProtectedRoute';
+import { LoginPage } from './pages/Login';
+import { CreateAccountPage } from './pages/createAccount';
+import { HomePage } from './pages/Home';
+import { ProfilePage } from './pages/Profile';
+import { GuidePage } from './pages/Guide';
+import { SharePage } from './pages/Share';
+import { EditRecommendationPage } from './pages/EditRecommendation';
+import { EditProfilePage } from './pages/EditProfile';
+import { NotFoundPage } from './pages/NotFound';
 
 function App() {
     return (
