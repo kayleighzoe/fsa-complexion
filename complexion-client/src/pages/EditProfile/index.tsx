@@ -8,7 +8,7 @@ import { SelectField } from '../../components/atoms/SelectField';
 import { Button } from '../../components/atoms/Button';
 import profileBackground from '../../assets/images/profileBackground.webp';
 import { getMyProfile, updateMyProfile } from '../../services/api/profile';
-import { getSkinShades, getSkinUndertones } from '../../services/api/lookups';
+import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
 import { getErrorMessage } from '../../services/api/errors';
 import type { SkinShade, SkinUndertone } from '../../types';
 

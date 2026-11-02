@@ -10,7 +10,7 @@ import type { SkinShade, SkinUndertone } from '../../types';
 import { getErrorMessage } from '../../services/api/errors';
 import { register, login } from '../../services/api/auth';
 import { useAuth } from '../../context/AuthContext/index';
-import { getSkinShades, getSkinUndertones } from '../../services/api/lookups';
+import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
 import { passwordRequirements } from '../../utils/passwordRequirements';
 
 export function CreateAccountPage() {

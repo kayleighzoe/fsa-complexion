@@ -88,3 +88,13 @@ export interface ShareRecommendationRequest {
     hasTint: boolean;
     comment?: string;
 }
+
+export interface CatalogueCategory {
+    categoryId: number;
+    name: string;
+}
+
+export interface ConfigPriceTier {
+    priceTierId: number;
+    name: string;
+}

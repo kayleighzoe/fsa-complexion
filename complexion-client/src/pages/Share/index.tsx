@@ -6,22 +6,13 @@ import { TextField } from '../../components/atoms/TextField';
 import { SelectField } from '../../components/atoms/SelectField';
 import shareBackground from '../../assets/images/shareBackground.webp';
 import { Button } from '../../components/atoms/Button';
-import { api } from '../../services/api/client';
-import type { SkinShade, SkinUndertone } from '../../types';
-import { getSkinShades, getSkinUndertones } from '../../services/api/lookups';
+import type { SkinShade, SkinUndertone, CatalogueCategory, ConfigPriceTier } from '../../types';
+import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
 import axios from 'axios';
 import { shareRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
-
-interface CatalogueCategory {
-    categoryId: number;
-    name: string;
-}
-
-interface ConfigPriceTier {
-    priceTierId: number;
-    name: string;
-}
+import { getCategories } from '../../services/api/catalogue';
+import { getPriceTiers } from '../../services/api/config';
 
 export function SharePage() {
     const [category, setCategory] = useState('');
@@ -39,82 +30,80 @@ export function SharePage() {
     const [categories, setCategories] = useState<CatalogueCategory[]>([]);
     const [priceTiers, setPriceTiers] = useState<ConfigPriceTier[]>([]);
     const [error, setError] = useState('');
-    
-        useEffect(() => {
-            const fetchShades = async () => {
-                try {
-                    setShades(await getSkinShades());
-                } catch (error) {
-                    console.error('Could not load skin shades', error);
-                }
-            };
-    
-            fetchShades();
-        }, []);
-    
-        useEffect(() => {
-            const fetchUndertones = async () => {
-                try {
-                    setUndertones(await getSkinUndertones());
-                } catch (error) {
-                    console.error('Could not load skin undertones', error);
-                }
-            };
-    
-            fetchUndertones();
-        }, []);
 
-        useEffect(() => {
-            const fetchCategories = async () => {
-                try {
-                    const { data } = await api.get<CatalogueCategory[]>('/CatalogueCategory/GetAllCategories');
-                    setCategories(data);
-                } catch (error) {
-                    console.error('Could not load catagories', error);
-                }
-            };
-    
-            fetchCategories();
-        }, []);
+    useEffect(() => {
+        const fetchShades = async () => {
+            try {
+                setShades(await getSkinShades());
+            } catch (error) {
+                console.error('Could not load skin shades', error);
+            }
+        };
 
-        useEffect(() => {
-            const fetchPriceTiers = async () => {
-                try {
-                    const { data } = await api.get<ConfigPriceTier[]>('/ConfigPriceTier/GetAllPriceTiers');
-                    setPriceTiers(data);
-                } catch (error) {
-                    console.error('Could not load price tiers', error);
-                }
-            };
-    
-            fetchPriceTiers();
-        }, []);
-    
+        fetchShades();
+    }, []);
+
+    useEffect(() => {
+        const fetchUndertones = async () => {
+            try {
+                setUndertones(await getSkinUndertones());
+            } catch (error) {
+                console.error('Could not load skin undertones', error);
+            }
+        };
+
+        fetchUndertones();
+    }, []);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                setCategories(await getCategories());
+            } catch (error) {
+                console.error('Could not load categories', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        const fetchPriceTiers = async () => {
+            try {
+                setPriceTiers(await getPriceTiers());
+            } catch (error) {
+                console.error('Could not load price tiers', error);
+            }
+        };
+
+        fetchPriceTiers();
+    }, []);
+
 
     async function handleShare() {
-    setError('');
+        setError('');
 
-    try {
-        await shareRecommendation({
-            categoryName: category,
-            priceTierName: priceTier,
-            brand: brandName,
-            productName,
-            shadeName,
-            matchedShadeName: matchedShade,
-            matchedUndertoneName: matchedUndertone,
-            hasTint: hasOliveOvertone,
-            comment,
-        });
-        navigate('/profile');
-    } catch (err) {
-        if (axios.isAxiosError(err) && err.response?.status === 401) {
-            navigate('/login');
-            return;
+        try {
+            await shareRecommendation({
+                categoryName: category,
+                priceTierName: priceTier,
+                brand: brandName,
+                productName,
+                shadeName,
+                matchedShadeName: matchedShade,
+                matchedUndertoneName: matchedUndertone,
+                hasTint: hasOliveOvertone,
+                comment,
+            });
+            navigate('/profile');
+        } catch (err) {
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                navigate('/login');
+                return;
+            }
+            setError(getErrorMessage(err));
         }
-        setError(getErrorMessage(err));
     }
-}
 
     return (
         <div className="min-h-screen bg-[#645b50] flex flex-col relative">
@@ -205,7 +194,7 @@ export function SharePage() {
                             </label>
                         </div>
                     </div>
-          
+
                     <div className="mt-5">
                         <label className="block mb-1.5 text-[#3b2a20]">
                             Comment <span className="text-[#8a7060]">(optional)</span>

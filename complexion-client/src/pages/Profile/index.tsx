@@ -10,14 +10,7 @@ import { Button } from '../../components/atoms/Button';
 import { getMyProfile, getMyRecommendations, deleteRecommendation } from '../../services/api/profile';
 import { getErrorMessage } from '../../services/api/errors';
 import { useAuth } from '../../context/AuthContext/index';
-
-function formatDate(value: string) {
-    return new Date(value).toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-    });
-}
+import { formatDate } from '@/utils/formatter';
 
 export function ProfilePage() {
     const navigate = useNavigate();
