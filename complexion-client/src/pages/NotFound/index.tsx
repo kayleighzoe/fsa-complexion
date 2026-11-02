@@ -3,6 +3,7 @@ import { PageBackground } from '../../components/organisms/PageBackground';
 import { NavBar } from '../../components/organisms/NavBar';
 import { Button } from '../../components/atoms/Button';
 import homeBackground from '../../assets/images/homeBackground.webp';
+import { ROUTES } from '@/constants/routes';
 
 export function NotFoundPage() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ export function NotFoundPage() {
                         <p className="mt-2 text-[#8a7060]">
                             The link may be broken or the page may have moved.
                         </p>
-                        <Button onClick={() => navigate('/')} className="mt-8 px-6 py-2.5">
+                        <Button onClick={() => navigate(ROUTES.home)} className="mt-8 px-6 py-2.5">
                             Back to home
                         </Button>
                     </div>

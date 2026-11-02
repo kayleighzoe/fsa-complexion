@@ -13,6 +13,7 @@ import { shareRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
 import { getCategories } from '../../services/api/catalogue';
 import { getPriceTiers } from '../../services/api/config';
+import { ROUTES } from '@/constants/routes';
 
 export function SharePage() {
     const [category, setCategory] = useState('');
@@ -95,10 +96,10 @@ export function SharePage() {
                 hasTint: hasOliveOvertone,
                 comment,
             });
-            navigate('/profile');
+            navigate(ROUTES.profile);
         } catch (err) {
             if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate('/login');
+                navigate(ROUTES.login);
                 return;
             }
             setError(getErrorMessage(err));
@@ -212,7 +213,7 @@ export function SharePage() {
                     <div className="flex gap-4 mt-8">
                         <Button
                             variant="secondary"
-                            onClick={() => navigate('/profile')}
+                            onClick={() => navigate(ROUTES.profile)}
                             className="w-1/2"
                         >
                             Cancel

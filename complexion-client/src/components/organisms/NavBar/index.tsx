@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
-import { House, Upload, CircleUser, BookOpenText, LogIn } from 'lucide-react';
+import { House, Upload, CircleUser, BookOpenText, LogIn} from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
+import { ROUTES } from '@/constants/routes';
 
 export function NavBar() {
     const { user, loading } = useAuth();
@@ -8,7 +9,7 @@ export function NavBar() {
     return (
         <nav className="relative z-20 bg-[#3b2a20] px-8 py-5 flex justify-between items-center p-4 border-b-2 border-slate-200">
             <Link
-                to="/"
+                to={ROUTES.home}
                 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#fbeee0]"
                 style={{
                     textShadow:
@@ -18,22 +19,22 @@ export function NavBar() {
                 Complexion
             </Link>
             <div className="flex gap-8 text-[#fbeee0]">
-                <Link to="/" className="flex items-center gap-1.5">
+                <Link to={ROUTES.home} className="flex items-center gap-1.5">
                     <House size={16}/>
                     Home
                 </Link>
-                <Link to="/guide" className="flex items-center gap-1.5">
+                <Link to={ROUTES.guide} className="flex items-center gap-1.5">
                     <BookOpenText size={16}/>
                     Complexion Guide
                 </Link>
 
                 {!loading && user && (
                     <>
-                        <Link to="/share" className="flex items-center gap-1.5">
+                        <Link to={ROUTES.share} className="flex items-center gap-1.5">
                             <Upload size={16}/>
                             Share
                         </Link>
-                        <Link to="/profile" className="flex items-center gap-1.5">
+                        <Link to={ROUTES.profile} className="flex items-center gap-1.5">
                             <CircleUser size={16}/>
                             Profile
                         </Link>
@@ -41,7 +42,7 @@ export function NavBar() {
                 )}
 
                 {!loading && !user && (
-                    <Link to="/login" className="flex items-center gap-1.5">
+                    <Link to={ROUTES.login} className="flex items-center gap-1.5">
                         <LogIn size={16}/>
                         Log in / Sign up
                     </Link>

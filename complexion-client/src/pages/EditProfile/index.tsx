@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
 import { PageBackground } from '../../components/organisms/PageBackground';
 import { NavBar } from '../../components/organisms/NavBar';
@@ -46,7 +47,7 @@ export function EditProfilePage() {
                 setHasTint(profile.hasTint);
             } catch (err) {
                 if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate('/login');
+                    navigate(ROUTES.login);
                     return;
                 }
                 setError(getErrorMessage(err));
@@ -78,10 +79,10 @@ export function EditProfilePage() {
                 undertoneId: undertone.undertoneId,
                 hasTint,
             });
-            navigate('/profile');
+            navigate(ROUTES.profile);
         } catch (err) {
             if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate('/login');
+                navigate(ROUTES.login);
                 return;
             }
             setError(getErrorMessage(err));
@@ -147,7 +148,7 @@ export function EditProfilePage() {
                             {error && <p className="text-red-600 mt-5">{error}</p>}
 
                             <div className="flex gap-4 mt-8">
-                                <Button variant="secondary" onClick={() => navigate('/profile')} className="w-1/2">
+                                <Button variant="secondary" onClick={() => navigate(ROUTES.profile)} className="w-1/2">
                                     Cancel
                                 </Button>
                                 <Button onClick={handleSave} className="w-1/2">

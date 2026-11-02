@@ -5,12 +5,14 @@ import { PageBackground } from '../../components/organisms/PageBackground';
 import { Pencil, Trash2 } from 'lucide-react';
 import profileBackground from '../../assets/images/profileBackground.webp';
 import { NavBar } from '../../components/organisms/NavBar';
-import { useNavigate } from 'react-router';
+import { useNavigate, generatePath } from 'react-router';
 import { Button } from '../../components/atoms/Button';
-import { getMyProfile, getMyRecommendations, deleteRecommendation } from '../../services/api/profile';
+import { getMyProfile } from '@/services/api/profile';
+import {getMyRecommendations, deleteRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
 import { useAuth } from '../../context/AuthContext/index';
 import { formatDate } from '@/utils/formatter';
+import { ROUTES } from '@/constants/routes';
 
 export function ProfilePage() {
     const navigate = useNavigate();
@@ -32,7 +34,7 @@ export function ProfilePage() {
                 setRecommendations(recommendationData);
             } catch (err) {
                 if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate('/login');
+                    navigate(ROUTES.login);
                     return;
                 }
                 setError(getErrorMessage(err));
@@ -47,7 +49,7 @@ export function ProfilePage() {
     async function handleLogout() {
         try {
             await logout();
-            navigate('/login');
+            navigate(ROUTES.login);
         } catch (error) {
             console.error('Could not log out', error);
         }
@@ -67,7 +69,7 @@ export function ProfilePage() {
             );
         } catch (err) {
             if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate('/login');
+                navigate(ROUTES.login);
                 return;
             }
             setActionError(getErrorMessage(err));
@@ -88,7 +90,7 @@ export function ProfilePage() {
                             </h1>
                             <div className="flex gap-3">
                                 <Button
-                                    onClick={() => navigate('/profile/edit')}
+                                    onClick={() => navigate(ROUTES.editProfile)}
                                     variant="pale"
                                     rounded="full"
                                     className="px-6 py-2.5">
@@ -143,7 +145,7 @@ export function ProfilePage() {
                                 My perfect shade matches
                             </h2>
                             <Button
-                                onClick={() => navigate('/share')}
+                                onClick={() => navigate(ROUTES.share)}
                                 rounded="full"
                                 className="px-6 py-2.5">
                                 + Share a recommendation
@@ -180,7 +182,7 @@ export function ProfilePage() {
                                 </div>
                                 <div className="flex gap-2">
                                     <Button
-                                        onClick={() => navigate(`/recommendations/${item.recommendationId}/edit`)}
+                                        onClick={() => navigate(generatePath(ROUTES.editRecommendation, { recommendationId: item.recommendationId }))}
                                         variant="pale"
                                         rounded="full"
                                         size="icon"

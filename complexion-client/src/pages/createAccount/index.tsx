@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { ROUTES } from '../../constants/routes'
 import createAccountBackground from '../../assets/images/createAccountBackground.webp';
 import { TextField } from '../../components/atoms/TextField';
 import { SelectField } from '../../components/atoms/SelectField';
@@ -82,9 +83,9 @@ export function CreateAccountPage() {
         try {
             await login({ usernameOrEmail: username, password });
             await refreshUser();
-            navigate('/');
+            navigate(ROUTES.home);
         } catch {
-            navigate('/login');
+            navigate(ROUTES.login);
         }
     }
 
@@ -129,7 +130,7 @@ export function CreateAccountPage() {
                     Your skin profile
                 </h2>
                 <Link
-                    to="/guide"
+                    to={ROUTES.guide}
                     className="text-sm text-[#8a7060] underline hover:text-[#3b2a20]"
                 >
                     Not sure? Read the guide
@@ -207,7 +208,7 @@ export function CreateAccountPage() {
                 </Button>
                 <Button
                     variant="secondary"
-                    onClick={() => navigate('/login')}
+                    onClick={() => navigate(ROUTES.login)}
                     className="w-1/2"
                 >
                     Return to login

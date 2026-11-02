@@ -7,6 +7,7 @@ import { AuthLayout } from '../../components/templates/AuthLayout/index';
 import { getErrorMessage } from '../../services/api/errors';
 import { login } from '../../services/api/auth';
 import { useAuth } from '../../context/AuthContext/index';
+import { ROUTES } from '@/constants/routes';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
@@ -20,7 +21,7 @@ export function LoginPage() {
         try {
             await login({ usernameOrEmail: username, password });
             await refreshUser();
-            navigate('/');
+            navigate(ROUTES.home);
         } catch (err) {
             setError(getErrorMessage(err));
         }
@@ -55,7 +56,7 @@ export function LoginPage() {
 
             <Button
                 variant="secondary"
-                onClick={() => navigate('/register')}
+                onClick={() => navigate(ROUTES.register)}
                 className="w-full mt-2"
             >
                 Create account

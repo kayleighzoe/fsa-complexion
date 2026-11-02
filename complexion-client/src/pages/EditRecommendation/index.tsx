@@ -6,8 +6,9 @@ import { NavBar } from '../../components/organisms/NavBar';
 import { Button } from '../../components/atoms/Button';
 import profileBackground from '../../assets/images/profileBackground.webp';
 import type { MyRecommendation } from '../../types';
-import { getMyRecommendations, updateRecommendation } from '../../services/api/profile';
+import { getMyRecommendations, updateRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
+import { ROUTES } from '@/constants/routes';
 
 export function EditRecommendationPage() {
     const { recommendationId } = useParams();
@@ -35,7 +36,7 @@ export function EditRecommendationPage() {
                 setComment(match.comment ?? '');
             } catch (err) {
                 if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate('/login');
+                    navigate(ROUTES.login);
                     return;
                 }
                 setError(getErrorMessage(err));
@@ -55,7 +56,7 @@ export function EditRecommendationPage() {
 
         try {
             await updateRecommendation(recommendationId, comment);
-            navigate('/profile');
+            navigate(ROUTES.profile);
         } catch (err) {
             setError(getErrorMessage(err));
             setSaving(false);
@@ -104,7 +105,7 @@ export function EditRecommendationPage() {
                     <div className="flex gap-4 mt-8">
                         <Button
                             variant="secondary"
-                            onClick={() => navigate('/profile')}
+                            onClick={() => navigate(ROUTES.profile)}
                             className={recommendation ? 'w-1/2' : 'w-full'}
                         >
                             Cancel
