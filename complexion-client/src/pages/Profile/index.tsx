@@ -12,6 +12,16 @@ import { getErrorMessage } from '../../services/api/errors';
 import { useAuth } from '../../context/AuthContext/index';
 import { formatDate } from '@/utils/formatter';
 import { ROUTES } from '@/constants/routes';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export function ProfilePage() {
     const navigate = useNavigate();
@@ -21,6 +31,7 @@ export function ProfilePage() {
     const [error, setError] = useState('');
     const [actionError, setActionError] = useState('');
     const { user, logout } = useAuth();
+    const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
     useEffect(() => {
         const userId = user?.userId;
@@ -48,15 +59,12 @@ export function ProfilePage() {
         try {
             await logout();
             navigate(ROUTES.login);
-        } catch (error) {
-            console.error('Could not log out', error);
+        } catch (err) {
+            setError(getErrorMessage(err));
         }
     }
 
     async function handleDelete(recommendationId: string) {
-        if (!window.confirm('Delete this recommendation? This cannot be undone.')) {
-            return;
-        }
 
         setActionError('');
 
@@ -184,7 +192,7 @@ export function ProfilePage() {
                                         <Pencil size={16} className="text-[#3b2a20]" />
                                     </Button>
                                     <Button
-                                        onClick={() => handleDelete(item.recommendationId)}
+                                        onClick={() => setPendingDeleteId(item.recommendationId)}
                                         variant="pale"
                                         rounded="full"
                                         size="icon"
@@ -197,6 +205,37 @@ export function ProfilePage() {
                     </div>
                 </div>
             </div>
+            <AlertDialog
+                open={pendingDeleteId !== null}
+                onOpenChange={(open) => {
+                    if (!open) setPendingDeleteId(null);
+                }}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Are you sure you want to remove your product recommendation?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel 
+                            className="rounded-full bg-[#3b2a20] px-6 text-[#fbeee0] hover:bg-[#3b2a20]/90"
+                        >                           
+                            No
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => {
+                                if (pendingDeleteId) handleDelete(pendingDeleteId);
+                                setPendingDeleteId(null);
+                            }}
+                            className="rounded-full bg-[#8ba5b2] px-6 text-[#3b2a20] hover:bg-[#8ba5b2]/90"
+                        >
+                            Yes
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }
