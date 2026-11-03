@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router';
 import { PageBackground } from '../../components/organisms/PageBackground';
 import { NavBar } from '../../components/organisms/NavBar';
 import { Button } from '../../components/atoms/Button';
 import profileBackground from '../../assets/images/profileBackground.webp';
 import type { MyRecommendation } from '../../types';
-import { getMyRecommendations, updateRecommendation } from '../../services/api/recommendations';
+import { getRecommendationsByUserId, updateRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
 import { ROUTES } from '@/constants/routes';
+import { useAuth } from '../../context/AuthContext/index';
 
 export function EditRecommendationPage() {
     const { recommendationId } = useParams();
@@ -16,13 +16,17 @@ export function EditRecommendationPage() {
     const [recommendation, setRecommendation] = useState<MyRecommendation | null>(null);
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const [isSaving, setSaving] = useState(false);
     const [error, setError] = useState('');
+    const { user } = useAuth();
 
     useEffect(() => {
-        async function loadRecommendation() {
+        const userId = user?.userId;
+        if (!userId) return;
+
+        async function loadRecommendation(id: string) {
             try {
-                const mine = await getMyRecommendations();
+                const mine = await getRecommendationsByUserId(id);
                 const match = mine.find(
                     (item) => item.recommendationId.toLowerCase() === recommendationId?.toLowerCase()
                 );
@@ -35,21 +39,17 @@ export function EditRecommendationPage() {
                 setRecommendation(match);
                 setComment(match.comment ?? '');
             } catch (err) {
-                if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate(ROUTES.login);
-                    return;
-                }
                 setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }
         }
 
-        loadRecommendation();
-    }, [recommendationId, navigate]);
+        loadRecommendation(userId);
+    }, [recommendationId, navigate, user?.userId]);
 
     async function handleSave() {
-        if (!recommendationId || saving) return;
+        if (!recommendationId || isSaving) return;
 
         setSaving(true);
         setError('');

@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import type { ReactNode } from 'react';
 import { getCurrentUser, logout as logoutRequest } from '../../services/api/auth';
 import type { CurrentUser } from '../../types';
+import { setUnauthorizedHandler } from '../../services/api/client';
 
 interface AuthContextValue {
     user: CurrentUser | null;
@@ -33,6 +34,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = useCallback(async () => {
         await logoutRequest();
         setUser(null);
+    }, []);
+
+    useEffect(() => {
+        setUnauthorizedHandler(() => setUser(null));
+        return () => setUnauthorizedHandler(() => { });
     }, []);
 
     return (

@@ -79,7 +79,7 @@ namespace Complexion.Services.Products
             return recommendation;
         }
 
-        public async Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId)
+        public async Task<IEnumerable<MyRecommendationDto>> GetProductRecommendationsByUserIdAsync(Guid userId)
         {
             return await _repository.GetMyProductRecommendationsAsync(userId);
         }

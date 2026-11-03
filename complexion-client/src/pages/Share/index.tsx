@@ -8,7 +8,6 @@ import shareBackground from '../../assets/images/shareBackground.webp';
 import { Button } from '../../components/atoms/Button';
 import type { SkinShade, SkinUndertone, CatalogueCategory, ConfigPriceTier } from '../../types';
 import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
-import axios from 'axios';
 import { shareRecommendation } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
 import { getCategories } from '../../services/api/catalogue';
@@ -98,10 +97,6 @@ export function SharePage() {
             });
             navigate(ROUTES.profile);
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate(ROUTES.login);
-                return;
-            }
             setError(getErrorMessage(err));
         }
     }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import type { MyRecommendation, UserProfile } from '../../types';
 import { PageBackground } from '../../components/organisms/PageBackground';
 import { Pencil, Trash2 } from 'lucide-react';
@@ -8,7 +7,7 @@ import { NavBar } from '../../components/organisms/NavBar';
 import { useNavigate, generatePath } from 'react-router';
 import { Button } from '../../components/atoms/Button';
 import { getMyProfile } from '@/services/api/profile';
-import {getMyRecommendations, deleteRecommendation } from '../../services/api/recommendations';
+import { deleteRecommendation, getRecommendationsByUserId } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
 import { useAuth } from '../../context/AuthContext/index';
 import { formatDate } from '@/utils/formatter';
@@ -21,30 +20,29 @@ export function ProfilePage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [actionError, setActionError] = useState('');
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
 
     useEffect(() => {
-        async function loadProfile() {
+        const userId = user?.userId;
+        if (!userId) return;
+
+        async function loadProfile(id: string) {
             try {
                 const [profileData, recommendationData] = await Promise.all([
                     getMyProfile(),
-                    getMyRecommendations(),
+                    getRecommendationsByUserId(id),
                 ]);
                 setProfile(profileData);
                 setRecommendations(recommendationData);
             } catch (err) {
-                if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate(ROUTES.login);
-                    return;
-                }
                 setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }
         }
 
-        loadProfile();
-    }, [navigate]);
+        loadProfile(userId);
+    }, [user?.userId]);
 
     async function handleLogout() {
         try {
@@ -68,10 +66,6 @@ export function ProfilePage() {
                 current.filter((r) => r.recommendationId !== recommendationId)
             );
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate(ROUTES.login);
-                return;
-            }
             setActionError(getErrorMessage(err));
         }
     }

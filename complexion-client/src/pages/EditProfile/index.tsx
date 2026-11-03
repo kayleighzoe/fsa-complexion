@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ROUTES } from '@/constants/routes';
-import axios from 'axios';
 import { PageBackground } from '../../components/organisms/PageBackground';
 import { NavBar } from '../../components/organisms/NavBar';
 import { TextField } from '../../components/atoms/TextField';
@@ -46,10 +45,6 @@ export function EditProfilePage() {
                 setUndertoneName(profile.undertoneName);
                 setHasTint(profile.hasTint);
             } catch (err) {
-                if (axios.isAxiosError(err) && err.response?.status === 401) {
-                    navigate(ROUTES.login);
-                    return;
-                }
                 setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
@@ -81,10 +76,6 @@ export function EditProfilePage() {
             });
             navigate(ROUTES.profile);
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response?.status === 401) {
-                navigate(ROUTES.login);
-                return;
-            }
             setError(getErrorMessage(err));
         }
     }
