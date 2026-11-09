@@ -9,5 +9,6 @@ namespace Complexion.Repository.Auth
         Task<User?> GetByEmailAsync(string email);
         Task<UserProfileDto?> GetUserProfileAsync(Guid userId);
         Task<bool> UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto updateProfileDto);
+        Task<RegistrationConflictsDto> GetRegistrationConflictsAsync(string username, string email);
     }
 }

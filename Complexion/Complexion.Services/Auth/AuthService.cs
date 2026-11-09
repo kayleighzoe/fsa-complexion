@@ -42,12 +42,14 @@ namespace Complexion.Services.Auth
                 throw new ValidationException(validationResult.Errors);
             }
 
-            if (await _userRepository.GetByUsernameAsync(registerDto.Username) != null)
+            var conflicts = await _userRepository.GetRegistrationConflictsAsync(registerDto.Username, registerDto.Email);
+
+            if (conflicts.UsernameTaken)
             {
                 throw new ConflictException("Username is already taken.");
             }
 
-            if (await _userRepository.GetByEmailAsync(registerDto.Email) != null)
+            if (conflicts.EmailTaken)
             {
                 throw new ConflictException("Email is already registered.");
             }

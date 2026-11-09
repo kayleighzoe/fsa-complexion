@@ -107,5 +107,16 @@ namespace Complexion.Repository.Auth
 
             return rowsAffected > 0;
         }
+
+        public async Task<RegistrationConflictsDto> GetRegistrationConflictsAsync(string username, string email)
+        {
+            const string sql = @"SELECT
+                                    CAST(CASE WHEN EXISTS (SELECT 1 FROM auth.[User] WHERE Username = @Username) THEN 1 ELSE 0 END AS bit) AS UsernameTaken,
+                                    CAST(CASE WHEN EXISTS (SELECT 1 FROM auth.[User] WHERE Email = @Email) THEN 1 ELSE 0 END AS bit) AS EmailTaken";
+
+            var conflicts = await _dbContext.QuerySingleOrDefaultAsync<RegistrationConflictsDto>(sql, new { Username = username, Email = email });
+
+            return conflicts ?? new RegistrationConflictsDto();
+        }
     }
 }
