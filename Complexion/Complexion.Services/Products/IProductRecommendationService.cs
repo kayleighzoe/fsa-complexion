@@ -11,5 +11,5 @@ namespace Complexion.Services.Products
         Task DeleteProductRecommendationAsync(Guid userId, Guid id);
         Task<IEnumerable<MyRecommendationDto>> GetProductRecommendationsByUserIdAsync(Guid userId);
         Task<IEnumerable<RecommendationSummaryDto>> GetProductRecommendationSummariesAsync();
-        }
+    }
 }
