@@ -15,31 +15,11 @@ namespace Complexion.Tests
         }
 
         [Test]
-        public void GIVEN_EmptyUserId_WHEN_ValidatingCreateProductRecommendation_THEN_ReturnValidationError()
-        {
-            //arrange
-            var dto = new CreateProductRecommendationDto
-            {
-                UserId = Guid.Empty,
-                ProductId = Guid.NewGuid(),
-                SkinProfileId = Guid.NewGuid()
-            };
-            var expectedMessage = "UserId is required.";
-
-            //act
-            var result = _validator.TestValidate(dto);
-
-            //assert
-            result.ShouldHaveValidationErrorFor(x => x.UserId).WithErrorMessage(expectedMessage);
-        }
-
-        [Test]
         public void GIVEN_NullComment_WHEN_ValidatingCreateProductRecommendation_THEN_ReturnNoValidationError()
         {
             //arrange
             var dto = new CreateProductRecommendationDto
             {
-                UserId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = null
@@ -58,7 +38,6 @@ namespace Complexion.Tests
             //arrange
             var dto = new CreateProductRecommendationDto
             {
-                UserId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = ""
@@ -77,7 +56,6 @@ namespace Complexion.Tests
             //arrange
             var dto = new CreateProductRecommendationDto
             {
-                UserId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
                 SkinProfileId = Guid.NewGuid(),
                 Comment = new string('a', 256)

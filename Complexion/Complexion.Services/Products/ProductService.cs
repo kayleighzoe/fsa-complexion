@@ -50,5 +50,24 @@ namespace Complexion.Services.Products
             await _repository.CreateProductAsync(dto);
         }
 
+        public async Task<Guid> GetOrCreateProductAsync(CreateProductDto dto)
+        {
+            var validationResult = await _validator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
+            var existingProduct = await _repository.FindProductAsync(dto);
+
+            if (existingProduct != null)
+            {
+                return existingProduct.ProductId;
+            }
+
+            return await _repository.CreateProductAsync(dto);
+        }
+
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Complexion.Repository.Catalogue;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Catalogue
 {
-
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class CatalogueCategoryController : ControllerBase

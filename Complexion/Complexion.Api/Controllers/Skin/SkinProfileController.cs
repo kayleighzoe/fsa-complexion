@@ -1,6 +1,7 @@
 ﻿using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
 using Complexion.Services.Skin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Skin
@@ -19,6 +20,7 @@ namespace Complexion.Api.Controllers.Skin
             _skinProfileRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllSkinProfiles()
         {
@@ -27,6 +29,7 @@ namespace Complexion.Api.Controllers.Skin
             return Ok(skinProfiles);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSkinProfile(Guid id)
         {
@@ -38,9 +41,9 @@ namespace Complexion.Api.Controllers.Skin
         [HttpPost]
         public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
         {
-            await _skinProfileService.CreateSkinProfileAsync(dto);
+            var skinProfileId = await _skinProfileService.CreateSkinProfileAsync(dto);
 
-            return StatusCode(StatusCodes.Status201Created);
+            return StatusCode(StatusCodes.Status201Created, skinProfileId);
         }
     }
 }
