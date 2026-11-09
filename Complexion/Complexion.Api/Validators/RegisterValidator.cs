@@ -24,17 +24,17 @@ namespace Complexion.Api.Validators
                 .NotEmpty().WithMessage("Username is required.")
                 .MinimumLength(5).WithMessage("Username must be at least 5 characters.")
                 .MaximumLength(50).WithMessage("Username must be 50 characters or fewer.")
-                .Matches("^[A-Za-z]").WithMessage("Username must start with a letter.")
-                .Matches("^[A-Za-z0-9]+$").WithMessage("Username can only contain letters and numbers.");
+                .Must(StartsWithLetter).WithMessage("Username must start with a letter.")
+                .Must(ContainsOnlyLettersAndDigits).WithMessage("Username can only contain letters and numbers.");
 
             RuleFor(register => register.Password)
                 .NotEmpty().WithMessage("Password is required.")
                 .MinimumLength(12).WithMessage("Password must be at least 12 characters.")
                 .MaximumLength(64).WithMessage("Password must be 64 characters or fewer.")
-                .Matches("[A-Z]").WithMessage("Password must contain an uppercase letter.")
-                .Matches("[a-z]").WithMessage("Password must contain a lowercase letter.")
-                .Matches("[0-9]").WithMessage("Password must contain a number.")
-                .Matches("[^A-Za-z0-9]").WithMessage("Password must contain a special character.");
+                .Must(HasUppercaseLetter).WithMessage("Password must contain an uppercase letter.")
+                .Must(HasLowercaseLetter).WithMessage("Password must contain a lowercase letter.")
+                .Must(HasDigit).WithMessage("Password must contain a number.")
+                .Must(HasSpecialCharacter).WithMessage("Password must contain a special character.");
 
             RuleFor(register => register.ShadeId)
                 .GreaterThan(0)
@@ -44,5 +44,23 @@ namespace Complexion.Api.Validators
                 .GreaterThan(0)
                 .WithMessage("UndertoneId is required.");
         }
+
+        private static bool StartsWithLetter(string? username) =>
+            !string.IsNullOrEmpty(username) && char.IsAsciiLetter(username[0]);
+
+        private static bool ContainsOnlyLettersAndDigits(string? username) =>
+            !string.IsNullOrEmpty(username) && username.All(char.IsAsciiLetterOrDigit);
+
+        private static bool HasUppercaseLetter(string? password) =>
+            password is not null && password.Any(char.IsAsciiLetterUpper);
+
+        private static bool HasLowercaseLetter(string? password) =>
+            password is not null && password.Any(char.IsAsciiLetterLower);
+
+        private static bool HasDigit(string? password) =>
+            password is not null && password.Any(char.IsAsciiDigit);
+
+        private static bool HasSpecialCharacter(string? password) =>
+            password is not null && password.Any(character => !char.IsAsciiLetterOrDigit(character));
     }
 }
