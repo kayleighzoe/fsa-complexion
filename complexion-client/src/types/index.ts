@@ -1,22 +1,3 @@
-export interface Comment {
-    id: string;
-    text: string;
-    author: string;
-    skinProfile: string;
-}
-
-export interface Recommendation {
-    id: string;
-    brandName: string;
-    productName: string;
-    category: string;
-    undertone: string;
-    shade: string;
-    recommendedByCount: number;
-    priceTier: string;
-    comments: Comment[];
-}
-
 export interface MyRecommendation {
     recommendationId: string;
     brand: string;
@@ -97,4 +78,22 @@ export interface CatalogueCategory {
 export interface ConfigPriceTier {
     priceTierId: number;
     name: string;
+}
+
+export interface RecommendationComment {
+    username: string;
+    text: string;
+}
+
+export interface RecommendationSummary {
+    brand: string;
+    productName: string;
+    productShadeName: string;
+    categoryName: string;
+    priceTierName: string;
+    shadeName: string;
+    undertoneName: string;
+    hasTint: boolean;
+    recommendedByCount: number;
+    comments: RecommendationComment[];
 }

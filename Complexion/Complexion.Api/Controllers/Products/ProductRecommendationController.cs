@@ -49,9 +49,9 @@ namespace Complexion.Api.Controllers.Products
         }
 
         [HttpPatch("{recommendationId}")]
-        public async Task<IActionResult> UpdateRecommendation(Guid recommendationId, [FromBody] UpdateProductRecommendationDto createProductRecommentationDto)
+        public async Task<IActionResult> UpdateRecommendation(Guid recommendationId, [FromBody] UpdateProductRecommendationDto updateProductRecommentationDto)
         {
-            await _productRecommendationService.UpdateProductRecommendationAsync(User.GetUserId(), recommendationId, createProductRecommentationDto);
+            await _productRecommendationService.UpdateProductRecommendationAsync(User.GetUserId(), recommendationId, updateProductRecommentationDto);
 
             return Ok();
         }
@@ -64,21 +64,21 @@ namespace Complexion.Api.Controllers.Products
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetMyRecommendations()
-        {
-            var recommendations = await _productRecommendationService.GetProductRecommendationsByUserIdAsync(User.GetUserId());
-
-            return Ok(recommendations);
-        }
-
-        [AllowAnonymous]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetRecommendationsByUserId(Guid userId)
         {
             var recommendations = await _productRecommendationService.GetProductRecommendationsByUserIdAsync(userId);
 
             return Ok(recommendations);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetRecommendationSummaries()
+        {
+            var summaries = await _productRecommendationService.GetProductRecommendationSummariesAsync();
+
+            return Ok(summaries);
         }
     }
 }

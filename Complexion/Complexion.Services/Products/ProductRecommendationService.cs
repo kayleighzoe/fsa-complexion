@@ -83,5 +83,40 @@ namespace Complexion.Services.Products
         {
             return await _repository.GetMyProductRecommendationsAsync(userId);
         }
+
+        public async Task<IEnumerable<RecommendationSummaryDto>> GetProductRecommendationSummariesAsync()
+        {
+            var rows = await _repository.GetProductRecommendationRowsAsync();
+
+            return rows
+                .GroupBy(r => new { r.ProductId, r.ProfileShadeName, r.ProfileUndertoneName, r.HasTint })
+                .Select(group =>
+                {
+                    var first = group.First();
+
+                    return new RecommendationSummaryDto
+                    {
+                        Brand = first.Brand,
+                        ProductName = first.ProductName,
+                        ProductShadeName = first.ProductShadeName,
+                        CategoryName = first.CategoryName,
+                        PriceTierName = first.PriceTierName,
+                        ShadeName = first.ProfileShadeName,
+                        UndertoneName = first.ProfileUndertoneName,
+                        HasTint = first.HasTint,
+                        RecommendedByCount = group.Select(r => r.UserId).Distinct().Count(),
+                        Comments = group
+                            .Where(r => !string.IsNullOrWhiteSpace(r.Comment))
+                            .Select(r => new RecommendationCommentDto
+                            {
+                                Username = r.Username,
+                                Text = r.Comment ?? string.Empty,
+                            })
+                            .ToList(),
+                    };
+                })
+                .OrderByDescending(summary => summary.RecommendedByCount)
+                .ToList();
+        }
     }
 }

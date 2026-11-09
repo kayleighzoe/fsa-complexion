@@ -103,5 +103,33 @@ namespace Complexion.Repository.Products
 
             return await _dbContext.QueryAsync<MyRecommendationDto>(sql, new { UserId = userId });
         }
+
+        public async Task<IEnumerable<RecommendationRowDto>> GetProductRecommendationRowsAsync()
+        {
+            const string sql = @"SELECT
+                                    pr.RecommendationId,
+                                    pr.UserId,
+                                    u.Username,
+                                    p.ProductId,
+                                    p.Brand,
+                                    p.Name AS ProductName,
+                                    p.ShadeName AS ProductShadeName,
+                                    c.Name AS CategoryName,
+                                    pt.Name AS PriceTierName,
+                                    sh.Name AS ProfileShadeName,
+                                    ut.Name AS ProfileUndertoneName,
+                                    sp.HasTint,
+                                    pr.Comment
+                                FROM dbo.ProductRecommendation pr
+                                INNER JOIN dbo.Product p ON p.ProductId = pr.ProductId
+                                INNER JOIN catalogue.Category c ON c.CategoryId = p.CategoryId
+                                INNER JOIN config.PriceTier pt ON pt.PriceTierId = p.PriceTierId
+                                INNER JOIN dbo.SkinProfile sp ON sp.SkinProfileId = pr.SkinProfileId
+                                INNER JOIN skin.Shade sh ON sh.ShadeId = sp.ShadeId
+                                INNER JOIN skin.Undertone ut ON ut.UndertoneId = sp.UndertoneId
+                                INNER JOIN auth.[User] u ON u.UserId = pr.UserId";
+
+            return await _dbContext.QueryAsync<RecommendationRowDto>(sql);
+        }
     }
 }

@@ -40,7 +40,6 @@ namespace Complexion.Api.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult Logout()
         {
@@ -48,7 +47,6 @@ namespace Complexion.Api.Controllers
             return Ok();
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Me()
         {

@@ -1,78 +1,72 @@
-import { useState } from 'react';
-import type { Recommendation } from '../../types';
+import { useEffect, useState } from 'react';
+import type { RecommendationSummary } from '../../types';
 import { ProductCard } from '../../components/molecules/ProductCard/index';
 import { PageBackground } from '../../components/organisms/PageBackground';
 import homeBackground from '../../assets/images/homeBackground.webp';
 import { NavBar } from '../../components/organisms/NavBar';
-import { Search } from 'lucide-react'
+import { Search } from 'lucide-react';
+import { getRecommendationSummaries } from '../../services/api/recommendations';
+import { getErrorMessage } from '../../services/api/errors';
 
-const RESULTS: Recommendation[] = [
-    {
-        id: '1',
-        brandName: 'Fenty Beauty',
-        productName: "Pro Filt'r Soft Matte Foundation",
-        category: 'Foundation',
-        undertone: 'Warm',
-        shade: 'Medium',
-        recommendedByCount: 342,
-        priceTier: 'High-end',
-        comments: [
-            {
-                id: 'c1',
-                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
-                author: 'thandi_m',
-                skinProfile: 'Warm, Medium',
-            },
-        ],
-    },
-    {
-        id: '2',
-        brandName: 'MAC',
-        productName: 'Studio Fix Fluid',
-        category: 'Foundation',
-        undertone: 'Neutral',
-        shade: 'Light',
-        recommendedByCount: 189,
-        priceTier: 'High-end',
-        comments: [
-            {
-                id: 'c1',
-                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
-                author: 'thandi_m',
-                skinProfile: 'Warm, Medium',
-            },
-        ],
-    },
-    {
-        id: '3',
-        brandName: 'Maybelline',
-        productName: 'Fit Me Matte + Poreless',
-        category: 'Concealer',
-        undertone: 'Cool',
-        shade: 'Deep',
-        recommendedByCount: 517,
-        priceTier: 'Drugstore',
-        comments: [
-            {
-                id: 'c1',
-                text: 'Oxidises slightly after a few hours, go half a shade lighter.',
-                author: 'thandi_m',
-                skinProfile: 'Warm, Medium',
-            },
-        ],
-    },
-];
+function toSearchText(item: RecommendationSummary) {
+    return [
+        item.brand,
+        item.productName,
+        item.productShadeName,
+        item.categoryName,
+        item.priceTierName,
+        item.shadeName,
+        item.undertoneName,
+        item.hasTint ? 'olive' : '',
+    ]
+        .join(' ')
+        .toLowerCase();
+}
+
+function toKey(item: RecommendationSummary) {
+    return [
+        item.brand,
+        item.productName,
+        item.productShadeName,
+        item.shadeName,
+        item.undertoneName,
+        item.hasTint,
+    ].join('|');
+}
 
 export function HomePage() {
     const [query, setQuery] = useState('');
+    const [results, setResults] = useState<RecommendationSummary[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-    const filtered = RESULTS.filter((item) =>
-        `${item.undertone} ${item.shade}`.toLowerCase().includes(query.toLowerCase())
-    );
+    useEffect(() => {
+        async function loadResults() {
+            try {
+                setResults(await getRecommendationSummaries());
+            } catch (err) {
+                setError(getErrorMessage(err));
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadResults();
+    }, []);
+
+    const words = query
+        .toLowerCase()
+        .split(' ')
+        .filter((word) => word !== '');
+
+    const filtered = results.filter((item) => {
+        const text = toSearchText(item);
+        return words.every((word) => text.includes(word));
+    });
 
     return (
         <div className="min-h-screen bg-[#645b50] flex flex-col relative">
-            <PageBackground image={homeBackground}/>
+            <PageBackground image={homeBackground} />
             <NavBar />
 
             <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-12 page-fade">
@@ -98,21 +92,24 @@ export function HomePage() {
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search by skin profile - e.g. warm, medium…"
+                        placeholder="Search products, brands or skin profile - e.g. warm medium…"
                         className="w-full rounded-full pl-14 pr-8 py-4 bg-[#fbeee0]"
                     />
                 </div>
 
                 <div className="min-h-[500px]">
-                    {filtered.length === 0 ? (
+                    {loading && <p className="text-center text-[#fbeee0] py-12">Loading...</p>}
+                    {error && <p className="text-center text-red-200 py-12">{error}</p>}
+                    {!loading && !error && filtered.length === 0 && (
                         <p className="text-center text-[#fbeee0] py-12">
-                            No products match "{query}"
+                            {results.length === 0
+                                ? 'No recommendations have been shared yet.'
+                                : `No products match "${query}"`}
                         </p>
-                    ) : (
-                        filtered.map((item) => (
-                            <ProductCard key={item.id} recommendation={item} />
-                        ))
                     )}
+                    {filtered.map((item) => (
+                        <ProductCard key={toKey(item)} recommendation={item} />
+                    ))}
                 </div>
             </div>
         </div>
