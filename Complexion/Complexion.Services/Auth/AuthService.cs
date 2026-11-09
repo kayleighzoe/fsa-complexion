@@ -86,9 +86,12 @@ namespace Complexion.Services.Auth
                 throw new ValidationException(validationResult.Errors);
             }
 
-            var user = loginDto.UsernameOrEmail.Contains('@')
-                ? await _userRepository.GetByEmailAsync(loginDto.UsernameOrEmail)
-                : await _userRepository.GetByUsernameAsync(loginDto.UsernameOrEmail);
+            var usernameOrEmail = loginDto.UsernameOrEmail;
+            var isEmail = usernameOrEmail.Contains('@');
+
+            var user = isEmail
+                ? await _userRepository.GetByEmailAsync(usernameOrEmail)
+                : await _userRepository.GetByUsernameAsync(usernameOrEmail);
 
             if (user == null || !_passwordHasher.Verify(loginDto.Password, user.PasswordHash))
             {
