@@ -1,4 +1,5 @@
 ﻿using Complexion.Exceptions;
+using Complexion.Exceptions.Constants;
 using Complexion.Models.Auth;
 using Complexion.Models.Skin;
 using Complexion.Repository.Auth;
@@ -26,7 +27,7 @@ namespace Complexion.Services.Auth
 
             if (profile == null)
             {
-                throw new NotFoundException($"User with id {userId} was not found.");
+                throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundTemplate, userId));
             }
 
             return profile;
@@ -45,7 +46,7 @@ namespace Complexion.Services.Auth
 
             if (existingUser != null && existingUser.UserId != userId)
             {
-                throw new ConflictException("Email is already registered.");
+                throw new ConflictException(ErrorMessages.EmailTaken);
             }
 
             var skinProfileId = await _skinProfileService.GetOrCreateSkinProfileAsync(new CreateSkinProfileDto
@@ -59,7 +60,7 @@ namespace Complexion.Services.Auth
 
             if (!updated)
             {
-                throw new NotFoundException($"User with id {userId} was not found.");
+                throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundTemplate, userId));
             }
 
         }

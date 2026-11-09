@@ -1,5 +1,6 @@
 ﻿
 using Complexion.Exceptions;
+using Complexion.Exceptions.Constants;
 using Complexion.Models.Auth;
 using Complexion.Models.Skin;
 using Complexion.Repository.Auth;
@@ -46,12 +47,12 @@ namespace Complexion.Services.Auth
 
             if (conflicts.UsernameTaken)
             {
-                throw new ConflictException("Username is already taken.");
+                throw new ConflictException(ErrorMessages.UsernameTaken);
             }
 
             if (conflicts.EmailTaken)
             {
-                throw new ConflictException("Email is already registered.");
+                throw new ConflictException(ErrorMessages.EmailTaken);
             }
 
             var skinProfileId = await _skinProfileService.GetOrCreateSkinProfileAsync(
@@ -93,13 +94,19 @@ namespace Complexion.Services.Auth
                 ? await _userRepository.GetByEmailAsync(usernameOrEmail)
                 : await _userRepository.GetByUsernameAsync(usernameOrEmail);
 
-            if (user == null || !_passwordHasher.Verify(loginDto.Password, user.PasswordHash))
+            if (user is null)
             {
-                throw new UnauthorizedAccessException("Invalid username or password.");
+                throw new UnauthorizedAccessException(ErrorMessages.InvalidCredentials);
+            }
+
+            var isPasswordValid = _passwordHasher.Verify(loginDto.Password, user.PasswordHash);
+
+            if (!isPasswordValid)
+            {
+                throw new UnauthorizedAccessException(ErrorMessages.InvalidCredentials);
             }
 
             return _tokenService.CreateToken(user);
         }
-
     }
 }
