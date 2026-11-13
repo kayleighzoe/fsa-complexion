@@ -17,7 +17,7 @@ namespace Complexion.Api.Controllers.Auth
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMyProfile()
+        public async Task<IActionResult> GetUserProfile()
         {
             var profile = await _userService.GetProfileAsync(User.GetUserId());
 
@@ -25,7 +25,7 @@ namespace Complexion.Api.Controllers.Auth
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateProfileDto dto)
+        public async Task<IActionResult> UpdateUserProfile([FromBody] UpdateProfileDto dto)
         {
             await _userService.UpdateProfileAsync(User.GetUserId(), dto);
 
