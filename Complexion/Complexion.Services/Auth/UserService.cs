@@ -25,7 +25,7 @@ namespace Complexion.Services.Auth
         {
             var profile = await _userRepository.GetUserProfileAsync(userId);
 
-            if (profile == null)
+            if (profile is null)
             {
                 throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundTemplate, userId));
             }

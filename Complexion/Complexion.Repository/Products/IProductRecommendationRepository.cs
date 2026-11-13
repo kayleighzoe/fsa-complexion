@@ -10,7 +10,7 @@ namespace Complexion.Repository.Products
         Task CreateProductRecommendationAsync(Guid userId, CreateProductRecommendationDto dto);
         Task UpdateProductRecommendationAsync(Guid id, UpdateProductRecommendationDto dto);
         Task DeleteProductRecommendationAsync(Guid id);
-        Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId);
+        Task<IEnumerable<MyRecommendationDto>> GetUserProductRecommendationsAsync(Guid userId);
         Task<IEnumerable<RecommendationRowDto>> GetProductRecommendationRowsAsync();
     }
 }

@@ -83,7 +83,7 @@ namespace Complexion.Repository.Products
             await _dbContext.ExecuteAsync(sql, new { Id = id });
         }
 
-        public async Task<IEnumerable<MyRecommendationDto>> GetMyProductRecommendationsAsync(Guid userId)
+        public async Task<IEnumerable<MyRecommendationDto>> GetUserProductRecommendationsAsync(Guid userId)
         {
             const string sql = @"SELECT
                                     pr.RecommendationId,

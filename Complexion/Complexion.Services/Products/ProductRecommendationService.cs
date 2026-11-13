@@ -25,7 +25,7 @@ namespace Complexion.Services.Products
 
             if (productRecommendation == null)
             {
-                throw new NotFoundException($"ProductRecommendation with id {id} was not found.");
+                throw new NotFoundException($"ProductRecommendation was not found.");
             }
 
             return productRecommendation;
@@ -57,23 +57,23 @@ namespace Complexion.Services.Products
                 throw new ValidationException(productRecommendation.Errors);
             }
 
-            await GetOwnedRecommendationAsync(userId, id);
+            await GetUserRecommendationAsync(userId, id);
             await _repository.UpdateProductRecommendationAsync(id, dto);
         }
 
         public async Task DeleteProductRecommendationAsync(Guid userId, Guid id)
         {
-            await GetOwnedRecommendationAsync(userId, id);
+            await GetUserRecommendationAsync(userId, id);
             await _repository.DeleteProductRecommendationAsync(id);
         }
 
-        private async Task<ProductRecommendation> GetOwnedRecommendationAsync(Guid userId, Guid id)
+        private async Task<ProductRecommendation> GetUserRecommendationAsync(Guid userId, Guid id)
         {
             var recommendation = await _repository.GetProductRecommendationAsync(id);
 
             if (recommendation == null || recommendation.UserId != userId)
             {
-                throw new NotFoundException($"ProductRecommendation with id {id} was not found.");
+                throw new NotFoundException($"ProductRecommendation was not found.");
             }
 
             return recommendation;
@@ -81,7 +81,7 @@ namespace Complexion.Services.Products
 
         public async Task<IEnumerable<MyRecommendationDto>> GetProductRecommendationsByUserIdAsync(Guid userId)
         {
-            return await _repository.GetMyProductRecommendationsAsync(userId);
+            return await _repository.GetUserProductRecommendationsAsync(userId);
         }
 
         public async Task<IEnumerable<RecommendationSummaryDto>> GetProductRecommendationSummariesAsync()
