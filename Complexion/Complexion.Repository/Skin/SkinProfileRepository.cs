@@ -37,27 +37,6 @@ namespace Complexion.Repository.Skin
             return await _dbContext.QuerySingleOrDefaultAsync<SkinProfile>(sql, new { Id = id });
         }
 
-        public async Task<Guid> CreateSkinProfileAsync(CreateSkinProfileDto dto)
-        {
-            const string sql = @"INSERT INTO dbo.SkinProfile 
-                                (
-                                    SkinProfileId, 
-                                    ShadeId, 
-                                    UndertoneId, 
-                                    HasTint
-                                )
-                                OUTPUT INSERTED.SkinProfileId
-                                VALUES 
-                                (
-                                    NEWID(), 
-                                    @ShadeId, 
-                                    @UndertoneId, 
-                                    @HasTint
-                                )";
-
-            return await _dbContext.QuerySingleAsync<Guid>(sql, dto);
-        }
-
         public async Task<SkinProfile?> GetSkinProfileByCombinationAsync(int shadeId, int undertoneId, bool hasTint)
         {
             const string sql = @"SELECT

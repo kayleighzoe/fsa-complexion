@@ -1,6 +1,5 @@
 ﻿using Complexion.Exceptions;
 using Complexion.Models.Products;
-using Complexion.Models.Skin;
 using Complexion.Repository.Lookups;
 using Complexion.Services.Skin;
 using FluentValidation;
@@ -58,12 +57,7 @@ namespace Complexion.Services.Products
                 throw new NotFoundException("Category, price tier, skin shade or undertone was not found.");
             }
 
-            var skinProfileId = await _skinProfileService.GetOrCreateSkinProfileAsync(new CreateSkinProfileDto
-            {
-                ShadeId = ids.ShadeId.GetValueOrDefault(),
-                UndertoneId = ids.UndertoneId.GetValueOrDefault(),
-                HasTint = cleaned.HasTint
-            });
+            var skinProfileId = await _skinProfileService.GetSkinProfileIdAsync(ids.ShadeId.GetValueOrDefault(),ids.UndertoneId.GetValueOrDefault(), cleaned.HasTint);
 
             var productId = await _productService.GetOrCreateProductAsync(new CreateProductDto
             {
@@ -73,7 +67,6 @@ namespace Complexion.Services.Products
                 Brand = cleaned.Brand,
                 ShadeName = cleaned.ShadeName
             });
-
 
             await _productRecommendationService.CreateProductRecommendationAsync(userId, new CreateProductRecommendationDto
             {

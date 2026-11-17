@@ -2,7 +2,6 @@
 using Complexion.Exceptions;
 using Complexion.Exceptions.Constants;
 using Complexion.Models.Auth;
-using Complexion.Models.Skin;
 using Complexion.Repository.Auth;
 using Complexion.Services.Skin;
 using FluentValidation;
@@ -55,13 +54,7 @@ namespace Complexion.Services.Auth
                 throw new ConflictException(ErrorMessages.EmailTaken);
             }
 
-            var skinProfileId = await _skinProfileService.GetOrCreateSkinProfileAsync(
-                new CreateSkinProfileDto
-                {
-                    ShadeId = registerDto.ShadeId,
-                    UndertoneId = registerDto.UndertoneId,
-                    HasTint = registerDto.HasTint
-                });
+            var skinProfileId = await _skinProfileService.GetSkinProfileIdAsync(registerDto.ShadeId, registerDto.UndertoneId, registerDto.HasTint);
 
             var user = new User
             {

@@ -1,19 +1,17 @@
-﻿using Complexion.Models.Skin;
+﻿using Complexion.Exceptions;
+using Complexion.Exceptions.Constants;
+using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
-using FluentValidation;
-using Complexion.Exceptions;
 
 namespace Complexion.Services.Skin
 {
     public class SkinProfileService : ISkinProfileService
     {
         private readonly ISkinProfileRepository _repository;
-        private readonly IValidator<CreateSkinProfileDto> _validator;
 
-        public SkinProfileService(ISkinProfileRepository repository, IValidator<CreateSkinProfileDto> validator)
+        public SkinProfileService(ISkinProfileRepository repository)
         {
             _repository = repository;
-            _validator = validator;
         }
 
         public async Task<IEnumerable<SkinProfile>> GetAllSkinProfilesAsync()
@@ -25,7 +23,7 @@ namespace Complexion.Services.Skin
         {
             var skinProfile = await _repository.GetSkinProfileAsync(id);
 
-            if (skinProfile == null)
+            if (skinProfile is null)
             {
                 throw new NotFoundException($"SkinProfile with id {id} was not found.");
             }
@@ -33,28 +31,16 @@ namespace Complexion.Services.Skin
             return skinProfile;
         }
 
-        public async Task<Guid> CreateSkinProfileAsync(CreateSkinProfileDto dto)
+        public async Task<Guid> GetSkinProfileIdAsync(int shadeId, int undertoneId, bool hasTint)
         {
-            var skinProfile = await _validator.ValidateAsync(dto);
+            var skinProfile = await _repository.GetSkinProfileByCombinationAsync(shadeId, undertoneId, hasTint);
 
-            if (!skinProfile.IsValid)
+            if (skinProfile is null)
             {
-                throw new ValidationException(skinProfile.Errors);
+                throw new NotFoundException(ErrorMessages.SkinProfileNotFound);
             }
 
-            return await _repository.CreateSkinProfileAsync(dto);
-        }
-
-        public async Task<Guid> GetOrCreateSkinProfileAsync(CreateSkinProfileDto dto)
-        {
-            var existing = await _repository.GetSkinProfileByCombinationAsync(dto.ShadeId, dto.UndertoneId, dto.HasTint);
-
-            if (existing != null)
-            {
-                return existing.SkinProfileId;
-            }
-
-            return await CreateSkinProfileAsync(dto);
+            return skinProfile.SkinProfileId;
         }
     }
 }

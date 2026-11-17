@@ -49,12 +49,7 @@ namespace Complexion.Services.Auth
                 throw new ConflictException(ErrorMessages.EmailTaken);
             }
 
-            var skinProfileId = await _skinProfileService.GetOrCreateSkinProfileAsync(new CreateSkinProfileDto
-            {
-                ShadeId = updateProfileDto.ShadeId,
-                UndertoneId = updateProfileDto.UndertoneId,
-                HasTint = updateProfileDto.HasTint
-            });
+            var skinProfileId = await _skinProfileService.GetSkinProfileIdAsync(updateProfileDto.ShadeId, updateProfileDto.UndertoneId, updateProfileDto.HasTint);
 
             await _userRepository.UpdateProfileAsync(userId, skinProfileId, updateProfileDto);
         }

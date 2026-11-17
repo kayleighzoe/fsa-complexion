@@ -11,6 +11,7 @@
 		<None Remove="Scripts\20260520104702CreateConfigSchema.sql" />
 		<None Remove="Scripts\20260520104703CreateSkinSchemas.sql" />
 		<None Remove="Scripts\20261014111112AlterTableSkinProfile.sql" />
+		<None Remove="Scripts\20261116101200SeedSkinProfiles.sql" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Scripts\20260520104700CreateAuthSchema.sql" />
@@ -26,6 +27,7 @@
 		<EmbeddedResource Include="Scripts\20260520104710CreateProductTable.sql" />
 		<EmbeddedResource Include="Scripts\20260520104711CreateProductRecommendationTable.sql" />
 		<EmbeddedResource Include="Scripts\20261014111112AlterTableSkinProfile.sql" />
+		<EmbeddedResource Include="Scripts\20261116101200SeedSkinProfiles.sql" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="dbup-sqlserver" Version="7.2.0" />

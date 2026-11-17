@@ -1,49 +1,35 @@
-﻿using Complexion.Models.Skin;
-using Complexion.Repository.Skin;
-using Complexion.Services.Skin;
+﻿using Complexion.Services.Skin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Skin
 {
-
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class SkinProfileController : ControllerBase
     {
         private readonly ISkinProfileService _skinProfileService;
-        private readonly ISkinProfileRepository _skinProfileRepository;
 
-        public SkinProfileController(ISkinProfileService service, ISkinProfileRepository repository)
+        public SkinProfileController(ISkinProfileService service)
         {
             _skinProfileService = service;
-            _skinProfileRepository = repository;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllSkinProfiles()
         {
-            var skinProfiles = await _skinProfileRepository.GetAllSkinProfilesAsync();
+            var skinProfiles = await _skinProfileService.GetAllSkinProfilesAsync();
 
             return Ok(skinProfiles);
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSkinProfile(Guid id)
         {
             var skinProfile = await _skinProfileService.GetSkinProfileAsync(id);
 
             return Ok(skinProfile);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateSkinProfile([FromBody] CreateSkinProfileDto dto)
-        {
-            var skinProfileId = await _skinProfileService.CreateSkinProfileAsync(dto);
-
-            return StatusCode(StatusCodes.Status201Created, skinProfileId);
         }
     }
 }
