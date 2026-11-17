@@ -37,7 +37,7 @@ namespace Complexion.Repository.Auth
             return await _dbContext.QuerySingleAsync<Guid>(sql, user);
         }
 
-        public async Task<User?> GetByUsernameAsync(string username)
+        public async Task<User?> GetUserDetailsByUsernameAsync(string username)
         {
             const string sql = @"SELECT
                                     UserId,
@@ -53,7 +53,7 @@ namespace Complexion.Repository.Auth
             return await _dbContext.QuerySingleOrDefaultAsync<User>(sql, new { Username = username });
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User?> GetUserDetailsByEmailAsync(string email)
         {
             const string sql = @"SELECT
                                     UserId,
@@ -87,7 +87,7 @@ namespace Complexion.Repository.Auth
             return await _dbContext.QuerySingleOrDefaultAsync<UserProfileDto>(sql, new { UserId = userId });
         }
 
-        public async Task<bool> UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto dto)
+        public async Task UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto dto)
         {
             const string sql = @"UPDATE auth.[User]
                                 SET FirstName = @FirstName,
@@ -96,7 +96,7 @@ namespace Complexion.Repository.Auth
                                     SkinProfileId = @SkinProfileId
                                 WHERE UserId = @UserId";
 
-            var rowsAffected = await _dbContext.ExecuteAsync(sql, new
+            await _dbContext.ExecuteAsync(sql, new
             {
                 UserId = userId,
                 SkinProfileId = skinProfileId,
@@ -104,8 +104,6 @@ namespace Complexion.Repository.Auth
                 dto.Surname,
                 dto.Email
             });
-
-            return rowsAffected > 0;
         }
 
         public async Task<RegistrationConflictsDto> GetRegistrationConflictsAsync(string username, string email)

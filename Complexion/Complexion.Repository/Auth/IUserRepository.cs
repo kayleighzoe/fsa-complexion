@@ -5,10 +5,10 @@ namespace Complexion.Repository.Auth
     public interface IUserRepository
     {
         Task<Guid> CreateUserAsync(User user);
-        Task<User?> GetByUsernameAsync(string username);
-        Task<User?> GetByEmailAsync(string email);
+        Task<User?> GetUserDetailsByUsernameAsync(string username);
+        Task<User?> GetUserDetailsByEmailAsync(string email);
         Task<UserProfileDto?> GetUserProfileAsync(Guid userId);
-        Task<bool> UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto updateProfileDto);
+        Task UpdateProfileAsync(Guid userId, Guid skinProfileId, UpdateProfileDto updateProfileDto);
         Task<RegistrationConflictsDto> GetRegistrationConflictsAsync(string username, string email);
     }
 }

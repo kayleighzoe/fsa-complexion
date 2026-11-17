@@ -64,6 +64,9 @@ export function CreateAccountPage() {
             return;
         }
 
+        const { shadeId } = shade;
+        const { undertoneId } = undertone;
+
         try {
             await register({
                 firstName: name,
@@ -71,8 +74,8 @@ export function CreateAccountPage() {
                 email,
                 username,
                 password,
-                shadeId: shade.shadeId,
-                undertoneId: undertone.undertoneId,
+                shadeId,
+                undertoneId,
                 hasTint: hasOliveOvertone,
             });
         } catch (err) {
@@ -150,7 +153,7 @@ export function CreateAccountPage() {
                         label="Skin undertone"
                         value={skinUndertone}
                         onChange={setSkinUndertone}
-                        options={undertones.map((undertones) => undertones.name)}
+                        options={undertones.map((undertone) => undertone.name)}
                     />
                 </div>
             </div>

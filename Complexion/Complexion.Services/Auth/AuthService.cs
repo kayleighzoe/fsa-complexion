@@ -91,8 +91,8 @@ namespace Complexion.Services.Auth
             var isEmail = usernameOrEmail.Contains('@');
 
             var user = isEmail
-                ? await _userRepository.GetByEmailAsync(usernameOrEmail)
-                : await _userRepository.GetByUsernameAsync(usernameOrEmail);
+                ? await _userRepository.GetUserDetailsByEmailAsync(usernameOrEmail)
+                : await _userRepository.GetUserDetailsByUsernameAsync(usernameOrEmail);
 
             if (user is null)
             {

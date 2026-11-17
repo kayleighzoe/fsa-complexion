@@ -35,16 +35,16 @@ namespace Complexion.Services.Auth
 
         public async Task UpdateProfileAsync(Guid userId, UpdateProfileDto updateProfileDto)
         {
-            var validationResult = await _updateProfileValidator.ValidateAsync(updateProfileDto);
+            var userProfile = await _userRepository.GetUserProfileAsync(userId);
 
-            if (!validationResult.IsValid)
+            if (userProfile is null)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundTemplate, userId));
             }
 
-            var existingUser = await _userRepository.GetByEmailAsync(updateProfileDto.Email);
+            var userWithEmail = await _userRepository.GetUserDetailsByEmailAsync(updateProfileDto.Email);
 
-            if (existingUser != null && existingUser.UserId != userId)
+            if (userWithEmail is not null && userWithEmail.UserId != userId)
             {
                 throw new ConflictException(ErrorMessages.EmailTaken);
             }
@@ -56,13 +56,7 @@ namespace Complexion.Services.Auth
                 HasTint = updateProfileDto.HasTint
             });
 
-            var updated = await _userRepository.UpdateProfileAsync(userId, skinProfileId, updateProfileDto);
-
-            if (!updated)
-            {
-                throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundTemplate, userId));
-            }
-
+            await _userRepository.UpdateProfileAsync(userId, skinProfileId, updateProfileDto);
         }
     }
 }
