@@ -22,6 +22,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Skeleton } from '@/components/atoms/Skeleton';
 
 export function ProfilePage() {
     const navigate = useNavigate();
@@ -108,7 +109,16 @@ export function ProfilePage() {
                             </div>
                         </div>
 
-                        {loading && <p className="mt-8 text-[#8a7060]">Loading...</p>}
+                        {loading && (
+                            <div role="status" aria-label="Loading profile" className="grid grid-cols-3 gap-y-6 mt-8">
+                                {[1, 2, 3, 4, 5].map((n) => (
+                                    <div key={n}>
+                                        <Skeleton className="h-3 w-16" />
+                                        <Skeleton className="h-5 w-32 mt-2" />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                         {error && <p className="mt-8 text-sm text-red-600">{error}</p>}
 
                         {profile && (
@@ -161,6 +171,24 @@ export function ProfilePage() {
                                 You haven't shared any recommendations yet.
                             </p>
                         )}
+
+                        {loading &&
+                            [1, 2].map((n) => (
+                                <div
+                                    key={n}
+                                    className="border border-[#e8ddd4] rounded-xl p-6 mt-6 flex justify-between items-center"
+                                >
+                                    <div>
+                                        <Skeleton className="h-6 w-64" />
+                                        <Skeleton className="h-4 w-80 mt-3" />
+                                        <Skeleton className="h-3 w-24 mt-4" />
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Skeleton className="h-10 w-10 rounded-full" />
+                                        <Skeleton className="h-10 w-10 rounded-full" />
+                                    </div>
+                                </div>
+                            ))}
 
                         {recommendations.map((item) => (
                             <div
@@ -219,9 +247,9 @@ export function ProfilePage() {
                         <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel 
+                        <AlertDialogCancel
                             className="rounded-full bg-[#3b2a20] px-6 text-[#fbeee0] hover:bg-[#3b2a20]/90"
-                        >                           
+                        >
                             No
                         </AlertDialogCancel>
                         <AlertDialogAction

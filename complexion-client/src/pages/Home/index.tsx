@@ -7,6 +7,7 @@ import { NavBar } from '../../components/organisms/NavBar';
 import { Search } from 'lucide-react';
 import { getRecommendationSummaries } from '../../services/api/recommendations';
 import { getErrorMessage } from '../../services/api/errors';
+import { ProductCardSkeleton } from '../../components/molecules/ProductCardSkeleton/index';
 
 function toSearchText(item: RecommendationSummary) {
     return [
@@ -98,7 +99,13 @@ export function HomePage() {
                 </div>
 
                 <div className="min-h-[500px]">
-                    {loading && <p className="text-center text-[#fbeee0] py-12">Loading...</p>}
+                    {loading && (
+                        <div role="status" aria-label="Loading recommendations">
+                            <ProductCardSkeleton />
+                            <ProductCardSkeleton />
+                            <ProductCardSkeleton />
+                        </div>
+                    )}
                     {error && <p className="text-center text-red-200 py-12">{error}</p>}
                     {!loading && !error && filtered.length === 0 && (
                         <p className="text-center text-[#fbeee0] py-12">

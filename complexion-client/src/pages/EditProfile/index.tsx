@@ -11,6 +11,7 @@ import { getMyProfile, updateMyProfile } from '../../services/api/profile';
 import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
 import { getErrorMessage } from '../../services/api/errors';
 import type { SkinShade, SkinUndertone } from '../../types';
+import { EditProfileFormSkeleton } from '@/components/molecules/EditProfileFormSkeleton';
 
 export function EditProfilePage() {
     const navigate = useNavigate();
@@ -92,7 +93,7 @@ export function EditProfilePage() {
 
                 <div className="bg-white rounded-2xl p-10 mt-10">
                     {loading ? (
-                        <p className="text-[#3b2a20]">Loading...</p>
+                        <EditProfileFormSkeleton />
                     ) : (
                         <>
                             <div className="flex gap-4">
