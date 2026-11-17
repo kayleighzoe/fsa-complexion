@@ -57,7 +57,7 @@ namespace Complexion.Services.Products
                 throw new NotFoundException("Category, price tier, skin shade or undertone was not found.");
             }
 
-            var skinProfileId = await _skinProfileService.GetSkinProfileIdAsync(ids.ShadeId.GetValueOrDefault(),ids.UndertoneId.GetValueOrDefault(), cleaned.HasTint);
+            var skinProfileId = await _skinProfileService.GetSkinProfileIdAsync(ids.ShadeId.GetValueOrDefault(), ids.UndertoneId.GetValueOrDefault(), cleaned.HasTint);
 
             var productId = await _productService.GetOrCreateProductAsync(new CreateProductDto
             {
