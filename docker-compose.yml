@@ -55,6 +55,17 @@ services:
       seq:
         condition: service_started
 
+  client:
+    build:
+      context: ./complexion-client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./complexion-client:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
 volumes:
   sql-data:
   seq-data:
