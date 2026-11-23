@@ -41,6 +41,7 @@ namespace Complexion.Api.Controllers.Products
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateRecommendation([FromBody] ShareRecommendationDto shareRecommendationDto)
         {
             await _shareRecommendationService.ShareRecommendationAsync(User.GetUserId(), shareRecommendationDto);
