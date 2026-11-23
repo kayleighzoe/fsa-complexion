@@ -81,8 +81,7 @@ export function HomePage() {
                 </p>
 
                 <p className="text-center text-[#fbeee0] mt-4 max-w-xl mx-auto">
-                    Search thousands of makeup products matched to real skin tones and get
-                    personalized foundation and concealer recommendations from our community
+                    Makeup that matches your skin tone, recommended by people who share it.
                 </p>
 
                 <div className="relative mt-10 mb-8">

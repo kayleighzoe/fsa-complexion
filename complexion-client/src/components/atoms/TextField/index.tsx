@@ -8,10 +8,12 @@ interface TextFieldProps {
     onChange: (value: string) => void;
     type?: string;
     hint?: ReactNode;
+    error?: string;
 }
 
-export function TextField({ label, value, onChange, type = 'text', hint }: TextFieldProps) {
+export function TextField({ label, value, onChange, type = 'text', hint, error }: TextFieldProps) {
     const hintId = useId();
+    const errorId = useId();
     const [showPassword, setShowPassword] = useState(false);
 
     const isPassword = type === 'password';
@@ -47,7 +49,13 @@ export function TextField({ label, value, onChange, type = 'text', hint }: TextF
                     type={inputType}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className={`w-full rounded-lg px-4 py-2.5 bg-white border border-[#e8ddd4] outline-none focus:ring-2 focus:ring-[#8a7060]/50 focus:border-[#8a7060] ${isPassword ? 'pr-11' : ''}`}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? errorId : undefined}
+                    className={`w-full rounded-lg px-4 py-2.5 bg-white border outline-none focus:ring-2 ${
+                        error
+                            ? 'border-red-600 focus:border-red-600 focus:ring-red-600/30'
+                            : 'border-[#e8ddd4] focus:ring-[#8a7060]/50 focus:border-[#8a7060]'
+                    } ${isPassword ? 'pr-11' : ''}`}
                 />
                 {isPassword && (
                     <button
@@ -61,6 +69,12 @@ export function TextField({ label, value, onChange, type = 'text', hint }: TextF
                     </button>
                 )}
             </div>
+
+            {error && (
+                <p id={errorId} className="mt-1.5 text-sm text-red-600">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

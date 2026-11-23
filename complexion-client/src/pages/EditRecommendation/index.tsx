@@ -10,6 +10,8 @@ import { getErrorMessage } from '../../services/api/errors';
 import { ROUTES } from '@/constants/routes';
 import { useAuth } from '../../context/AuthContext/index';
 
+const MAX_COMMENT_LENGTH = 255;
+
 export function EditRecommendationPage() {
     const { recommendationId } = useParams();
     const navigate = useNavigate();
@@ -93,9 +95,15 @@ export function EditRecommendationPage() {
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
                                     rows={4}
-                                    maxLength={255}
+                                    maxLength={MAX_COMMENT_LENGTH}
                                     className="w-full rounded-lg px-4 py-2.5 bg-[#faf6f2] border border-[#e8ddd4]"
                                 />
+                                <p
+                                    className={`mt-1.5 text-sm text-right ${comment.length >= MAX_COMMENT_LENGTH ? 'text-red-600' : 'text-[#8a7060]'
+                                        }`}
+                                >
+                                    {comment.length}/{MAX_COMMENT_LENGTH}
+                                </p>
                             </div>
                         </>
                     )}

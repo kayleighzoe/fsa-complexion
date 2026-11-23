@@ -9,9 +9,11 @@ import { Button } from '../../components/atoms/Button';
 import profileBackground from '../../assets/images/profileBackground.webp';
 import { getMyProfile, updateMyProfile } from '../../services/api/profile';
 import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
-import { getErrorMessage } from '../../services/api/errors';
 import type { SkinShade, SkinUndertone } from '../../types';
 import { EditProfileFormSkeleton } from '@/components/molecules/EditProfileFormSkeleton';
+import { validateProfile } from '@/utils/validateProfile';
+import { hasErrors } from '@/utils/validation';
+import type { ProfileFormErrors } from '@/utils/validateProfile';
 
 export function EditProfilePage() {
     const navigate = useNavigate();
@@ -26,7 +28,10 @@ export function EditProfilePage() {
     const [shades, setShades] = useState<SkinShade[]>([]);
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+
+    const validationErrors = validateProfile({ firstName, surname, email, shadeName, undertoneName });
+    const errors: ProfileFormErrors = submitted ? validationErrors : {};
 
     useEffect(() => {
         const load = async () => {
@@ -46,7 +51,7 @@ export function EditProfilePage() {
                 setUndertoneName(profile.undertoneName);
                 setHasTint(profile.hasTint);
             } catch (err) {
-                setError(getErrorMessage(err));
+                navigate(ROUTES.profile);
             } finally {
                 setLoading(false);
             }
@@ -56,29 +61,28 @@ export function EditProfilePage() {
     }, [navigate]);
 
     async function handleSave() {
-        setError('');
+        setSubmitted(true);
+
+        if (hasErrors(validationErrors)) {
+            return;
+        }
 
         const shade = shades.find((s) => s.name === shadeName);
         const undertone = undertones.find((u) => u.name === undertoneName);
 
         if (!shade || !undertone) {
-            setError('Please choose a skin shade and undertone.');
             return;
         }
 
-        try {
-            await updateMyProfile({
-                firstName,
-                surname,
-                email,
-                shadeId: shade.shadeId,
-                undertoneId: undertone.undertoneId,
-                hasTint,
-            });
-            navigate(ROUTES.profile);
-        } catch (err) {
-            setError(getErrorMessage(err));
-        }
+        await updateMyProfile({
+            firstName,
+            surname,
+            email,
+            shadeId: shade.shadeId,
+            undertoneId: undertone.undertoneId,
+            hasTint,
+        });
+        navigate(ROUTES.profile);
     }
 
     return (
@@ -98,15 +102,30 @@ export function EditProfilePage() {
                         <>
                             <div className="flex gap-4">
                                 <div className="w-1/2">
-                                    <TextField label="First name" value={firstName} onChange={setFirstName} />
+                                    <TextField
+                                        label="First name"
+                                        value={firstName}
+                                        onChange={setFirstName}
+                                        error={errors.firstName}
+                                    />
                                 </div>
                                 <div className="w-1/2">
-                                    <TextField label="Surname" value={surname} onChange={setSurname} />
+                                    <TextField
+                                        label="Surname"
+                                        value={surname}
+                                        onChange={setSurname}
+                                        error={errors.surname}
+                                    />
                                 </div>
                             </div>
 
                             <div className="mt-5">
-                                <TextField label="Email" value={email} onChange={setEmail} />
+                                <TextField
+                                    label="Email"
+                                    value={email}
+                                    onChange={setEmail}
+                                    error={errors.email}
+                                />
                             </div>
 
                             <div className="flex gap-4 mt-5">
@@ -116,6 +135,7 @@ export function EditProfilePage() {
                                         value={shadeName}
                                         onChange={setShadeName}
                                         options={shades.map((s) => s.name)}
+                                        error={errors.shadeName}
                                     />
                                 </div>
                                 <div className="w-1/2">
@@ -124,6 +144,7 @@ export function EditProfilePage() {
                                         value={undertoneName}
                                         onChange={setUndertoneName}
                                         options={undertones.map((u) => u.name)}
+                                        error={errors.undertoneName}
                                     />
                                 </div>
                             </div>
@@ -136,8 +157,6 @@ export function EditProfilePage() {
                                 />
                                 Olive overtone
                             </label>
-
-                            {error && <p className="text-red-600 mt-5">{error}</p>}
 
                             <div className="flex gap-4 mt-8">
                                 <Button variant="secondary" onClick={() => navigate(ROUTES.profile)} className="w-1/2">

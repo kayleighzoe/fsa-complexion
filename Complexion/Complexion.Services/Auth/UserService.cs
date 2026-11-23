@@ -35,6 +35,13 @@ namespace Complexion.Services.Auth
 
         public async Task UpdateProfileAsync(Guid userId, UpdateProfileDto updateProfileDto)
         {
+            var validationResult = await _updateProfileValidator.ValidateAsync(updateProfileDto);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             var userProfile = await _userRepository.GetUserProfileAsync(userId);
 
             if (userProfile is null)
