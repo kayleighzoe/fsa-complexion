@@ -45,22 +45,34 @@ namespace Complexion.Api.Validators
                 .WithMessage("UndertoneId is required.");
         }
 
-        private static bool StartsWithLetter(string? username) =>
-            !string.IsNullOrEmpty(username) && char.IsAsciiLetter(username[0]);
+        private static bool StartsWithLetter(string? username)
+        {
+            return !string.IsNullOrEmpty(username) && char.IsAsciiLetter(username[0]);
+        }
 
-        private static bool ContainsOnlyLettersAndDigits(string? username) =>
-            !string.IsNullOrEmpty(username) && username.All(char.IsAsciiLetterOrDigit);
+        private static bool ContainsOnlyLettersAndDigits(string? username)
+        {
+            return !string.IsNullOrEmpty(username) && username.All(char.IsAsciiLetterOrDigit);
+        }
 
-        private static bool HasUppercaseLetter(string? password) =>
-            password is not null && password.Any(char.IsAsciiLetterUpper);
+        private static bool HasUppercaseLetter(string? password)
+        {
+            return password is not null && password.Any(char.IsAsciiLetterUpper);
+        }
 
-        private static bool HasLowercaseLetter(string? password) =>
-            password is not null && password.Any(char.IsAsciiLetterLower);
+        private static bool HasLowercaseLetter(string? password)
+        {
+            return password is not null && password.Any(char.IsAsciiLetterLower);
+        }
 
-        private static bool HasDigit(string? password) =>
-            password is not null && password.Any(char.IsAsciiDigit);
+        private static bool HasDigit(string? password)
+        {
+            return password is not null && password.Any(char.IsAsciiDigit);
+        }
 
-        private static bool HasSpecialCharacter(string? password) =>
-            password is not null && password.Any(character => !char.IsAsciiLetterOrDigit(character));
+        private static bool HasSpecialCharacter(string? password)
+        {
+            return password is not null && password.Any(character => !char.IsAsciiLetterOrDigit(character));
+        }
     }
 }

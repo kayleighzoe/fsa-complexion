@@ -195,7 +195,7 @@ export function ProfilePage() {
                                 key={item.recommendationId}
                                 className="border border-[#e8ddd4] rounded-xl p-6 mt-6 flex justify-between items-center"
                             >
-                                <div>
+                                <div className="min-w-0 flex-1">
                                     <h3 className="text-xl font-['Cormorant_Garamond'] text-[#3b2a20]">
                                         <span className="font-bold">{item.brand} - </span>{' '}
                                         <span className="font-normal">{item.productName}</span>
@@ -204,7 +204,7 @@ export function ProfilePage() {
                                         {item.categoryName} | Shade {item.shadeName} | {item.priceTierName}
                                     </p>
                                     {item.comment && (
-                                        <p className="italic text-sm text-[#5a4a3f] mt-2">"{item.comment}"</p>
+                                        <p className="italic text-sm text-[#5a4a3f] mt-2 break-words">"{item.comment}"</p>
                                     )}
                                     <p className="text-xs text-[#a89684] mt-3">
                                         Shared {formatDate(item.createdAt)}

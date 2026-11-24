@@ -13,6 +13,11 @@ import { getErrorMessage } from '../../services/api/errors';
 import { getCategories } from '../../services/api/catalogue';
 import { getPriceTiers } from '../../services/api/config';
 import { ROUTES } from '@/constants/routes';
+import { validateShare } from '@/utils/validateShare';
+import type { ShareFormErrors } from '@/utils/validateShare';
+import { hasErrors } from '@/utils/validation';
+
+const MAX_COMMENT_LENGTH = 255;
 
 export function SharePage() {
     const [category, setCategory] = useState('');
@@ -30,6 +35,18 @@ export function SharePage() {
     const [categories, setCategories] = useState<CatalogueCategory[]>([]);
     const [priceTiers, setPriceTiers] = useState<ConfigPriceTier[]>([]);
     const [error, setError] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+
+    const validationErrors = validateShare({
+        category,
+        priceTier,
+        brandName,
+        productName,
+        shadeName,
+        matchedShade,
+        matchedUndertone,
+    });
+    const errors: ShareFormErrors = submitted ? validationErrors : {};
 
     useEffect(() => {
         const fetchShades = async () => {
@@ -82,6 +99,11 @@ export function SharePage() {
 
     async function handleShare() {
         setError('');
+        setSubmitted(true);
+
+        if (hasErrors(validationErrors)) {
+            return;
+        }
 
         try {
             await shareRecommendation({
@@ -122,6 +144,7 @@ export function SharePage() {
                                 value={category}
                                 onChange={setCategory}
                                 options={categories.map((categories) => categories.name)}
+                                error={errors.category}
                             />
                         </div>
                         <div className="w-1/2">
@@ -130,6 +153,7 @@ export function SharePage() {
                                 value={priceTier}
                                 onChange={setPriceTier}
                                 options={priceTiers.map((priceTiers) => priceTiers.name)}
+                                error={errors.priceTier}
                             />
                         </div>
                     </div>
@@ -140,6 +164,7 @@ export function SharePage() {
                                 label="Brand name"
                                 value={brandName}
                                 onChange={setBrandName}
+                                error={errors.brandName}
                             />
                         </div>
                         <div className="w-1/2">
@@ -147,6 +172,7 @@ export function SharePage() {
                                 label="Product name"
                                 value={productName}
                                 onChange={setProductName}
+                                error={errors.productName}
                             />
                         </div>
                     </div>
@@ -157,6 +183,7 @@ export function SharePage() {
                                 label="Shade name"
                                 value={shadeName}
                                 onChange={setShadeName}
+                                error={errors.shadeName}
                             />
                         </div>
                         <div className="w-1/2">
@@ -165,6 +192,7 @@ export function SharePage() {
                                 value={matchedShade}
                                 onChange={setMatchedShade}
                                 options={shades.map((shades) => shades.name)}
+                                error={errors.matchedShade}
                             />
                         </div>
                     </div>
@@ -176,6 +204,7 @@ export function SharePage() {
                                 value={matchedUndertone}
                                 onChange={setMatchedUndertone}
                                 options={undertones.map((undertones) => undertones.name)}
+                                error={errors.matchedUndertone}
                             />
                         </div>
                         <div className="w-1/2" />
@@ -199,8 +228,15 @@ export function SharePage() {
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             rows={4}
+                            maxLength={MAX_COMMENT_LENGTH}
                             className="w-full rounded-lg px-4 py-2.5 bg-[#faf6f2] border border-[#e8ddd4]"
                         />
+                        <p
+                            className={`mt-1.5 text-sm text-right ${comment.length >= MAX_COMMENT_LENGTH ? 'text-red-600' : 'text-[#8a7060]'
+                                }`}
+                        >
+                            {comment.length}/{MAX_COMMENT_LENGTH}
+                        </p>
                     </div>
 
                     {error && <p className="mt-5 text-sm text-red-600">{error}</p>}

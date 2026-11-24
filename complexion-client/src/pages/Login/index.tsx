@@ -4,27 +4,33 @@ import loginBackground from '../../assets/images/loginBackground.webp';
 import { TextField } from '../../components/atoms/TextField';
 import { Button } from '../../components/atoms/Button';
 import { AuthLayout } from '../../components/templates/AuthLayout/index';
-import { getErrorMessage } from '../../services/api/errors';
 import { login } from '../../services/api/auth';
 import { useAuth } from '../../context/AuthContext/index';
 import { ROUTES } from '@/constants/routes';
+import { validateLogin } from '@/utils/validateLogin';
+import type { LoginFormErrors } from '@/utils/validateLogin';
+import { hasErrors } from '@/utils/validation';
 
 export function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
-    const [error, setError] = useState('');
     const { refreshUser } = useAuth();
 
+    const validationErrors = validateLogin({ usernameOrEmail: username, password });
+    const errors: LoginFormErrors = submitted ? validationErrors : {};
+
     async function handleLogin() {
-        setError('');
-        try {
-            await login({ usernameOrEmail: username, password });
-            await refreshUser();
-            navigate(ROUTES.home);
-        } catch (err) {
-            setError(getErrorMessage(err));
+        setSubmitted(true);
+
+        if (hasErrors(validationErrors)) {
+            return;
         }
+
+        await login({ usernameOrEmail: username, password });
+        await refreshUser();
+        navigate(ROUTES.home);
     }
 
     return (
@@ -33,7 +39,12 @@ export function LoginPage() {
             title="Complexion"
             subtitle="Your community based skin shade matcher"
         >
-            <TextField label="Username / Email" value={username} onChange={setUsername} />
+            <TextField
+                label="Username / Email"
+                value={username}
+                onChange={setUsername}
+                error={errors.usernameOrEmail}
+            />
 
             <div className="mt-5">
                 <TextField
@@ -41,10 +52,9 @@ export function LoginPage() {
                     value={password}
                     onChange={setPassword}
                     type="password"
+                    error={errors.password}
                 />
             </div>
-
-            {error && <p className="text-sm text-red-700 mt-3">{error}</p>}
 
             <Button onClick={handleLogin} className="w-full mt-6">
                 Log in

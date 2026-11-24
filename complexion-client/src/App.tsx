@@ -11,6 +11,7 @@ import { EditRecommendationPage } from './pages/EditRecommendation';
 import { EditProfilePage } from './pages/EditProfile';
 import { NotFoundPage } from './pages/NotFound';
 import { ROUTES } from './constants/routes';
+import { Toaster } from './components/ui/toast';
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                     <Route path={ROUTES.editRecommendation} element={<EditRecommendationPage />} />
                 </Route>
             </Routes>
+            <Toaster />
         </AuthProvider>
     );
 }

@@ -8,26 +8,50 @@ import { Button } from '../../components/atoms/Button';
 import { AuthLayout } from '../../components/templates/AuthLayout/index';
 import { Link } from 'react-router';
 import type { SkinShade, SkinUndertone } from '../../types';
-import { getErrorMessage } from '../../services/api/errors';
 import { register, login } from '../../services/api/auth';
 import { useAuth } from '../../context/AuthContext/index';
 import { getSkinShades, getSkinUndertones } from '../../services/api/skin';
 import { passwordRequirements } from '../../utils/passwordRequirements';
+import { clearSessionStorageKeys, useSessionStorageState } from '@/hooks/useSessionStorageState';
+import { validateRegister } from '@/utils/validateRegister';
+import type { RegisterFormErrors } from '@/utils/validateRegister';
+import { hasErrors } from '@/utils/validation';
+
+const DRAFT_KEYS = {
+    name: 'createAccount.name',
+    surname: 'createAccount.surname',
+    email: 'createAccount.email',
+    skinShade: 'createAccount.skinShade',
+    skinUndertone: 'createAccount.skinUndertone',
+    hasOliveOvertone: 'createAccount.hasOliveOvertone',
+    username: 'createAccount.username',
+} as const;
 
 export function CreateAccountPage() {
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [skinShade, setSkinShade] = useState('');
-    const [skinUndertone, setSkinUndertone] = useState('');
-    const [email, setEmail] = useState('');
-    const [hasOliveOvertone, setHasOliveOvertone] = useState(false);
-    const [username, setUsername] = useState('');
+    const [name, setName] = useSessionStorageState(DRAFT_KEYS.name, '');
+    const [surname, setSurname] = useSessionStorageState(DRAFT_KEYS.surname, '');
+    const [skinShade, setSkinShade] = useSessionStorageState(DRAFT_KEYS.skinShade, '');
+    const [skinUndertone, setSkinUndertone] = useSessionStorageState(DRAFT_KEYS.skinUndertone, '');
+    const [email, setEmail] = useSessionStorageState(DRAFT_KEYS.email, '');
+    const [hasOliveOvertone, setHasOliveOvertone] = useSessionStorageState(DRAFT_KEYS.hasOliveOvertone, false);
+    const [username, setUsername] = useSessionStorageState(DRAFT_KEYS.username, '');
     const [password, setPassword] = useState('');
+    const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
     const [shades, setShades] = useState<SkinShade[]>([]);
     const [undertones, setUndertones] = useState<SkinUndertone[]>([]);
-    const [error, setError] = useState('');
     const { refreshUser } = useAuth();
+
+    const validationErrors = validateRegister({
+        firstName: name,
+        surname,
+        email,
+        username,
+        password,
+        shadeName: skinShade,
+        undertoneName: skinUndertone,
+    });
+    const errors: RegisterFormErrors = submitted ? validationErrors : {};
 
     useEffect(() => {
         const fetchShades = async () => {
@@ -54,34 +78,34 @@ export function CreateAccountPage() {
     }, []);
 
     async function handleSignUp() {
-        setError('');
+        setSubmitted(true);
+
+        if (hasErrors(validationErrors)) {
+            return;
+        }
 
         const shade = shades.find((s) => s.name === skinShade);
         const undertone = undertones.find((u) => u.name === skinUndertone);
 
         if (!shade || !undertone) {
-            setError('Please choose a skin shade and undertone.');
             return;
         }
 
         const { shadeId } = shade;
         const { undertoneId } = undertone;
 
-        try {
-            await register({
-                firstName: name,
-                surname,
-                email,
-                username,
-                password,
-                shadeId,
-                undertoneId,
-                hasTint: hasOliveOvertone,
-            });
-        } catch (err) {
-            setError(getErrorMessage(err));
-            return;
-        }
+        await register({
+            firstName: name,
+            surname,
+            email,
+            username,
+            password,
+            shadeId,
+            undertoneId,
+            hasTint: hasOliveOvertone,
+        });
+
+        clearSessionStorageKeys(Object.values(DRAFT_KEYS));
 
         try {
             await login({ usernameOrEmail: username, password });
@@ -107,6 +131,7 @@ export function CreateAccountPage() {
                         label="Name"
                         value={name}
                         onChange={setName}
+                        error={errors.firstName}
                     />
                 </div>
                 <div className="w-1/2">
@@ -114,6 +139,7 @@ export function CreateAccountPage() {
                         label="Surname"
                         value={surname}
                         onChange={setSurname}
+                        error={errors.surname}
                     />
                 </div>
             </div>
@@ -123,6 +149,7 @@ export function CreateAccountPage() {
                     value={email}
                     onChange={setEmail}
                     type="email"
+                    error={errors.email}
                 />
             </div>
 
@@ -134,6 +161,7 @@ export function CreateAccountPage() {
                 </h2>
                 <Link
                     to={ROUTES.guide}
+                    state={{ from: ROUTES.register }}
                     className="text-sm text-[#8a7060] underline hover:text-[#3b2a20]"
                 >
                     Not sure? Read the guide
@@ -146,6 +174,7 @@ export function CreateAccountPage() {
                         value={skinShade}
                         onChange={setSkinShade}
                         options={shades.map((shade) => shade.name)}
+                        error={errors.shadeName}
                     />
                 </div>
                 <div className="w-1/2">
@@ -154,6 +183,7 @@ export function CreateAccountPage() {
                         value={skinUndertone}
                         onChange={setSkinUndertone}
                         options={undertones.map((undertone) => undertone.name)}
+                        error={errors.undertoneName}
                     />
                 </div>
             </div>
@@ -178,6 +208,7 @@ export function CreateAccountPage() {
                         label="Username"
                         value={username}
                         onChange={setUsername}
+                        error={errors.username}
                     />
                 </div>
                 <div className="w-1/2">
@@ -186,6 +217,7 @@ export function CreateAccountPage() {
                         value={password}
                         onChange={setPassword}
                         type="password"
+                        error={errors.password}
                         hint={
                             <>
                                 <p className="font-semibold mb-1">Your password needs:</p>
@@ -199,8 +231,6 @@ export function CreateAccountPage() {
                     />
                 </div>
             </div>
-
-            {error && <p className="text-sm text-red-700 mt-3">{error}</p>}
 
             <div className="flex gap-4 mt-8">
                 <Button

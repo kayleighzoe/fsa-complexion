@@ -23,6 +23,18 @@ namespace Complexion.Tests.Services.Products
 
         }
 
+        private static CreateProductDto CreateValidDto()
+        {
+            return new CreateProductDto
+            {
+                CategoryId = 1,
+                PriceTierId = 1,
+                Name = "Studio Fix Fluid Foundation",
+                Brand = "MAC",
+                ShadeName = "NC42"
+            };
+        }
+
         [Test]
         public async Task GIVEN_SearchTerm_WHEN_GettingAllProductsAsync_THEN_ReturnSearchResultsFromRepository()
         {
@@ -138,14 +150,7 @@ namespace Complexion.Tests.Services.Products
         public async Task GIVEN_ValidDto_WHEN_CreatingProductAsync_THEN_CallRepositoryCreate()
         {
             // Arrange
-            var dto = new CreateProductDto
-            {
-                CategoryId = 1,
-                PriceTierId = 1,
-                Name = "Studio Fix Fluid Foundation",
-                Brand = "MAC",
-                ShadeName = "NC42"
-            };
+            var dto = CreateValidDto();
 
             _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
 
@@ -154,6 +159,86 @@ namespace Complexion.Tests.Services.Products
 
             // Assert
             await _productRepository.Received(1).CreateProductAsync(dto);
+        }
+
+        [Test]
+        public async Task GIVEN_InvalidDto_WHEN_CreatingProductAsync_THEN_ThrowValidationExceptionAndDoNotCallRepository()
+        {
+            // Arrange
+            var dto = CreateValidDto();
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>())
+                .Returns(new ValidationResult(new[] { new ValidationFailure("Name", "Invalid name") }));
+
+            // Act & Assert
+            Assert.ThrowsAsync<ValidationException>(async () => await _productService.CreateProductAsync(dto));
+            await _productRepository.DidNotReceive().CreateProductAsync(Arg.Any<CreateProductDto>());
+        }
+
+        [Test]
+        public async Task GIVEN_InvalidDto_WHEN_GettingOrCreatingProductAsync_THEN_ThrowValidationExceptionAndDoNotCallRepository()
+        {
+            // Arrange
+            var dto = CreateValidDto();
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>())
+                .Returns(new ValidationResult(new[] { new ValidationFailure("Name", "Invalid name") }));
+
+            // Act & Assert
+            Assert.ThrowsAsync<ValidationException>(async () => await _productService.GetOrCreateProductAsync(dto));
+            await _productRepository.DidNotReceive().FindProductAsync(Arg.Any<CreateProductDto>());
+            await _productRepository.DidNotReceive().CreateProductAsync(Arg.Any<CreateProductDto>());
+        }
+
+        [Test]
+        public async Task GIVEN_ProductAlreadyExists_WHEN_GettingOrCreatingProductAsync_THEN_ReturnExistingProductIdAndDoNotCreate()
+        {
+            // Arrange
+            var dto = CreateValidDto();
+            var existingProduct = new Product
+            {
+                ProductId = Guid.NewGuid(),
+                CategoryId = 1,
+                PriceTierId = 1,
+                Name = "Studio Fix Fluid Foundation",
+                Brand = "MAC",
+                ShadeName = "NC42"
+            };
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _productRepository.FindProductAsync(dto).Returns(existingProduct);
+
+            // Act
+            var result = await _productService.GetOrCreateProductAsync(dto);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(existingProduct.ProductId));
+                _productRepository.DidNotReceive().CreateProductAsync(Arg.Any<CreateProductDto>());
+            });
+        }
+
+        [Test]
+        public async Task GIVEN_ProductDoesNotExist_WHEN_GettingOrCreatingProductAsync_THEN_CreateProductAndReturnNewId()
+        {
+            // Arrange
+            var dto = CreateValidDto();
+            var newProductId = Guid.NewGuid();
+
+            _createValidator.ValidateAsync(Arg.Any<CreateProductDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _productRepository.FindProductAsync(dto).Returns((Product?)null);
+            _productRepository.CreateProductAsync(dto).Returns(newProductId);
+
+            // Act
+            var result = await _productService.GetOrCreateProductAsync(dto);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(newProductId));
+                _productRepository.Received(1).CreateProductAsync(dto);
+            });
         }
     }
 }

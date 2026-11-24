@@ -2,8 +2,15 @@ import { PageBackground } from '../../components/organisms/PageBackground';
 import { NavBar } from '../../components/organisms/NavBar';
 import homeBackground from '../../assets/images/homeBackground.webp';
 import fitzpatrickScale from '../../assets/images/fitzpatrickScale.jpg';
+import { useLocation, useNavigate } from 'react-router';
+import { ROUTES } from '../../constants/routes';
+import { Button } from '../../components/atoms/Button';
 
 export function GuidePage() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const cameFromRegistration = location.state?.from === ROUTES.register;
+
     return (
         <div className="min-h-screen bg-[#645b50] flex flex-col relative">
             <PageBackground image={homeBackground} />
@@ -53,6 +60,14 @@ export function GuidePage() {
                         <strong>olive overtone</strong> or tint.
                     </p>
                 </div>
+
+                {cameFromRegistration && (
+                    <div className="flex justify-center mt-6">
+                        <Button variant="pale" onClick={() => navigate(ROUTES.register)}>
+                            Return to registration
+                        </Button>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -22,7 +22,8 @@ namespace Complexion.Repository.Products
                                     SkinProfileId, 
                                     Comment, 
                                     CreatedAt 
-                                FROM dbo.ProductRecommendation";
+                                FROM dbo.ProductRecommendation
+                                ORDER BY CreatedAt DESC";
 
             return await _dbContext.QueryAsync<ProductRecommendation>(sql);
         }
