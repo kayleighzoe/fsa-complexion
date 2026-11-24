@@ -17,12 +17,14 @@ export function SelectField({
     placeholder = 'Choose…',
     error,
 }: SelectFieldProps) {
+    const selectId = useId();
     const errorId = useId();
 
     return (
         <div>
-            <label className="block mb-1.5 text-[#3b2a20]">{label}</label>
+            <label htmlFor={selectId} className="block mb-1.5 text-[#3b2a20]">{label}</label>
             <select
+                id={selectId}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 aria-invalid={error ? true : undefined}
