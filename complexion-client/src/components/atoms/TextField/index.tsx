@@ -12,6 +12,7 @@ interface TextFieldProps {
 
 export function TextField({ label, value, onChange, type = 'text', hint }: TextFieldProps) {
     const hintId = useId();
+    const inputId = useId();
     const [showPassword, setShowPassword] = useState(false);
 
     const isPassword = type === 'password';
@@ -20,7 +21,7 @@ export function TextField({ label, value, onChange, type = 'text', hint }: TextF
     return (
         <div>
             <div className="flex items-center gap-1.5 mb-1.5">
-                <label className="text-[#3b2a20]">{label}</label>
+                <label htmlFor={inputId} className="text-[#3b2a20]">{label}</label>
                 {hint && (
                     <span className="relative group">
                         <button
@@ -44,6 +45,7 @@ export function TextField({ label, value, onChange, type = 'text', hint }: TextF
 
             <div className="relative">
                 <input
+                    id={inputId}
                     type={inputType}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
