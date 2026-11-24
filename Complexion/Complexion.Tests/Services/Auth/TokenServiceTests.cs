@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Text;
 using Complexion.Models.Auth;
 using Complexion.Services.Auth;
@@ -23,7 +24,7 @@ namespace Complexion.Tests.Services.Auth
         {
             return new JwtSettings
             {
-                Key = "this-is-a-test-signing-key-with-enough-length-123456",
+                Key = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
                 Issuer = "test-issuer",
                 Audience = "test-audience",
                 ExpirationInMinutes = 60
