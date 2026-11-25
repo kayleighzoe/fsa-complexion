@@ -430,3 +430,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Cypress
+cypress/screenshots/
+cypress/videos/

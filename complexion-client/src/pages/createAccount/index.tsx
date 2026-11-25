@@ -128,6 +128,7 @@ export function CreateAccountPage() {
             <div className="flex gap-4 mt-3">
                 <div className="w-1/2">
                     <TextField
+                        data-cy="register-first-name"
                         label="Name"
                         value={name}
                         onChange={setName}
@@ -136,6 +137,7 @@ export function CreateAccountPage() {
                 </div>
                 <div className="w-1/2">
                     <TextField
+                        data-cy="register-surname"
                         label="Surname"
                         value={surname}
                         onChange={setSurname}
@@ -145,6 +147,7 @@ export function CreateAccountPage() {
             </div>
             <div className="mt-4">
                 <TextField
+                    data-cy="register-email"
                     label="Email"
                     value={email}
                     onChange={setEmail}
@@ -170,6 +173,7 @@ export function CreateAccountPage() {
             <div className="flex gap-4 mt-3">
                 <div className="w-1/2">
                     <SelectField
+                        data-cy="register-skin-shade"
                         label="Skin shade"
                         value={skinShade}
                         onChange={setSkinShade}
@@ -179,6 +183,7 @@ export function CreateAccountPage() {
                 </div>
                 <div className="w-1/2">
                     <SelectField
+                        data-cy="register-skin-undertone"
                         label="Skin undertone"
                         value={skinUndertone}
                         onChange={setSkinUndertone}
@@ -189,6 +194,7 @@ export function CreateAccountPage() {
             </div>
             <label className="flex items-center gap-2 text-[#3b2a20] mt-4">
                 <input
+                    data-cy="register-olive-overtone"
                     type="checkbox"
                     checked={hasOliveOvertone}
                     onChange={(e) => setHasOliveOvertone(e.target.checked)}
@@ -205,6 +211,7 @@ export function CreateAccountPage() {
             <div className="flex gap-4 mt-3">
                 <div className="w-1/2">
                     <TextField
+                        data-cy="register-username"
                         label="Username"
                         value={username}
                         onChange={setUsername}
@@ -213,6 +220,7 @@ export function CreateAccountPage() {
                 </div>
                 <div className="w-1/2">
                     <TextField
+                        data-cy="register-password"
                         label="Password"
                         value={password}
                         onChange={setPassword}
@@ -234,12 +242,14 @@ export function CreateAccountPage() {
 
             <div className="flex gap-4 mt-8">
                 <Button
+                    data-cy="register-submit"
                     onClick={handleSignUp}
                     className="w-1/2"
                 >
                     Sign up
                 </Button>
                 <Button
+                    data-cy="register-return-to-login"
                     variant="secondary"
                     onClick={() => navigate(ROUTES.login)}
                     className="w-1/2"

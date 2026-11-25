@@ -1,0 +1,6 @@
+{
+  "invalidLoginMessage": "Invalid username or password.",
+  "firstNameRequired": "First name is required.",
+  "shadeRequired": "Please choose a skin shade.",
+  "undertoneRequired": "Please choose a skin undertone."
+}

@@ -9,9 +9,10 @@ interface TextFieldProps {
     type?: string;
     hint?: ReactNode;
     error?: string;
+    'data-cy'?: string;
 }
 
-export function TextField({ label, value, onChange, type = 'text', hint, error }: TextFieldProps) {
+export function TextField({ label, value, onChange, type = 'text', hint, error, 'data-cy': dataCy }: TextFieldProps) {
     const hintId = useId();
     const inputId = useId();
     const errorId = useId();
@@ -48,6 +49,7 @@ export function TextField({ label, value, onChange, type = 'text', hint, error }
             <div className="relative">
                 <input
                     id={inputId}
+                    data-cy={dataCy}
                     type={inputType}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
@@ -73,7 +75,7 @@ export function TextField({ label, value, onChange, type = 'text', hint, error }
             </div>
 
             {error && (
-                <p id={errorId} className="mt-1.5 text-sm text-red-600">
+                <p id={errorId} data-cy={dataCy ? `${dataCy}-error` : undefined} className="mt-1.5 text-sm text-red-600">
                     {error}
                 </p>
             )}

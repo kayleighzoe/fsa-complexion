@@ -7,6 +7,7 @@ interface SelectFieldProps {
     options: string[];
     placeholder?: string;
     error?: string;
+    'data-cy'?: string;
 }
 
 export function SelectField({
@@ -16,6 +17,7 @@ export function SelectField({
     options,
     placeholder = 'Choose…',
     error,
+    'data-cy': dataCy,
 }: SelectFieldProps) {
     const selectId = useId();
     const errorId = useId();
@@ -25,6 +27,7 @@ export function SelectField({
             <label htmlFor={selectId} className="block mb-1.5 text-[#3b2a20]">{label}</label>
             <select
                 id={selectId}
+                data-cy={dataCy}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 aria-invalid={error ? true : undefined}
@@ -42,7 +45,11 @@ export function SelectField({
             </select>
 
             {error && (
-                <p id={errorId} className="mt-1.5 text-sm text-red-600">
+                <p
+                    id={errorId}
+                    data-cy={dataCy ? `${dataCy}-error` : undefined}
+                    className="mt-1.5 text-sm text-red-600"
+                >
                     {error}
                 </p>
             )}

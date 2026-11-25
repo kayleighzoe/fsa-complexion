@@ -8,6 +8,7 @@ interface ButtonProps {
     rounded?: 'lg' | 'full',
     size?: 'default' | 'icon',
     className?: string;
+    'data-cy'?: string;
 }
 
 export function Button({
@@ -17,6 +18,7 @@ export function Button({
     rounded = 'lg',
     size = 'default',
     className = '',
+    'data-cy': dataCy,
 }: ButtonProps) {
     const colours = {
         primary: 'bg-gradient-to-b from-[#adc2cc] to-[#8ba5b2] text-[#20343c]',
@@ -31,6 +33,7 @@ export function Button({
 
     return (
         <button
+            data-cy={dataCy}
             onClick={onClick}
             className={`${shape} ${sizing} font-semibold cursor-pointer shadow-md hover:scale-105 active:scale-95 transition-transform ${colours} ${className}`}
         >
