@@ -5,7 +5,9 @@ class Login {
         passwordInput: () => cy.get('[data-cy="login-password"]'),
         submitButton: () => cy.get('[data-cy="login-submit"]'),
         createAccountButton: () => cy.get('[data-cy="login-create-account"]'),
-        errorMessage: () => cy.get('.group\/toast > .h-full')
+        errorMessage: () => cy.get('.group\/toast > .h-full'),
+        usernameError: () => cy.get('[data-cy="login-username-error"]'),
+        passwordError: () => cy.get('[data-cy="login-password-error"]'),
     }
 
     NavigateToLoginScreen() {

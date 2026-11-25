@@ -17,4 +17,12 @@ describe('Complexion Login', () => {
     login.Login(loginDetails.username, loginDetails.password);
     home.elements.searchBar().should('be.visible');
   });
+
+  it('shows validation errors when the form is submitted empty', () => {
+    login.NavigateToLoginScreen();
+    login.ClickLogin();
+
+    login.elements.usernameError().should('be.visible');
+    login.elements.passwordError().should('be.visible');
+  });
 })
