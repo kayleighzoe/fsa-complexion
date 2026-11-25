@@ -163,6 +163,7 @@ export function CreateAccountPage() {
                     Your skin profile
                 </h2>
                 <Link
+                    data-cy="register-guide-link"
                     to={ROUTES.guide}
                     state={{ from: ROUTES.register }}
                     className="text-sm text-[#8a7060] underline hover:text-[#3b2a20]"

@@ -103,6 +103,7 @@ export function EditProfilePage() {
                             <div className="flex gap-4">
                                 <div className="w-1/2">
                                     <TextField
+                                        data-cy="edit-profile-first-name"
                                         label="First name"
                                         value={firstName}
                                         onChange={setFirstName}
@@ -111,6 +112,7 @@ export function EditProfilePage() {
                                 </div>
                                 <div className="w-1/2">
                                     <TextField
+                                        data-cy="edit-profile-surname"
                                         label="Surname"
                                         value={surname}
                                         onChange={setSurname}
@@ -121,6 +123,7 @@ export function EditProfilePage() {
 
                             <div className="mt-5">
                                 <TextField
+                                    data-cy="edit-profile-email"
                                     label="Email"
                                     value={email}
                                     onChange={setEmail}
@@ -131,6 +134,7 @@ export function EditProfilePage() {
                             <div className="flex gap-4 mt-5">
                                 <div className="w-1/2">
                                     <SelectField
+                                        data-cy="edit-profile-skin-shade"
                                         label="Skin shade"
                                         value={shadeName}
                                         onChange={setShadeName}
@@ -140,6 +144,7 @@ export function EditProfilePage() {
                                 </div>
                                 <div className="w-1/2">
                                     <SelectField
+                                        data-cy="edit-profile-skin-undertone"
                                         label="Skin undertone"
                                         value={undertoneName}
                                         onChange={setUndertoneName}
@@ -151,6 +156,7 @@ export function EditProfilePage() {
 
                             <label className="flex items-center gap-2 text-[#3b2a20] mt-5">
                                 <input
+                                    data-cy="edit-profile-olive-overtone"
                                     type="checkbox"
                                     checked={hasTint}
                                     onChange={(e) => setHasTint(e.target.checked)}
@@ -159,10 +165,19 @@ export function EditProfilePage() {
                             </label>
 
                             <div className="flex gap-4 mt-8">
-                                <Button variant="secondary" onClick={() => navigate(ROUTES.profile)} className="w-1/2">
+                                <Button
+                                    data-cy="edit-profile-cancel"
+                                    variant="secondary"
+                                    onClick={() => navigate(ROUTES.profile)}
+                                    className="w-1/2"
+                                >
                                     Cancel
                                 </Button>
-                                <Button onClick={handleSave} className="w-1/2">
+                                <Button
+                                    data-cy="edit-profile-save"
+                                    onClick={handleSave}
+                                    className="w-1/2"
+                                >
                                     Save
                                 </Button>
                             </div>

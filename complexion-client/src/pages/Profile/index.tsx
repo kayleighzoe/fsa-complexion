@@ -88,11 +88,15 @@ export function ProfilePage() {
                 <div className="w-full max-w-6xl mx-auto px-8 py-12">
                     <div className="bg-white rounded-2xl p-10">
                         <div className="flex justify-between items-start">
-                            <h1 className="text-4xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
+                            <h1
+                                data-cy="profile-title"
+                                className="text-4xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]"
+                            >
                                 My profile
                             </h1>
                             <div className="flex gap-3">
                                 <Button
+                                    data-cy="profile-edit"
                                     onClick={() => navigate(ROUTES.editProfile)}
                                     variant="pale"
                                     rounded="full"
@@ -100,6 +104,7 @@ export function ProfilePage() {
                                     Edit
                                 </Button>
                                 <Button
+                                    data-cy="profile-logout"
                                     onClick={handleLogout}
                                     variant="secondary"
                                     rounded="full"
@@ -119,31 +124,35 @@ export function ProfilePage() {
                                 ))}
                             </div>
                         )}
-                        {error && <p className="mt-8 text-sm text-red-600">{error}</p>}
+                        {error && (
+                            <p data-cy="profile-error" className="mt-8 text-sm text-red-600">
+                                {error}
+                            </p>
+                        )}
 
                         {profile && (
                             <div className="grid grid-cols-3 gap-y-6 mt-8">
                                 <div>
                                     <p className="text-sm text-[#8a7060]">Name</p>
-                                    <p className="font-semibold text-[#3b2a20]">
+                                    <p data-cy="profile-name" className="font-semibold text-[#3b2a20]">
                                         {profile.firstName} {profile.surname}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-[#8a7060]">Email</p>
-                                    <p className="font-semibold text-[#3b2a20]">{profile.email}</p>
+                                    <p data-cy="profile-email" className="font-semibold text-[#3b2a20]">{profile.email}</p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-[#8a7060]">Skin shade</p>
-                                    <p className="font-semibold text-[#3b2a20]">{profile.shadeName}</p>
+                                    <p data-cy="profile-skin-shade" className="font-semibold text-[#3b2a20]">{profile.shadeName}</p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-[#8a7060]">Skin undertone</p>
-                                    <p className="font-semibold text-[#3b2a20]">{profile.undertoneName}</p>
+                                    <p data-cy="profile-skin-undertone" className="font-semibold text-[#3b2a20]">{profile.undertoneName}</p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-[#8a7060]">Olive overtone</p>
-                                    <p className="font-semibold text-[#3b2a20]">
+                                    <p data-cy="profile-olive-overtone" className="font-semibold text-[#3b2a20]">
                                         {profile.hasTint ? 'Yes' : 'No'}
                                     </p>
                                 </div>
@@ -157,6 +166,7 @@ export function ProfilePage() {
                                 My perfect shade matches
                             </h2>
                             <Button
+                                data-cy="profile-share-recommendation"
                                 onClick={() => navigate(ROUTES.share)}
                                 rounded="full"
                                 className="px-6 py-2.5">
@@ -164,10 +174,14 @@ export function ProfilePage() {
                             </Button>
                         </div>
 
-                        {actionError && <p className="mt-4 text-sm text-red-600">{actionError}</p>}
+                        {actionError && (
+                            <p data-cy="profile-action-error" className="mt-4 text-sm text-red-600">
+                                {actionError}
+                            </p>
+                        )}
 
                         {!loading && !error && recommendations.length === 0 && (
-                            <p className="mt-6 text-[#8a7060]">
+                            <p data-cy="profile-no-recommendations" className="mt-6 text-[#8a7060]">
                                 You haven't shared any recommendations yet.
                             </p>
                         )}
@@ -192,11 +206,15 @@ export function ProfilePage() {
 
                         {recommendations.map((item) => (
                             <div
+                                data-cy="profile-recommendation"
                                 key={item.recommendationId}
                                 className="border border-[#e8ddd4] rounded-xl p-6 mt-6 flex justify-between items-center"
                             >
                                 <div className="min-w-0 flex-1">
-                                    <h3 className="text-xl font-['Cormorant_Garamond'] text-[#3b2a20]">
+                                    <h3
+                                        data-cy="profile-recommendation-title"
+                                        className="text-xl font-['Cormorant_Garamond'] text-[#3b2a20]"
+                                    >
                                         <span className="font-bold">{item.brand} - </span>{' '}
                                         <span className="font-normal">{item.productName}</span>
                                     </h3>
@@ -204,7 +222,12 @@ export function ProfilePage() {
                                         {item.categoryName} | Shade {item.shadeName} | {item.priceTierName}
                                     </p>
                                     {item.comment && (
-                                        <p className="italic text-sm text-[#5a4a3f] mt-2 break-words">"{item.comment}"</p>
+                                        <p
+                                            data-cy="profile-recommendation-comment"
+                                            className="italic text-sm text-[#5a4a3f] mt-2 break-words"
+                                        >
+                                            "{item.comment}"
+                                        </p>
                                     )}
                                     <p className="text-xs text-[#a89684] mt-3">
                                         Shared {formatDate(item.createdAt)}
@@ -212,6 +235,7 @@ export function ProfilePage() {
                                 </div>
                                 <div className="flex gap-2">
                                     <Button
+                                        data-cy="profile-recommendation-edit"
                                         onClick={() => navigate(generatePath(ROUTES.editRecommendation, { recommendationId: item.recommendationId }))}
                                         variant="pale"
                                         rounded="full"
@@ -220,6 +244,7 @@ export function ProfilePage() {
                                         <Pencil size={16} className="text-[#3b2a20]" />
                                     </Button>
                                     <Button
+                                        data-cy="profile-recommendation-delete"
                                         onClick={() => setPendingDeleteId(item.recommendationId)}
                                         variant="pale"
                                         rounded="full"
@@ -239,7 +264,7 @@ export function ProfilePage() {
                     if (!open) setPendingDeleteId(null);
                 }}
             >
-                <AlertDialogContent>
+                <AlertDialogContent data-cy="profile-delete-dialog">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
                             Are you sure you want to remove your product recommendation?
@@ -248,11 +273,13 @@ export function ProfilePage() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel
+                            data-cy="profile-delete-cancel"
                             className="rounded-full bg-[#3b2a20] px-6 text-[#fbeee0] hover:bg-[#3b2a20]/90"
                         >
                             No
                         </AlertDialogCancel>
                         <AlertDialogAction
+                            data-cy="profile-delete-confirm"
                             onClick={() => {
                                 if (pendingDeleteId) handleDelete(pendingDeleteId);
                                 setPendingDeleteId(null);

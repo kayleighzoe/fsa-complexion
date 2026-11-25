@@ -80,10 +80,16 @@ export function EditRecommendationPage() {
 
                     {recommendation && (
                         <>
-                            <h2 className="text-2xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
+                            <h2
+                                data-cy="edit-recommendation-title"
+                                className="text-2xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]"
+                            >
                                 {recommendation.brand} — {recommendation.productName}
                             </h2>
-                            <p className="text-sm text-[#5a4a3f] mt-1">
+                            <p
+                                data-cy="edit-recommendation-details"
+                                className="text-sm text-[#5a4a3f] mt-1"
+                            >
                                 {recommendation.categoryName} · Shade {recommendation.shadeName} · {recommendation.priceTierName}
                             </p>
 
@@ -92,6 +98,7 @@ export function EditRecommendationPage() {
                                     Comment <span className="text-[#8a7060]">(optional)</span>
                                 </label>
                                 <textarea
+                                    data-cy="edit-recommendation-comment"
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
                                     rows={4}
@@ -99,6 +106,7 @@ export function EditRecommendationPage() {
                                     className="w-full rounded-lg px-4 py-2.5 bg-[#faf6f2] border border-[#e8ddd4]"
                                 />
                                 <p
+                                    data-cy="edit-recommendation-comment-count"
                                     className={`mt-1.5 text-sm text-right ${comment.length >= MAX_COMMENT_LENGTH ? 'text-red-600' : 'text-[#8a7060]'
                                         }`}
                                 >
@@ -108,10 +116,15 @@ export function EditRecommendationPage() {
                         </>
                     )}
 
-                    {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+                    {error && (
+                        <p data-cy="edit-recommendation-error" className="mt-4 text-sm text-red-600">
+                            {error}
+                        </p>
+                    )}
 
                     <div className="flex gap-4 mt-8">
                         <Button
+                            data-cy="edit-recommendation-cancel"
                             variant="secondary"
                             onClick={() => navigate(ROUTES.profile)}
                             className={recommendation ? 'w-1/2' : 'w-full'}
@@ -119,7 +132,11 @@ export function EditRecommendationPage() {
                             Cancel
                         </Button>
                         {recommendation && (
-                            <Button onClick={handleSave} className="w-1/2">
+                            <Button
+                                data-cy="edit-recommendation-save"
+                                onClick={handleSave}
+                                className="w-1/2"
+                            >
                                 Save changes
                             </Button>
                         )}

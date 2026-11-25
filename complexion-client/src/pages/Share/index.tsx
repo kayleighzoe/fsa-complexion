@@ -129,7 +129,10 @@ export function SharePage() {
             <NavBar />
 
             <div className="relative z-10 w-full max-w-4xl mx-auto px-8 py-12 page-fade">
-                <h1 className="text-6xl font-['Cormorant_Garamond'] font-bold text-center text-[#fbeee0]">
+                <h1
+                    data-cy="share-title"
+                    className="text-6xl font-['Cormorant_Garamond'] font-bold text-center text-[#fbeee0]"
+                >
                     Share your recommendation
                 </h1>
                 <p className="text-xl text-center text-[#fbeee0] mt-3">
@@ -140,6 +143,7 @@ export function SharePage() {
                     <div className="flex gap-4">
                         <div className="w-1/2">
                             <SelectField
+                                data-cy="share-category"
                                 label="Product category"
                                 value={category}
                                 onChange={setCategory}
@@ -149,6 +153,7 @@ export function SharePage() {
                         </div>
                         <div className="w-1/2">
                             <SelectField
+                                data-cy="share-price-tier"
                                 label="Price tier"
                                 value={priceTier}
                                 onChange={setPriceTier}
@@ -161,6 +166,7 @@ export function SharePage() {
                     <div className="flex gap-4 mt-5">
                         <div className="w-1/2">
                             <TextField
+                                data-cy="share-brand-name"
                                 label="Brand name"
                                 value={brandName}
                                 onChange={setBrandName}
@@ -169,6 +175,7 @@ export function SharePage() {
                         </div>
                         <div className="w-1/2">
                             <TextField
+                                data-cy="share-product-name"
                                 label="Product name"
                                 value={productName}
                                 onChange={setProductName}
@@ -180,6 +187,7 @@ export function SharePage() {
                     <div className="flex gap-4 mt-5">
                         <div className="w-1/2">
                             <TextField
+                                data-cy="share-shade-name"
                                 label="Shade name"
                                 value={shadeName}
                                 onChange={setShadeName}
@@ -188,6 +196,7 @@ export function SharePage() {
                         </div>
                         <div className="w-1/2">
                             <SelectField
+                                data-cy="share-matched-shade"
                                 label="Matched skin shade"
                                 value={matchedShade}
                                 onChange={setMatchedShade}
@@ -200,6 +209,7 @@ export function SharePage() {
                     <div className="flex gap-4 mt-5">
                         <div className="w-1/2">
                             <SelectField
+                                data-cy="share-matched-undertone"
                                 label="Matched skin undertone"
                                 value={matchedUndertone}
                                 onChange={setMatchedUndertone}
@@ -211,6 +221,7 @@ export function SharePage() {
                         <div className="w-1/2 flex items-end pb-2.5">
                             <label className="flex items-center gap-2 text-[#3b2a20]">
                                 <input
+                                    data-cy="share-olive-overtone"
                                     type="checkbox"
                                     checked={hasOliveOvertone}
                                     onChange={(e) => setHasOliveOvertone(e.target.checked)}
@@ -225,6 +236,7 @@ export function SharePage() {
                             Comment <span className="text-[#8a7060]">(optional)</span>
                         </label>
                         <textarea
+                            data-cy="share-comment"
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             rows={4}
@@ -232,6 +244,7 @@ export function SharePage() {
                             className="w-full rounded-lg px-4 py-2.5 bg-[#faf6f2] border border-[#e8ddd4]"
                         />
                         <p
+                            data-cy="share-comment-count"
                             className={`mt-1.5 text-sm text-right ${comment.length >= MAX_COMMENT_LENGTH ? 'text-red-600' : 'text-[#8a7060]'
                                 }`}
                         >
@@ -239,10 +252,15 @@ export function SharePage() {
                         </p>
                     </div>
 
-                    {error && <p className="mt-5 text-sm text-red-600">{error}</p>}
+                    {error && (
+                        <p data-cy="share-error" className="mt-5 text-sm text-red-600">
+                            {error}
+                        </p>
+                    )}
 
                     <div className="flex gap-4 mt-8">
                         <Button
+                            data-cy="share-cancel"
                             variant="secondary"
                             onClick={() => navigate(ROUTES.profile)}
                             className="w-1/2"
@@ -250,6 +268,7 @@ export function SharePage() {
                             Cancel
                         </Button>
                         <Button
+                            data-cy="share-submit"
                             onClick={handleShare}
                             className="w-1/2"
                         >
