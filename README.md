@@ -173,13 +173,20 @@ The migration scripts in `Complexion/Complexion.Migrations/Scripts` are the sour
 
 ### Configure the environment
 
-`docker-compose.yml` reads three variables. Create a `.env` file in the repo root (it is not committed) and set:
+`docker-compose.yml` reads five variables. Create a `.env` file in the repo root (it is not committed)
+and set:
 
 ```text
+DB_SERVER=sql,1433
+DB_USER=sa
 SA_PASSWORD=<a strong SQL Server password>
 ACCEPT_EULA=Y
 JWT_KEY=<a long random secret used to sign tokens>
 ```
+
+Keep `DB_USER` as `sa`: it is the SQL Server container's built-in admin login. The connection string
+in `appsettings.json` and `appsettings.Development.json` only holds placeholders, and Docker Compose
+fills in the real values from `.env`.
 
 ### Run everything with Docker
 
