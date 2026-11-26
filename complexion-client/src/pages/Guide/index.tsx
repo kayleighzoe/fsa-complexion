@@ -17,14 +17,17 @@ export function GuidePage() {
             <NavBar />
 
             <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-12 page-fade">
-                <h1 className="text-6xl font-['Cormorant_Garamond'] font-bold text-center text-[#fbeee0]">
+                <h1
+                    data-cy="guide-title"
+                    className="text-6xl font-['Cormorant_Garamond'] font-bold text-center text-[#fbeee0]"
+                >
                     Find your skin profile
                 </h1>
                 <p className="text-center text-[#fbeee0] mt-3">
                     Three things describe your skin. Knowing all three gets you a better match
                 </p>
 
-                <div className="bg-white rounded-2xl p-10 mt-10">
+                <div data-cy="guide-skin-shade" className="bg-white rounded-2xl p-10 mt-10">
                     <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
                         Skin shade
                     </h2>
@@ -40,7 +43,7 @@ export function GuidePage() {
                     />
                 </div>
 
-                <div className="bg-white rounded-2xl p-10 mt-8">
+                <div data-cy="guide-skin-undertone" className="bg-white rounded-2xl p-10 mt-8">
                     <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
                         Skin undertone
                     </h2>
@@ -51,7 +54,7 @@ export function GuidePage() {
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-10 mt-8">
+                <div data-cy="guide-skin-overtone" className="bg-white rounded-2xl p-10 mt-8">
                     <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
                         Skin overtone
                     </h2>
@@ -63,7 +66,11 @@ export function GuidePage() {
 
                 {cameFromRegistration && (
                     <div className="flex justify-center mt-6">
-                        <Button variant="pale" onClick={() => navigate(ROUTES.register)}>
+                        <Button
+                            data-cy="guide-return-to-registration"
+                            variant="pale"
+                            onClick={() => navigate(ROUTES.register)}
+                        >
                             Return to registration
                         </Button>
                     </div>

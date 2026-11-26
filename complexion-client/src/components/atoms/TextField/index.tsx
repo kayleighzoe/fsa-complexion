@@ -9,10 +9,12 @@ interface TextFieldProps {
     type?: string;
     hint?: ReactNode;
     error?: string;
+    'data-cy'?: string;
 }
 
-export function TextField({ label, value, onChange, type = 'text', hint, error }: TextFieldProps) {
+export function TextField({ label, value, onChange, type = 'text', hint, error, 'data-cy': dataCy }: TextFieldProps) {
     const hintId = useId();
+    const inputId = useId();
     const errorId = useId();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -22,7 +24,7 @@ export function TextField({ label, value, onChange, type = 'text', hint, error }
     return (
         <div>
             <div className="flex items-center gap-1.5 mb-1.5">
-                <label className="text-[#3b2a20]">{label}</label>
+                <label htmlFor={inputId} className="text-[#3b2a20]">{label}</label>
                 {hint && (
                     <span className="relative group">
                         <button
@@ -46,6 +48,8 @@ export function TextField({ label, value, onChange, type = 'text', hint, error }
 
             <div className="relative">
                 <input
+                    id={inputId}
+                    data-cy={dataCy}
                     type={inputType}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
@@ -71,7 +75,7 @@ export function TextField({ label, value, onChange, type = 'text', hint, error }
             </div>
 
             {error && (
-                <p id={errorId} className="mt-1.5 text-sm text-red-600">
+                <p id={errorId} data-cy={dataCy ? `${dataCy}-error` : undefined} className="mt-1.5 text-sm text-red-600">
                     {error}
                 </p>
             )}

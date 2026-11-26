@@ -71,7 +71,10 @@ export function HomePage() {
             <NavBar />
 
             <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-12 page-fade">
-                <h1 className="text-6xl font-['Cormorant_Garamond'] font-bold text-center">
+                <h1
+                    data-cy="home-title"
+                    className="text-6xl font-['Cormorant_Garamond'] font-bold text-center"
+                >
                     <span className="text-[#fbeee0]">Find your </span>
                     <span className="text-[#3b2a20]">perfect shade</span>
                 </h1>
@@ -89,6 +92,7 @@ export function HomePage() {
                         className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8a7060]"
                     />
                     <input
+                        data-cy="home-search"
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -97,17 +101,21 @@ export function HomePage() {
                     />
                 </div>
 
-                <div className="min-h-[500px]">
+                <div data-cy="home-results" className="min-h-[500px]">
                     {loading && (
-                        <div role="status" aria-label="Loading recommendations">
+                        <div data-cy="home-loading" role="status" aria-label="Loading recommendations">
                             <ProductCardSkeleton />
                             <ProductCardSkeleton />
                             <ProductCardSkeleton />
                         </div>
                     )}
-                    {error && <p className="text-center text-red-200 py-12">{error}</p>}
+                    {error && (
+                        <p data-cy="home-error" className="text-center text-red-200 py-12">
+                            {error}
+                        </p>
+                    )}
                     {!loading && !error && filtered.length === 0 && (
-                        <p className="text-center text-[#fbeee0] py-12">
+                        <p data-cy="home-empty-message" className="text-center text-[#fbeee0] py-12">
                             {results.length === 0
                                 ? 'No recommendations have been shared yet.'
                                 : `No products match "${query}"`}

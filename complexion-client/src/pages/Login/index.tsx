@@ -40,6 +40,7 @@ export function LoginPage() {
             subtitle="Your community based skin shade matcher"
         >
             <TextField
+                data-cy="login-username"
                 label="Username / Email"
                 value={username}
                 onChange={setUsername}
@@ -48,6 +49,7 @@ export function LoginPage() {
 
             <div className="mt-5">
                 <TextField
+                    data-cy="login-password"
                     label="Password"
                     value={password}
                     onChange={setPassword}
@@ -56,7 +58,11 @@ export function LoginPage() {
                 />
             </div>
 
-            <Button onClick={handleLogin} className="w-full mt-6">
+            <Button 
+                data-cy="login-submit"
+                onClick={handleLogin} 
+                className="w-full mt-6"
+            >
                 Log in
             </Button>
 
@@ -65,6 +71,7 @@ export function LoginPage() {
             </p>
 
             <Button
+                data-cy="login-create-account"
                 variant="secondary"
                 onClick={() => navigate(ROUTES.register)}
                 className="w-full mt-2"
