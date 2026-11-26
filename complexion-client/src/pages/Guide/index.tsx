@@ -1,0 +1,81 @@
+import { PageBackground } from '../../components/organisms/PageBackground';
+import { NavBar } from '../../components/organisms/NavBar';
+import homeBackground from '../../assets/images/homeBackground.webp';
+import fitzpatrickScale from '../../assets/images/fitzpatrickScale.jpg';
+import { useLocation, useNavigate } from 'react-router';
+import { ROUTES } from '../../constants/routes';
+import { Button } from '../../components/atoms/Button';
+
+export function GuidePage() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const cameFromRegistration = location.state?.from === ROUTES.register;
+
+    return (
+        <div className="min-h-screen bg-[#645b50] flex flex-col relative">
+            <PageBackground image={homeBackground} />
+            <NavBar />
+
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-12 page-fade">
+                <h1
+                    data-cy="guide-title"
+                    className="text-6xl font-['Cormorant_Garamond'] font-bold text-center text-[#fbeee0]"
+                >
+                    Find your skin profile
+                </h1>
+                <p className="text-center text-[#fbeee0] mt-3">
+                    Three things describe your skin. Knowing all three gets you a better match
+                </p>
+
+                <div data-cy="guide-skin-shade" className="bg-white rounded-2xl p-10 mt-10">
+                    <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
+                        Skin shade
+                    </h2>
+                    <p className="mt-3 text-[#5a4a3f]">
+                        The depth of skin shade. Following the Fitzpatrick scale there's{' '}
+                        <strong>fair, light, medium, tan, deep</strong> and{' '}
+                        <strong>very deep</strong>.
+                    </p>
+                    <img
+                        src={fitzpatrickScale}
+                        alt="The Fitzpatrick scale, showing six skin types from very fair to deeply pigmented dark brown"
+                        className="rounded-xl mt-6 mx-auto"
+                    />
+                </div>
+
+                <div data-cy="guide-skin-undertone" className="bg-white rounded-2xl p-10 mt-8">
+                    <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
+                        Skin undertone
+                    </h2>
+                    <p className="mt-3 text-[#5a4a3f]">
+                        The temperature of skin underneath its depth.{' '}
+                        <strong>Cool, cool-neutral, true neutral, warm-neutral</strong> and{' '}
+                        <strong>warm</strong>.
+                    </p>
+                </div>
+
+                <div data-cy="guide-skin-overtone" className="bg-white rounded-2xl p-10 mt-8">
+                    <h2 className="text-3xl font-['Cormorant_Garamond'] font-bold text-[#3b2a20]">
+                        Skin overtone
+                    </h2>
+                    <p className="mt-3 text-[#5a4a3f]">
+                        The tint over the skin. Can be greyish or green and is referred to as an{' '}
+                        <strong>olive overtone</strong> or tint.
+                    </p>
+                </div>
+
+                {cameFromRegistration && (
+                    <div className="flex justify-center mt-6">
+                        <Button
+                            data-cy="guide-return-to-registration"
+                            variant="pale"
+                            onClick={() => navigate(ROUTES.register)}
+                        >
+                            Return to registration
+                        </Button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

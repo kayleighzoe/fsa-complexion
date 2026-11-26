@@ -1,5 +1,6 @@
 ﻿using Complexion.Models.Products;
 using Complexion.Services.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Complexion.Api.Controllers.Products
@@ -15,6 +16,7 @@ namespace Complexion.Api.Controllers.Products
             _productService = service;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
@@ -23,7 +25,8 @@ namespace Complexion.Api.Controllers.Products
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [AllowAnonymous]
+        [HttpGet("{productId}")]
         public async Task<IActionResult> GetProduct(Guid productId)
         {
             var product = await _productService.GetProductAsync(productId);

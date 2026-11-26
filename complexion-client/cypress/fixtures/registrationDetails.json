@@ -1,0 +1,10 @@
+{
+  "firstName": "Cypress",
+  "surname": "Tester",
+  "username": "cypresstester",
+  "email": "cypress.tester@email.com",
+  "password": "TestP@ssword2026",
+  "shade": "Tan",
+  "undertone": "Cool",
+  "hasOliveOvertone": true
+}

@@ -15,12 +15,23 @@ services:
     volumes:
       - sql-data:/var/opt/mssql
 
+  seq:
+    image: datalust/seq:latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "true"
+    ports:
+      - "5341:5341"
+      - "8081:80"
+    volumes:
+      - seq-data:/data
+
   migrations:
     build:
       context: ./Complexion
       dockerfile: Complexion.Migrations/Dockerfile
     environment:
-      ConnectionStrings__DefaultConnection: "Server=sql,1433;Database=Complexion;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=${DB_SERVER};Database=Complexion;User Id=${DB_USER};Password=${SA_PASSWORD};TrustServerCertificate=True;"
     depends_on:
       sql:
         condition: service_healthy
@@ -33,12 +44,28 @@ services:
       - "8080:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__DefaultConnection: "Server=sql,1433;Database=Complexion;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=${DB_SERVER};Database=Complexion;User Id=${DB_USER};Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      Jwt__Key: ${JWT_KEY}
+      Serilog__WriteTo__1__Args__serverUrl: "http://seq:5341"
     depends_on:
       sql:
         condition: service_healthy
       migrations:
         condition: service_completed_successfully
+      seq:
+        condition: service_started
+
+  client:
+    build:
+      context: ./complexion-client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./complexion-client:/app
+      - /app/node_modules
+    depends_on:
+      - api
 
 volumes:
   sql-data:
+  seq-data:

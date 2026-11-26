@@ -1,0 +1,561 @@
+{
+  "info": {
+    "_postman_id": "c3307458-eb85-4edf-af6b-aed9ebc250b7",
+    "name": "Complexion.Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53234409",
+    "_collection_link": "https://go.postman.co/collection/53234409-c3307458-eb85-4edf-af6b-aed9ebc250b7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "/api/Auth/Register",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const stamp = Date.now();\r\npm.environment.set(\"username\", \"pmuser\" + stamp);\r\npm.environment.set(\"email\", \"pmuser\" + stamp + \"@email.com\");\r\npm.environment.set(\"password\", \"TestP@ssword2026\");"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Register returns 200 for successful registration\", function () {\n    pm.response.to.have.status(200);\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Test\",\n  \"surname\": \"Postman\",\n  \"email\": \"{{email}}\",\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\",\n  \"shadeId\": 2,\n  \"undertoneId\": 3,\n  \"hasTint\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/Auth/Register - Invalid email",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const stamp = Date.now();\r\npm.collectionVariables.set(\"username\", \"pmuser\" + stamp);\r\npm.collectionVariables.set(\"password\", \"TestP@ssword2026\");"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Invalid registration returns 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Response explains the email error\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json).to.have.property(\"errors\");\r\n    pm.expect(json.errors).to.have.property(\"Email\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Test\",\n  \"surname\": \"Postman\",\n  \"email\": \"email\",\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\",\n  \"shadeId\": 2,\n  \"undertoneId\": 3,\n  \"hasTint\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/Auth/Login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"usernameOrEmail\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/Auth/Login - Invalid",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\n    pm.response.to.have.status(401);\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"usernameOrEmail\": \"{{username}}\",\n  \"password\": \"Tester#Pass2026\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/Auth/Me - authenticated",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Me returns the logged-in user\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData.username).to.eql(pm.environment.get(\"username\"));\n});\n\npm.test(\"Response body contains expected fields\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property(\"userId\");\n    pm.expect(jsonData).to.have.property(\"username\");\n});\n\npm.test(\"Response body fields are non-empty\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData.userId).to.not.be.empty;\n    pm.expect(jsonData.username).to.not.be.empty;\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Me"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "CatalogueCategory",
+          "item": [
+            {
+              "name": "/api/CatalogueCategory/GetAllCategories",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/CatalogueCategory/GetAllCategories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "CatalogueCategory",
+                    "GetAllCategories"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "ConfigPriceTier",
+          "item": [
+            {
+              "name": "/api/ConfigPriceTier/GetAllPriceTiers",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/ConfigPriceTier/GetAllPriceTiers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ConfigPriceTier",
+                    "GetAllPriceTiers"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "SkinShade",
+          "item": [
+            {
+              "name": "/api/SkinShade/GetAllSkinShades",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/SkinShade/GetAllSkinShades",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "SkinShade",
+                    "GetAllSkinShades"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "SkinUndertone",
+          "item": [
+            {
+              "name": "/api/SkinUndertone/GetAllSkinUndertones",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/SkinUndertone/GetAllSkinUndertones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "SkinUndertone",
+                    "GetAllSkinUndertones"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "ProductRecommendation",
+          "item": [
+            {
+              "name": "/api/ProductRecommendation/CreateRecommendation",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 201\", function () {\n    pm.response.to.have.status(201);\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryName\": \"Skin Tint\",\n  \"priceTierName\": \"High-End\",\n  \"brand\": \"Postman Test Brand\",\n  \"productName\": \"Postman Test Product\",\n  \"shadeName\": \"Test Shade\",\n  \"matchedShadeName\": \"Tan\",\n  \"matchedUndertoneName\": \"Cool\",\n  \"hasTint\": false,\n  \"comment\": \"Created by Postman\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/ProductRecommendation/CreateRecommendation",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ProductRecommendation",
+                    "CreateRecommendation"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/ProductRecommendation/CreateRecommendation - Invalid category",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\n    pm.response.to.have.status(404);\n});\n\npm.test(\"Response has correct error details\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.title).to.eql(\"Not Found\");\n    pm.expect(jsonData.detail).to.contain(\"not found\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryName\": \"NotRealCategory\",\n  \"priceTierName\": \"High-End\",\n  \"brand\": \"Postman Test Brand\",\n  \"productName\": \"Postman Test Product\",\n  \"shadeName\": \"Test Shade\",\n  \"matchedShadeName\": \"Tan\",\n  \"matchedUndertoneName\": \"Cool\",\n  \"hasTint\": false,\n  \"comment\": \"Created by Postman\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/ProductRecommendation/CreateRecommendation",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "ProductRecommendation",
+                    "CreateRecommendation"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Logout & Unauthenticated",
+          "item": [
+            {
+              "name": "/api/Auth/Logout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Logout"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/api/Auth/Me - unauthenticated",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\n    pm.response.to.have.status(401);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/Auth/Me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Auth",
+                    "Me"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    },
+    {
+      "key": "username",
+      "value": ""
+    },
+    {
+      "key": "email",
+      "value": ""
+    },
+    {
+      "key": "password",
+      "value": ""
+    }
+  ]
+}

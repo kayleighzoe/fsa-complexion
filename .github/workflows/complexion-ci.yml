@@ -79,6 +79,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
       working-directory: complexion-client
+    - name: Run tests
+      run: npm run test:run
+      working-directory: complexion-client
     - name: Build
       run: npm run build
       working-directory: complexion-client

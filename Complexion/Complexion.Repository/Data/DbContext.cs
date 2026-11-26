@@ -28,6 +28,11 @@ namespace Complexion.Repository.Data
             return await _connection.ExecuteAsync(sql, parameters);
         }
 
+        public async Task<T> QuerySingleAsync<T>(string sql, object? parameters = null)
+        {
+            return await _connection.QuerySingleAsync<T>(sql, parameters);
+        }
+
         public async ValueTask DisposeAsync()
         {
             await _connection.DisposeAsync();

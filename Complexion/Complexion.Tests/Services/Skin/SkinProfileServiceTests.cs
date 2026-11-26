@@ -1,10 +1,8 @@
-﻿using Complexion.Models.Skin;
+﻿using Complexion.Exceptions;
+using Complexion.Models.Skin;
 using Complexion.Repository.Skin;
 using Complexion.Services.Skin;
-using FluentValidation;
-using FluentValidation.Results;
 using NSubstitute;
-using Complexion.Exceptions;
 
 namespace Complexion.Tests.Services.Skin
 {
@@ -12,16 +10,13 @@ namespace Complexion.Tests.Services.Skin
     {
         private ISkinProfileRepository _skinProfileRepository;
         private SkinProfileService _skinProfileService;
-        private IValidator<CreateSkinProfileDto> _createValidator;
 
         [SetUp]
         public void Setup()
         {
             _skinProfileRepository = Substitute.For<ISkinProfileRepository>();
-            _createValidator = Substitute.For<IValidator<CreateSkinProfileDto>>();
 
-            _skinProfileService = new SkinProfileService(_skinProfileRepository, _createValidator);
-
+            _skinProfileService = new SkinProfileService(_skinProfileRepository);
         }
 
         [Test]
@@ -97,24 +92,39 @@ namespace Complexion.Tests.Services.Skin
         }
 
         [Test]
-        public async Task GIVEN_ValidDto_WHEN_CreatingSkinProfileAsync_THEN_CallRepositoryCreate()
+        public async Task GIVEN_CombinationExists_WHEN_GettingSkinProfileIdAsync_THEN_ReturnIdFromRepository()
         {
             // Arrange
-            var dto = new CreateSkinProfileDto
+            var expectedId = Guid.NewGuid();
+            var skinProfile = new SkinProfile
             {
+                SkinProfileId = expectedId,
                 ShadeId = 4,
                 UndertoneId = 5,
                 HasTint = false
             };
 
-            _createValidator.ValidateAsync(Arg.Any<CreateSkinProfileDto>(), Arg.Any<CancellationToken>()).Returns(new ValidationResult());
+            _skinProfileRepository.GetSkinProfileByCombinationAsync(4, 5, false).Returns(skinProfile);
 
             // Act
-            await _skinProfileService.CreateSkinProfileAsync(dto);
+            var result = await _skinProfileService.GetSkinProfileIdAsync(4, 5, false);
 
             // Assert
-            await _skinProfileRepository.Received(1).CreateSkinProfileAsync(dto);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedId));
+                _skinProfileRepository.Received(1).GetSkinProfileByCombinationAsync(4, 5, false);
+            });
+        }
+
+        [Test]
+        public void GIVEN_CombinationDoesNotExist_WHEN_GettingSkinProfileIdAsync_THEN_ThrowNotFoundException()
+        {
+            // Arrange
+            _skinProfileRepository.GetSkinProfileByCombinationAsync(4, 5, false).Returns((SkinProfile?)null);
+
+            // Act & Assert
+            Assert.ThrowsAsync<NotFoundException>(async () => await _skinProfileService.GetSkinProfileIdAsync(4, 5, false));
         }
     }
-
 }
