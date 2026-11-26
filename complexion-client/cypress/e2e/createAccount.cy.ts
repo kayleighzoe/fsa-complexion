@@ -20,18 +20,16 @@ describe('Create Account', () => {
         cy.contains(this.uiText.undertoneRequired).should('be.visible');
     })
 
-    it('creates account for user', () => {
-        const username = `cyreg${Date.now()}`;
-
+    it('creates account for user', function () {
         createAccount.CompleteForm({
-            firstName: 'Cypress',
-            surname: 'Tester',
-            email: `${username}@email.com`,
-            username,
-            password: 'TestP@ssword2026',
-            shade: 'Tan',
-            undertone: 'Cool',
-            hasOliveOvertone: true,
+            firstName: this.registerDetails.firstName,
+            surname: this.registerDetails.surname,
+            email: this.registerDetails.email,
+            username: this.registerDetails.username,
+            password: this.registerDetails.password,
+            shade: this.registerDetails.shade,
+            undertone: this.registerDetails.undertone,
+            hasOliveOvertone: this.registerDetails.hasOliveOvertone,
         });
         createAccount.ClickSignUp();
 
