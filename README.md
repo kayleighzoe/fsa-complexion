@@ -37,7 +37,12 @@ flowchart TB
     Backend -->|Serilog| Seq
 ```
 
-**How a request flows:** controllers stay thin. Requests are authenticated with a JWT (read from a cookie), and endpoints require an authenticated user by default. Controllers hand off to services, which hold the business logic and throw standard .NET exceptions (for example `KeyNotFoundException` when a record doesn't exist). `GlobalExceptionHandler` maps those to the right status code and a `ProblemDetails` body, so controllers don't do manual null checks. Repositories are the only layer that talks to the database (Dapper, parameterised SQL).
+**How a request flows:** controllers stay thin. Requests are authenticated with a JWT (read from a
+cookie), and endpoints require an authenticated user by default. Controllers hand off to services,
+which hold the business logic and throw standard .NET exceptions (for example `KeyNotFoundException`
+when a record doesn't exist). `GlobalExceptionHandler` maps those to the right status code and a
+`ProblemDetails` body, so controllers don't do manual null checks. Repositories are the only layer
+that talks to the database (Dapper, parameterised SQL).
 
 ## Data model
 
