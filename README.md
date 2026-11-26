@@ -135,7 +135,7 @@ The migration scripts in `Complexion/Complexion.Migrations/Scripts` are the sour
 | Backend | .NET 10, C#, Dapper, FluentValidation, Serilog |
 | Auth | JWT bearer authentication |
 | Database | SQL Server, DbUp migrations |
-| Logging | Serilog to Console and [Seq](https://datalust.co/seq) |
+| Logging | Serilog to [Seq](https://datalust.co/seq) |
 | API docs | Swagger / Swashbuckle |
 | Frontend | React, TypeScript, Vite, shadcn/ui, Tailwind CSS v4, React Router, axios |
 | Backend tests | NUnit, NSubstitute |
